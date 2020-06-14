@@ -5,27 +5,32 @@
  */
 package ec.edu.espe.projectoop.controller;
 
+import ec.edu.espe.projectoop.utils.FileManager;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
  *
- * @author Jhonatan Lituma
+ * @author Duke's Children
  */
 public class Controller {
     int op = 0;
-    int bugs=0;
+    int bugs = 0;
     
     public void Menu(){   
             Scanner scanner = new Scanner(System.in);
+            FileManager fileManager = new FileManager();
+
             System.out.println("Welcome again!.");
             System.out.println("1.Login");
             System.out.println("2.Exit");
+            System.out.print("Write your option: ");
             op = scanner.nextInt();
             
             switch(op){           
                 case 1:
-                    System.out.println("In Process");
+                    fileManager.createFile();
+                    fileManager.createUser();
                     break;
                 case 2:                  
                     break;

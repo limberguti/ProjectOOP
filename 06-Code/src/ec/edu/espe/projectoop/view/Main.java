@@ -5,17 +5,16 @@
  */
 package ec.edu.espe.projectoop.view;
 import ec.edu.espe.projectoop.controller.Controller;
+import ec.edu.espe.projectoop.utils.FileManager;
 
 /**
  *
- * @author Jhonatan Lituma
+ * @author Duke's Children
  */
 public class Main {
     
     public static void main(String[] args) {
         Controller menu = new Controller();
         menu.Validation();
-        
     }
-   
 }
