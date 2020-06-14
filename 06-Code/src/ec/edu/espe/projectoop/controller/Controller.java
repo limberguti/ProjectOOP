@@ -24,7 +24,8 @@ public class Controller {
 
             System.out.println("Welcome again!.");
             System.out.println("1.Login");
-            System.out.println("2.Exit");
+            System.out.println("2.Change Password");
+            System.out.println("3.Exit");
             System.out.print("Write your option: ");
             op = scanner.nextInt();
             
@@ -34,7 +35,9 @@ public class Controller {
                     fileManager.createUser();
                     fileManager.createPassword();
                     break;
-                case 2:                  
+                case 2:
+                    fileManager.changePassword();
+                case 3:                  
                     break;
                 default:                            
                     System.err.println("Try again");
