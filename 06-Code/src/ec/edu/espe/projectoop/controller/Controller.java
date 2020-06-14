@@ -20,6 +20,7 @@ public class Controller {
     public void Menu(){   
             Scanner scanner = new Scanner(System.in);
             FileManager fileManager = new FileManager();
+        
 
             System.out.println("Welcome again!.");
             System.out.println("1.Login");
@@ -31,6 +32,7 @@ public class Controller {
                 case 1:
                     fileManager.createFile();
                     fileManager.createUser();
+                    fileManager.createPassword();
                     break;
                 case 2:                  
                     break;

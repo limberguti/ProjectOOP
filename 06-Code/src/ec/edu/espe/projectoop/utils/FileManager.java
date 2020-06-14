@@ -38,13 +38,35 @@ public class FileManager {
             FileWriter fileWrite = new FileWriter(file, true);
             System.out.println("\nEnter your user name: ");
             user = scanner.nextLine();
+        
 
-            fileWrite.write(user);
-            fileWrite.write("\r\n");
+            fileWrite.write(user);       
             fileWrite.close();
         } catch (IOException ex) {
             System.err.println("Error!, The file was not written!");
         }
     }
 
+    
+
+
+
+
+public void createPassword() {
+        Scanner scanner = new Scanner(System.in);
+        String password ;
+        try {
+            
+
+           FileWriter fileWrite = new FileWriter(file,true);
+         
+            System.out.println("\nEnter your password: ");
+            password  = scanner.next();
+            fileWrite.write(" "+password);
+            fileWrite.write("\r\n");
+            fileWrite.close();
+        } catch (IOException ex) {
+            System.err.println("Error!, The file was not written!");
+        }
+    }
 }
