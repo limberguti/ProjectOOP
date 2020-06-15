@@ -12,14 +12,10 @@ import java.util.Scanner;
  * @author Duke's Children
  */
 public class FileManager {
-
-    File file;    
-
-    public void createFile() {
-
+    File file;
+    public void createFile() {        
         try {
             file = new File("users.txt");
-
             try {
                 if (file.createNewFile()) {
                     System.out.println("The file was created correctly");
@@ -27,7 +23,6 @@ public class FileManager {
             } catch (IOException ex) {
                 System.err.println("The file was not created!");
             }
-
         } catch (Exception ex) {
 
         }
@@ -49,64 +44,20 @@ public class FileManager {
         }
     }
 
-    
-
-
-
-
-public void createPassword() {
+    public void createPassword() {
         Scanner scanner = new Scanner(System.in);
         String password ;
-        try {
-            
-
-           FileWriter fileWrite = new FileWriter(file,true);
-         
-            System.out.println("\nEnter your password: ");
-            password  = scanner.next();
-            fileWrite.write(" "+password);
-            fileWrite.write("\r\n");
-            fileWrite.close();
-        } catch (IOException ex) {
-            System.err.println("Error!, The file was not written!");
-        }
-    }
-public void changePassword(){
-        Scanner scanner = new Scanner(System.in);
-        String user;
-        String pass;
-        String password;
         
         try {
-            
-            FileReader lector=new FileReader("users.txt");
-            BufferedReader contenido=new BufferedReader(lector);
-            
-         
-            System.out.println("\nEnter your user: ");
-            user  = scanner.next();
-            System.out.println("\nEnter your password: ");
-            pass  = scanner.next();
-            while((pass=contenido.readLine())!=null){
-                
-                
+            try (FileWriter fileWrite = new FileWriter(file,true)) {
+                System.out.println("\nEnter your password: ");
+                password  = scanner.nextLine();
+                fileWrite.write(" "+password);
+                fileWrite.write("\r\n");
             }
-            
-            
-            if(user==user&&pass==password){
-            FileWriter fileWrite = new FileWriter(file,false);
-            fileWrite.write(" "+password);
-            fileWrite.write("\r\n");
-            fileWrite.close();
-        } else{
-                System.out.println("\n Incorrect password: ");
-                
-            }
-        }catch (IOException ex) {
-            System.err.println("Error!, The file was not written!");
+        } catch (IOException ex) {
+                System.err.println("Error!, The file was not written!");
         }
-    
-     
-}
+    }    
 }
 

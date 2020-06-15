@@ -5,7 +5,6 @@
  */
 package ec.edu.espe.projectoop.view;
 import ec.edu.espe.projectoop.controller.Controller;
-import ec.edu.espe.projectoop.utils.FileManager;
 
 /**
  *
@@ -15,6 +14,8 @@ public class Main {
     
     public static void main(String[] args) {
         Controller menu = new Controller();
+        menu.Comprobation();
         menu.Validation();
     }
+    
 }
