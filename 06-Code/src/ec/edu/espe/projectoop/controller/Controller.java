@@ -25,18 +25,31 @@ public class Controller {
     
     public void Menu(){ 
             Scanner scanner = new Scanner(System.in);
+           
+            FileManager fileManager = new FileManager();
+            
+            
+            
+           
+            
             
             System.out.println("*********Welcome again!*********");
             System.out.println("1.Login");
-            System.out.println("2.Exit");
+            System.out.println("2.user");
+            System.out.println("3.Exit");
+           
             System.out.print("Write your option: ");
             op = scanner.nextInt();
             
             switch(op){           
                 case 1:
-                    
+                    fileManager.createFile();
+                    fileManager.createUser();
+                    fileManager.createPassword();
                     break;
                 case 2:
+                    fileManager.login();
+                    
                     
                     break;
                 case 3:                  
