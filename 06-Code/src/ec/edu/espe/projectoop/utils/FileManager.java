@@ -89,12 +89,14 @@ public class FileManager {
             sb.append('\n');
 
             sb.append(users.get(positionUser));
-            sb.append(',');
+            sb.append(',');//Separa columnas
             sb.append(passwords.get(positionPassword));
             sb.append('\n');
             
             writer.write(sb.toString());
             writer.close();
+            writer.flush();
+
            
             System.out.println("done!");
 
