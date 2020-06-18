@@ -8,7 +8,6 @@ package ec.edu.espe.projectoop.controller;
 import ec.edu.espe.projectoop.utils.FileManager;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,34 +21,106 @@ import java.util.Scanner;
 public class Controller {
     int op = 0;  
     int bugs = 0;          
+        
+    public void FirstLogin() {
+        File file;
+        FileWriter write;
+        FileManager fileManager = new FileManager(); 
+
+        try {
+            file = new File ("firstlogin.txt");
+            write = new FileWriter(file);            
+            write.write("1");
+            write.close();           
+            System.out.println("Welcome to the system!\n" +
+            "This is the first time you enter the system, so we need you to create your username and password.\n" +
+            "This message will only appear once.");
+            fileManager.CreateSuper();
+        }
+        catch(IOException e){
+            
+        }
+     
+    }
+
+    public void ComprobationFirstLogin(){
+        FileReader fr;
+        BufferedReader bf;
+        
+        try {
+            fr = new FileReader("firstlogin.txt");
+            bf = new BufferedReader(fr);
+            String line;  
+            String first = "1";
+            line = bf.readLine();
+            if (line.equals(first)){
+                FirstLogin();
+            }
+        } catch (IOException e) {
+            
+        }
+    }
+            
+    
+    
+    @SuppressWarnings("empty-statement")
+    public void Login(){
+        Scanner scanner = new Scanner(System.in);
+        FileReader fr;
+        BufferedReader bf;
+        String users[] = new String[5];
+        String passwords[] = new String[5];
+        String user,password;
+        
+        try {
+            fr = new FileReader("users.txt");
+            bf = new BufferedReader(fr);            
+            
+            for(int i=0;i<5;i++){
+                while(scanner.hasNextLine()){
+                    users[i]=scanner.nextLine();
+                    passwords[i]=scanner.nextLine();
+                }
+                scanner.close();
+            }
+            
+            System.out.println("Enter your user: ");
+            user=scanner.nextLine();
+            
+            System.out.println("Enter your password: ");
+            password=scanner.nextLine();
+            
+            for(int i=0;i<5;i++){
+                if (users[i].equals(user)&&passwords[i].equals(password)){
+                    System.out.println("Welcome!");
+                }
+                else{
+                    System.out.println("Try Again!!!");
+                }
+            }
+            
+            
+            
+        } catch (IOException e) {
+            
+        }       
+    }
+    
     
     public void Menu(){ 
             Scanner scanner = new Scanner(System.in);
-           
-            FileManager fileManager = new FileManager();
-            
-            
-            
-           
-            
             
             System.out.println("*********Welcome again!*********");
             System.out.println("1.Login");
-            System.out.println("2.user");
-            System.out.println("3.Exit");
-           
+            System.out.println("2.Exit");
             System.out.print("Write your option: ");
             op = scanner.nextInt();
             
             switch(op){           
                 case 1:
-                    fileManager.createFile();
-                    fileManager.createUser();
-                    fileManager.createPassword();
+                    //Login();
                     break;
                 case 2:
-                    fileManager.login();
-                    
                     
                     break;
                 case 3:                  
@@ -73,48 +144,4 @@ public class Controller {
             }           
         }while(bugs>0);        
     }
-    
-    
-    public void FirstLogin() {
-        File file;
-        FileWriter write;
-        FileManager fileManager = new FileManager(); 
-
-        try {
-            file = new File ("firstlogin.txt");
-            write = new FileWriter(file);            
-            write.write("1");
-            write.close();           
-            System.out.println("Welcome to the system!\n" +
-            "This is the first time you enter the system, so we need you to create your username and password.\n" +
-            "This message will only appear once.");
-            fileManager.createFile();
-            fileManager.createUser();
-            fileManager.createPassword();                
-        }
-        catch(IOException e){
-            
-        }
-     
-    }
-    
-    public void Comprobation(){
-        FileReader fr;
-        BufferedReader bf;
-        
-        try {
-            fr = new FileReader("firstlogin.txt");
-            bf = new BufferedReader(fr);
-            String line;  
-            String first = "0";
-            line = bf.readLine();
-            if (line.equals(first)){
-                FirstLogin();
-            }
-        } catch (IOException e) {
-            
-        }
-    }
-            
-    
 }

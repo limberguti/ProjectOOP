@@ -14,7 +14,7 @@ public class Main {
     
     public static void main(String[] args) {
         Controller menu = new Controller();
-        menu.Comprobation();
+        menu.ComprobationFirstLogin();
         menu.Validation();
     }
     

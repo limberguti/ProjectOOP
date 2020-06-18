@@ -1,28 +1,18 @@
 package ec.edu.espe.projectoop.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Duke's Children
  */
 public class FileManager {
+    /*
     File file;
-    private static Scanner sc;
-    private static int intent;
-    
-    Scanner scanner = new Scanner(System.in);
-        String user;
-        String password;
-        String res;
     public void createFile() {        
         try {
             file = new File("users.txt");
@@ -38,17 +28,16 @@ public class FileManager {
         }
     }
 
-    public void createUser() {
+    public void createSuperUser() {
         Scanner scanner = new Scanner(System.in);
-        String user;
-        try {
-            FileWriter fileWrite = new FileWriter(file, true);
-            System.out.println("\nEnter your user name: ");
-            user = scanner.nextLine();
+        String user[] = new String [5];
         
-
-            fileWrite.write(user);       
-            fileWrite.close();
+        try {
+            try (FileWriter fileWrite = new FileWriter(file, true)) {
+                System.out.println("\nCreate your user name: ");
+                user[0] = scanner.nextLine();
+                fileWrite.write(user[0]);
+            }
         } catch (IOException ex) {
             System.err.println("Error!, The file was not written!");
         }
@@ -56,86 +45,63 @@ public class FileManager {
 
     public void createPassword() {
         Scanner scanner = new Scanner(System.in);
-        String password ;
+        String password[] = new String[5] ;
         
         try {
             try (FileWriter fileWrite = new FileWriter(file,true)) {
-                System.out.println("\nEnter your password: ");
-                password  = scanner.nextLine();
-                fileWrite.write(" "+password);
-                fileWrite.write("\r\n");
+                System.out.println("\nCreate your password: ");
+                password[0]  = scanner.nextLine();
+                fileWrite.write(" " + password[0]);
+                //fileWrite.write("\r\n");
             }
         } catch (IOException ex) {
                 System.err.println("Error!, The file was not written!");
         }
-    }  
-    public void login(){
-    try {
-            System.out.println("\nEnter your user: ");
-            user  = scanner.next();
-            System.out.println("\nEnter your password: ");
-            password  = scanner.next();
-            int numberLines=0;
-            int count=0;
-            String [] users=null;
-            String line;
-            sc= new Scanner(new File("E:/users.txt"));
-            File f= new File("E:/users.txt");
-            FileReader fr =new FileReader(f);
-            BufferedReader br= new BufferedReader(fr);
-            
-            try {
-                while((line=br.readLine())!=null){
-                    numberLines++;
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            users= new String[numberLines]; //tamaño del arreglo
-            
-            while(sc.hasNextLine()){
-                users[count++]=sc.nextLine();//
-            }
-            intent++;
-  
-            
-            FileManager s = new FileManager();
-            s.validedUser(users, user, password, intent);
-        
-            
-            
-   
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
-    public void validedUser(String users[],String user,String password,int intent){
+    */
+
+    public void CreateSuper(){
+        String user;
+        String password;
+        ArrayList<String> users = new ArrayList<String>();
+        ArrayList<String> passwords = new ArrayList<String>();
+        Scanner scanner = new Scanner(System.in);
         
-        boolean encontrado=false;
-        
-        for(int i=0;i<users.length;i++){
-            if((users[i].equalsIgnoreCase(user)&&users[i+1].equals(password))){
-                res="Welcome"+user;
-                encontrado=true;
-                System.out.println("Inicio de secion");
-                
-                break;
-                
-            }
-        }
-if(encontrado==false){
-    res="Password or User invalided"+intent+"Intent falled";
-    System.out.println("Inicio de secion");
-    
-}
-if(intent>2){
-    System.out.println("Intentos fallidos");
-    System.exit(0);
-}
+        try (PrintWriter writer = new PrintWriter(new File("Users.csv"))) {
+ 
+            System.out.println("\nCreate your user: ");
+            user = scanner.nextLine();
+            users.add(user);
             
-        }
+            System.out.println("\nCreate your password: ");
+            password = scanner.nextLine();
+            passwords.add(password);
+
+            int positionUser = users.indexOf(user);
+            int positionPassword = passwords.indexOf(password);
+
+            
+            StringBuilder sb = new StringBuilder();
+            
+            sb.append("User");
+            sb.append(',');
+            sb.append("Password");
+            sb.append('\n');
+
+            sb.append(users.get(positionUser));
+            sb.append(',');
+            sb.append(passwords.get(positionPassword));
+            sb.append('\n');
+            
+            writer.write(sb.toString());
+            writer.close();
+           
+            System.out.println("done!");
+
+      } catch (FileNotFoundException e) {
+        System.out.println(e.getMessage());
+      }
+
+    }
 }
-   
 
