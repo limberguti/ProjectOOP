@@ -7,7 +7,7 @@ package ec.edu.espe.projectoop.model;
 
 /**
  *
- * @author Jhonatan Lituma
+ * @author Duke's Children
  */
 public class User {
     

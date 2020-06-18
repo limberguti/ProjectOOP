@@ -80,7 +80,6 @@ public class FileManager {
             int positionUser = users.indexOf(user);
             int positionPassword = passwords.indexOf(password);
 
-            
             StringBuilder sb = new StringBuilder();
             
             sb.append("User");
@@ -97,7 +96,6 @@ public class FileManager {
             writer.close();
             writer.flush();
 
-           
             System.out.println("done!");
 
       } catch (FileNotFoundException e) {
