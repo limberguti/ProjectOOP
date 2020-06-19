@@ -35,7 +35,7 @@ public class Controller {
             System.out.println("Welcome to the system!\n" +
             "This is the first time you enter the system, so we need you to create your username and password.\n" +
             "This message will only appear once.");
-            fileManager.CreateSuper();
+            fileManager.CreateAdmin();
         }
         catch(IOException e){
             
