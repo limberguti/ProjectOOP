@@ -31,8 +31,11 @@ public class Admin {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
     
-    
+    /*
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
@@ -42,5 +45,5 @@ public class Admin {
         sb.append('\n');
         return sb.toString();
     }
-    
+    */
 }

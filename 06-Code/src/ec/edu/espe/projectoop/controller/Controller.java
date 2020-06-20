@@ -5,12 +5,14 @@
  */
 package ec.edu.espe.projectoop.controller;
 
+import ec.edu.espe.projectoop.model.Admin;
 import ec.edu.espe.projectoop.utils.FileManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -51,7 +53,7 @@ public class Controller {
             fr = new FileReader("firstlogin.txt");
             bf = new BufferedReader(fr);
             String line;  
-            String first = "1";
+            String first = "0";
             line = bf.readLine();
             if (line.equals(first)){
                 FirstLogin();
@@ -63,72 +65,33 @@ public class Controller {
             
     
     
-    @SuppressWarnings("empty-statement")
-    public void Login(){
-        Scanner scanner = new Scanner(System.in);
-        FileReader fr;
-        BufferedReader bf;
-        String users[] = new String[5];
-        String passwords[] = new String[5];
-        String user,password;
-        
-        try {
-            fr = new FileReader("users.txt");
-            bf = new BufferedReader(fr);            
-            
-            for(int i=0;i<5;i++){
-                while(scanner.hasNextLine()){
-                    users[i]=scanner.nextLine();
-                    passwords[i]=scanner.nextLine();
-                }
-                scanner.close();
-            }
-            
-            System.out.println("Enter your user: ");
-            user=scanner.nextLine();
-            
-            System.out.println("Enter your password: ");
-            password=scanner.nextLine();
-            
-            for(int i=0;i<5;i++){
-                if (users[i].equals(user)&&passwords[i].equals(password)){
-                    System.out.println("Welcome!");
-                }
-                else{
-                    System.out.println("Try Again!!!");
-                }
-            }
-            
-            
-            
-        } catch (IOException e) {
-            
-        }       
-    }
+
+
     
     
     public void Menu(){ 
-            Scanner scanner = new Scanner(System.in);
+        FileManager fileManager = new FileManager();
+        Scanner scanner = new Scanner(System.in);
             
-            System.out.println("*********Welcome again!*********");
-            System.out.println("1.Login");
-            System.out.println("2.Exit");
-            System.out.print("Write your option: ");
-            op = scanner.nextInt();
+        System.out.println("*********Welcome again!*********");
+        System.out.println("1.Login");
+        System.out.println("2.Exit");
+        System.out.print("Write your option: ");
+        op = scanner.nextInt();
             
-            switch(op){           
-                case 1:
-                    //Login();
-                    break;
-                case 2:
+        switch(op){           
+            case 1:
+                fileManager.Login();
+                break;
+            case 2:
+                 
+                break;
+            case 3:               
                     
-                    break;
-                case 3:                  
-                    
-                    break;
-                default:                            
+                break;
+                default:
                     System.err.println("Try again");
-                    break;
+                break;
             }
     }
 
