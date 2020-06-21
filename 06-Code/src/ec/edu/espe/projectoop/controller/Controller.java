@@ -5,14 +5,13 @@
  */
 package ec.edu.espe.projectoop.controller;
 
-import ec.edu.espe.projectoop.model.Admin;
+import ec.edu.espe.projectoop.model.Invoice;
 import ec.edu.espe.projectoop.utils.FileManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -62,17 +61,12 @@ public class Controller {
             
         }
     }
-            
-    
-    
-
-
-    
-    
+          
     public void Menu(){ 
         FileManager fileManager = new FileManager();
         Scanner scanner = new Scanner(System.in);
-            
+        Invoice invoice = new Invoice();
+        
         System.out.println("*********Welcome again!*********");
         System.out.println("1.Login");
         System.out.println("2.Exit");
@@ -81,7 +75,13 @@ public class Controller {
             
         switch(op){           
             case 1:
-                fileManager.Login();
+                if(fileManager.Login() == true){
+                    //fileManager.menuLogin();
+                    invoice.show(invoice);
+                } else{
+                    System.out.println("EXIT");
+                    break;
+                }
                 break;
             case 2:
                  

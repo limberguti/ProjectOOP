@@ -11,7 +11,7 @@ public class Inventory {
     private Storage storage;
 
     public void addClothes(Clothing chothes) {
-
+        
     }
 
     public void removeFromInventory(Clothing chothes) {
