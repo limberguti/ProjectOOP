@@ -76,8 +76,7 @@ public class Controller {
         switch(op){           
             case 1:
                 if(fileManager.Login() == true){
-                    //fileManager.menuLogin();
-                    invoice.show(invoice);
+                    fileManager.menuLogin();
                 } else{
                     System.out.println("EXIT");
                     break;

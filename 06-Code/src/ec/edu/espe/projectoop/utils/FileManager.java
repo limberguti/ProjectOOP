@@ -63,16 +63,17 @@ public class FileManager {
     public boolean Login() {
         String auxuser = "";
         String auxpassword = "";
-        int attemps = 0;
+        int attemps = 1;
         int size = 0;
         String SEPARADOR = ";";
         boolean find = false;
 
         do {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter your user: ");
+            System.out.println("Attemps (" + attemps + "/3)");
+            System.out.print("Enter your user: ");
             auxuser = scanner.nextLine();
-            System.out.println("Enter your password: ");
+            System.out.print("Enter your password: ");
             auxpassword = scanner.nextLine();
 
             try {
@@ -95,7 +96,7 @@ public class FileManager {
 
                 if (find == true) {
                     System.out.println("Welcome!");
-                    attemps = 4;
+                    attemps = 5;
                 }
                 if (find == false) {
                     attemps++;
@@ -105,13 +106,10 @@ public class FileManager {
             } catch (IOException e) {
             }
 
-        } while (attemps < 3);
+        } while (attemps < 4);
 
-        if (attemps == 3) {
+        if (attemps == 4) {
             System.err.println("*************BLOCKED**************");
-        }
-
-        if (attemps == 3) {
             return false;
         } else {
             return true;
@@ -120,35 +118,20 @@ public class FileManager {
 
     public void menuLogin() {
         Scanner scanner = new Scanner(System.in);
-        SalesRecord salesRecord = new SalesRecord();
         Invoice invoice = new Invoice();
         FileManager fileManager = new FileManager();
 
-        System.out.println("\n1.Enter to Sales Record");//
+        System.out.println("1.Enter to Sales Record");
         System.out.println("2.Enter to Purchase Record");
         System.out.println("3.Log Out");
         System.out.print("Write your option: ");
         int op = scanner.nextInt();
 
         switch (op) {
-            case 1: {
-                try {
-                    salesRecord.registerCode();
-                } catch (IOException ex) {
-                    //System.err.println(ex);
-                }
-            }
-             {
-                try {
-                    invoice.create();//solo era para probar el invoce, esto no va aquí
-                    invoice.show(invoice);
-                } catch (IOException ex) {
-                    //System.err.println(ex);
-                }
-            }
-            break;
+            case 1: 
+                menuSalesRecord();
+                break;
             case 2:
-                //purchaseRecord
                 break;
             case 3:
                 fileManager.Login();
@@ -156,6 +139,66 @@ public class FileManager {
                 System.out.println("Enter a valid option!");
                 break;
         }
+    }
+    
+    
+    public void menuSalesRecord(){
+        Scanner scanner = new Scanner(System.in);
+        Invoice invoice = new Invoice();
+        FileManager fileManager = new FileManager();
+
+        System.out.println("1.Invoices");//
+        System.out.println("2.Inevotory");
+        System.out.println("3.Coupons");
+        System.out.print("Write your option: ");
+        int op = scanner.nextInt();
+        
+        switch (op) {
+            case 1: 
+                menuInvoices();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Enter a valid option!");
+                break;
+        }
+        
+        
+        
+    }
+    
+    public void menuInvoices(){
+        Scanner scanner = new Scanner(System.in);
+        Invoice invoice = new Invoice();
+        FileManager fileManager = new FileManager();
+
+        System.out.println("1.Create an invoice");//
+        System.out.println("2.Search an invoice");
+        System.out.println("3....................");
+        System.out.print("Write your option: ");
+        int op = scanner.nextInt();
+        switch (op) {
+            case 1: 
+                try {
+                    invoice.create();
+                } catch (IOException ex) {
+                }
+                break;
+            case 2:
+                invoice.show(invoice);
+                break;
+            case 3:
+                fileManager.Login();
+            default:
+                System.out.println("Enter a valid option!");
+                break;
+        }
+        
+        
+        
     }
 
 }

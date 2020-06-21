@@ -75,12 +75,12 @@ public class Invoice {
     public String toString() {
         return "\t\tINVOICE "
                 + "------------------------------------------------------------"
-                + "\nDate: " + date
-                + "\nNational Identity Document: " + nationalIdentityDocument
-                + "\nBill Number: " + billNumber
-                + "\nPrice: " + price
-                + "\nQuantity: " + quantity
-                + "\nDescription:" + description
+                + "\nDate: " + getDate()
+                + "\nNational Identity Document: " + getNationalIdentityDocument()
+                + "\nBill Number: " + getBillNumber()
+                + "\nPrice: " + getPrice()
+                + "\nQuantity: " + getQuantity()
+                + "\nDescription:" + getDescription()
                 + "------------------------------------------------------------";
     }
 
@@ -88,7 +88,7 @@ public class Invoice {
         int day = 0;
         int month = 0;
         int year = 0;
-        Date date = new Date(day, month, year);
+        Date auxdate = new Date(day, month, year);
 
         Invoice aux;
         aux = new Invoice();
@@ -99,31 +99,31 @@ public class Invoice {
         try (FileWriter writer = new FileWriter(new File("SalesInvoice.csv"), true)) {
 
             System.out.println("\t\t\nINVOICE");
-            System.out.println("\nEnter the date ");
-            System.out.println("Enter the day: ");
-            date.setDay(scanner.nextInt());
-            //System.out.println(date.getDay());
-            System.out.println("Enter the month: ");
-            date.setMonth(scanner.nextInt());
-            System.out.println("Enter the year: ");
-            date.setYear(scanner.nextInt());
-            aux.setDate(date);
-
-            System.out.print("\nEnter the National Identity Document: ");
-            nationalIdentityDocument = scanner.nextInt();
-            aux.setNationalIdentityDocument(nationalIdentityDocument);
-
+            
             System.out.print("Enter the bill number: ");
             billNumber = scanner.nextInt();
             aux.setBillNumber(billNumber);
-
-            System.out.print("Enter the price: ");
-            price = scanner.nextFloat();
-            aux.setPrice(price);
-
+            
+            System.out.print("Enter the National Identity Document: ");
+            nationalIdentityDocument = scanner.nextInt();
+            aux.setNationalIdentityDocument(nationalIdentityDocument);
+            
+            System.out.println("Please enter the date data by data. ");
+            System.out.print("Enter the day: ");
+            auxdate.setDay(scanner.nextInt());
+            System.out.print("Enter the month: ");
+            auxdate.setMonth(scanner.nextInt());            
+            System.out.print("Enter the year: ");
+            auxdate.setYear(scanner.nextInt());            
+            aux.setDate(auxdate);
+   
             System.out.print("Enter the quantity: ");
             quantity = scanner.nextInt();
             aux.setQuantity(quantity);
+            
+            System.out.print("Enter the price: ");
+            price = scanner.nextFloat();
+            aux.setPrice(price);
 
             System.out.print("Enter description: ");
             scanner.nextLine();
@@ -134,20 +134,20 @@ public class Invoice {
 
             StringBuilder sb = new StringBuilder();
 
-            sb.append(date.getDay());
-            sb.append("-");
-            sb.append(date.getMonth());
-            sb.append("-");
-            sb.append(date.getYear());
-            sb.append(';');
-            sb.append(aux.getNationalIdentityDocument());
-            sb.append(';');
             sb.append(aux.getBillNumber());
             sb.append(';');
-            sb.append(aux.getPrice());
-            sb.append(';');
+            sb.append(aux.getNationalIdentityDocument());
+            sb.append(';'); 
+            sb.append(auxdate.getDay());
+            sb.append("/");
+            sb.append(auxdate.getMonth());
+            sb.append("/");
+            sb.append(auxdate.getYear());
+            sb.append(';');  
             sb.append(aux.getQuantity());
             sb.append(';');
+            sb.append(aux.getPrice());
+            sb.append(';');            
             sb.append(aux.getDescription());
             sb.append(';');
             sb.append('\n');
@@ -155,9 +155,6 @@ public class Invoice {
             writer.write(sb.toString());
             writer.close();
             writer.flush();
-
-            System.out.println("Done!");
-
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
@@ -169,27 +166,19 @@ public class Invoice {
 
         System.out.println("Enter the invoice to delete: ");
         billNumber = scanner.nextInt();
-        /*
-        if () {
-            //codigo para borrar la factura
-        } else {
-            System.out.println("Enter a correct bill number!");
-        }*/
+
     }
 
     public void show(Invoice invoice) {
         invoice = new Invoice();
         int size = 0;
         String SEPARADOR = ";";
-        boolean find = false;
-        int attemps = 0;
-        String[] auxInvoice = new String[10];
         String option = "";
         String auxBillNumber = "";
         do {
+            boolean find = false;
             Scanner scanner = new Scanner(System.in);
-
-            System.out.println("Enter the bill number to show: ");
+            System.out.print("Enter the bill number to show: ");
             auxBillNumber = scanner.nextLine();
 
             try {
@@ -200,30 +189,38 @@ public class Invoice {
                     String[] invoices = linea.split(SEPARADOR);
                     linea = bufferLectura.readLine();
                     size = invoices.length;
-                    //System.out.println(Arrays.toString(invoices));
                     for (int i = 0; i < size; i++) {
-                        if (invoices[2].equals(auxBillNumber)) {
+                        if (invoices[i].equals(auxBillNumber)) {
                             find = true;
-                            auxInvoice[i] = invoices[i];
-                        } else {
+                            System.out.println(Arrays.toString(invoices));
+                            //System.out.println(invoice.toString());
+                        }
+                        else{
                             i++;
+                            i++;
+                            i++;
+                            i++; 
+                            i++; 
                         }
                     }
-                    if (find == true) {
-                        for (int i = 0; i < size; i++) {
-                            System.out.println(auxInvoice[i]);
-                        }
-                        
+                    
+                }
+                
+                if (find == true) {
+                    System.out.print("Do you want to search again (Y/N)?: ");
+                    option = scanner.nextLine();
+
+                    if ("Y".equals(option) || "y".equals(option)) {
+                        option = "";
+                    }
+                    if ("N".equals(option) || "n".equals(option)) {
+                        option = "N";
                     }
                 }
-
-                /*if (find == true) {
-                    //System.out.println(Arrays.toString(invoices));
-                    System.out.println("verdad");
-                }*/
+                               
                 if (find == false) {
                     System.err.println("Bill number was not found!");
-                    System.out.println("Do you want to search again?(Y/N)");
+                    System.out.println("Do you want to search again (Y/N)?: ");
                     option = scanner.nextLine();
 
                     if ("Y".equals(option) || "y".equals(option)) {
@@ -238,7 +235,7 @@ public class Invoice {
 
             }
 
-        } while (attemps < 5);
+        } while ("".equals(option));
 
     }
 
