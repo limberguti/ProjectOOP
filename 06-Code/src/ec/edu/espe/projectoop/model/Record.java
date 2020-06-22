@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Jonathan
+ * @author Duke's Children
  */
 public class Record {
     private int registerNumber;
@@ -96,6 +96,7 @@ public class Record {
                 + "------------------------------------------------------------";
     }
     public void create() throws IOException {
+        Fabric fabric =new Fabric();
         int day = 0;
         int month = 0;
         int year = 0;
@@ -127,17 +128,16 @@ public class Record {
             System.out.print("Enter the year: ");
             auxdate.setYear(scanner.nextInt());            
             aux.setDate(auxdate);
-            
-            
-            System.out.print("Enter description: ");
             scanner.nextLine();
-            description = scanner.nextLine();
-            aux.setDescription(description);
-   
+            System.out.println("\nEnter de  Color: ");
+            fabric.setColor(scanner.nextLine());
+            System.out.println("\nEnter  type Of Fabric : ");
+            fabric.setTypeOfFabric(scanner.nextLine());            
+            System.out.println("\nEnter fabric meters: ");           
+            fabric.setFabricMeters(scanner.nextLine());
             System.out.print("Enter the quantity: ");
             quantity = scanner.nextInt();
-            aux.setQuantity(quantity);
-            
+            aux.setQuantity(quantity); 
             System.out.print("Enter the price: ");
             price = scanner.nextFloat();
             aux.setPrice(price);
@@ -155,13 +155,16 @@ public class Record {
             sb.append(auxdate.getMonth());
             sb.append("/");
             sb.append(auxdate.getYear());
-            sb.append(';');  
+            sb.append(';');
+            sb.append(fabric.getColor());
+            sb.append(';');
+            sb.append(fabric.getTypeOfFabric());
+            sb.append(';');
+            sb.append(fabric.getFabricMeters());
+            sb.append(';');
             sb.append(aux.getQuantity());
             sb.append(';');
             sb.append(aux.getPrice());
-            sb.append(';');            
-            sb.append(aux.getDescription());
-            sb.append(';');
             sb.append('\n');
 
             writer.write(sb.toString());

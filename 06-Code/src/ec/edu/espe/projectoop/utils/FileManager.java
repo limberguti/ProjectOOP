@@ -2,9 +2,7 @@ package ec.edu.espe.projectoop.utils;
 
 import ec.edu.espe.projectoop.model.Admin;
 import ec.edu.espe.projectoop.model.Invoice;
-import ec.edu.espe.projectoop.model.Prueba;
 import ec.edu.espe.projectoop.model.Record;
-import ec.edu.espe.projectoop.model.SalesRecord;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
