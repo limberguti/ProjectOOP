@@ -3,6 +3,7 @@ package ec.edu.espe.projectoop.utils;
 import ec.edu.espe.projectoop.model.Admin;
 import ec.edu.espe.projectoop.model.Invoice;
 import ec.edu.espe.projectoop.model.Prueba;
+import ec.edu.espe.projectoop.model.Record;
 import ec.edu.espe.projectoop.model.SalesRecord;
 import java.io.BufferedReader;
 import java.io.File;
@@ -132,6 +133,7 @@ public class FileManager {
                 menuSalesRecord();
                 break;
             case 2:
+                menuPurchaseRecord();
                 break;
             case 3:
                 fileManager.Login();
@@ -199,6 +201,62 @@ public class FileManager {
         
         
         
+        
     }
+    public void menuPurchaseRecord(){
+        Scanner scanner = new Scanner(System.in);
+        Record record = new Record();
+        FileManager fileManager = new FileManager();
+
+        System.out.println("1.New Purchase Record");
+        System.out.println("2.");
+        System.out.println("3.");
+        System.out.print("Write your option: ");
+        int op = scanner.nextInt();
+        
+        switch (op) {
+            case 1: 
+                menuRecords();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Enter a valid option!");
+                break;
+        }
+        }
+        
+        
+            public void menuRecords(){
+        Scanner scanner = new Scanner(System.in);
+        Record record = new Record();
+        FileManager fileManager = new FileManager();
+
+        System.out.println("1.Create an Register");//
+        System.out.println("2.Show an Register");
+        System.out.println("3....................");
+        System.out.print("Write your option: ");
+        int op = scanner.nextInt();
+        switch (op) {
+            case 1: 
+                try {
+                    record.create();
+                } catch (IOException ex) {
+                }
+                break;
+            case 2:
+                record.show(record);
+                break;
+            case 3:
+                fileManager.Login();
+            default:
+                System.out.println("Enter a valid option!");
+                break;
+        }
+        
+
+}
 
 }
