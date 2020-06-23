@@ -20,13 +20,11 @@ import java.util.Scanner;
  * @author Duke's Children
  */
 public class Controller {
-    int op = 0;  
-    int bugs = 0;          
-        
+                  
     public void FirstLogin() {
         File file;
         FileWriter write;
-        FileManager fileManager = new FileManager(); 
+        AdminMenu adminMenu = new AdminMenu(); 
 
         try {
             file = new File ("firstlogin.txt");
@@ -36,7 +34,7 @@ public class Controller {
             System.out.println("Welcome to the system!\n" +
             "This is the first time you enter the system, so we need you to create your username and password.\n" +
             "This message will only appear once.");
-            fileManager.CreateAdmin();
+            adminMenu.CreateAdmin();
         }
         catch(IOException e){
             
@@ -63,9 +61,10 @@ public class Controller {
     }
           
     public void Menu(){ 
-        FileManager fileManager = new FileManager();
+        int op = 0;
         Scanner scanner = new Scanner(System.in);
         Invoice invoice = new Invoice();
+        AdminMenu adminMenu = new AdminMenu();
         
         System.out.println("*********Welcome again!*********");
         System.out.println("1.Login");
@@ -75,27 +74,23 @@ public class Controller {
             
         switch(op){           
             case 1:
-                if(fileManager.Login() == true){
-                    fileManager.menuLogin();
+                if(adminMenu.Login() == true){
+                    adminMenu.LoginAsAdmin();
                 } else{
-                    System.out.println("EXIT");
                     break;
                 }
                 break;
-            case 2:
-                 
+            case 2:                 
                 break;
-            case 3:               
-                    
-                break;
-                default:
-                    System.err.println("Try again");
+            default:
+                System.err.println("Try again");
                 break;
             }
     }
 
     
-    public void Validation(){        
+    public void Validation(){ 
+        int bugs = 0; 
         do{
             bugs=0;                         
             try{    

@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.projectoop.view;
 import ec.edu.espe.projectoop.controller.Controller;
+import ec.edu.espe.projectoop.model.Cover;
 
 /**
  *
@@ -13,7 +14,9 @@ import ec.edu.espe.projectoop.controller.Controller;
 public class Main {
     
     public static void main(String[] args) {
+        Cover cover = new Cover();
         Controller menu = new Controller();
+        cover.ESPE();
         menu.ComprobationFirstLogin();
         menu.Validation();
     }
