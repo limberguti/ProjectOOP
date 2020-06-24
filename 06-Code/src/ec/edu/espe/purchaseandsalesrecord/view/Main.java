@@ -1,5 +1,6 @@
 package ec.edu.espe.purchaseandsalesrecord.view;
 
+<<<<<<< HEAD
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
@@ -12,6 +13,8 @@ import ec.edu.espe.purchaseandsalesrecord.controller.ProviderManagement;
 import ec.edu.espe.purchaseandsalesrecord.controller.ClothingManagement;
 import ec.edu.espe.purchaseandsalesrecord.controller.InvoiceManagement;
 import java.io.BufferedWriter;
+=======
+>>>>>>> 216a56719290ecff89ec58659cc6566a62c7049e
 import java.io.IOException;
 import java.io.Reader; 
 import java.nio.file.Files;
@@ -25,11 +28,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+<<<<<<< HEAD
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
+=======
+>>>>>>> 216a56719290ecff89ec58659cc6566a62c7049e
 
 /**
  *
@@ -37,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Main {
     
+<<<<<<< HEAD
     private static final String INVOICES = "invoices";
     private static final String PRODUCTS = "clothing";
     private static final String PROVIDERS = "providers";
@@ -56,6 +63,8 @@ public class Main {
     private static final int YES = 1;
     private static final int NO = 2;
 
+=======
+>>>>>>> 216a56719290ecff89ec58659cc6566a62c7049e
     private static final String CLIENTS_CSV = "./clients.csv";
     private static final String PROVIDERS_CSV = "./providers.csv";
     private static final String CLOTHING_CSV = "./clothing.csv";
@@ -173,6 +182,7 @@ public class Main {
                                 }
 
                                 break;
+<<<<<<< HEAD
                             case UPDATE:
                                 if (!clients.isEmpty()) {
                                     client = clientManagement.searchClient(clients);
@@ -268,6 +278,9 @@ public class Main {
 
                         validation.next();
                     } while (optionSubmenu != EXIT);
+=======
+                            
+>>>>>>> 216a56719290ecff89ec58659cc6566a62c7049e
                     break;
                 case PRODUCTS_MANAGEMENT:
                     do {
@@ -342,6 +355,7 @@ public class Main {
                         validation.next();
                     } while (optionSubmenu != EXIT);
                     break;
+<<<<<<< HEAD
                 case BILLING_MANAGEMENT:
                     do {
                         InvoiceManagement invoiceManagement = new InvoiceManagement();
@@ -397,6 +411,9 @@ public class Main {
                     } while (optionSubmenu != EXIT);
                     break;
             }
+=======
+                
+>>>>>>> 216a56719290ecff89ec58659cc6566a62c7049e
 
             validation.next();
 
