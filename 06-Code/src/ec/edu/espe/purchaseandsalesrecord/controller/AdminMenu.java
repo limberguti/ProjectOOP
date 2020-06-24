@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ec.edu.espe.projectoop.controller;
+package ec.edu.espe.purchaseandsalesrecord.controller;
 
-import ec.edu.espe.projectoop.model.Admin;
-import ec.edu.espe.projectoop.model.SalesRecord;
+import ec.edu.espe.purchaseandsalesrecord.model.Admin;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,12 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author Jhonatan Lituma
- */
 public class AdminMenu {
-    
+
+    public Scanner scanner;
+    public Admin admin;
+
     public void CreateAdmin() throws IOException {
         Admin aux;
         String user;
@@ -46,7 +39,7 @@ public class AdminMenu {
 
             StringBuilder sb = new StringBuilder();
 
-            sb.append(aux.getPassword());
+            sb.append(aux.getUser());
             sb.append(';');
             sb.append(aux.getPassword());
             sb.append('\n');
@@ -105,6 +98,7 @@ public class AdminMenu {
                 }
 
             } catch (IOException e) {
+                
             }
 
         } while (attemps < 4);
@@ -117,28 +111,68 @@ public class AdminMenu {
         }
     }
 
-    public void LoginAsAdmin() {
-        Scanner scanner = new Scanner(System.in);
-        SalesRecord salesRecord = new SalesRecord();
 
-        System.out.println("1.Enter to Sales Record");
-        System.out.println("2.Enter to Purchase Record");
-        System.out.println("3.Log Out");
-        System.out.print("Write your option: ");
-        int op = scanner.nextInt();
 
-        switch (op) {
-            case 1: 
-                salesRecord.menuSalesRecord();
-                break;
-            case 2:
-                break;
-            case 3:
-             
-            default:
-                System.out.println("Enter a valid option!");
-                break;
+    public void FirstLogin() {
+        File file;
+        FileWriter write;
+        AdminMenu adminMenu = new AdminMenu(); 
+
+        try {
+            file = new File ("firstlogin.txt");
+            write = new FileWriter(file);            
+            write.write("1");
+            write.close();           
+            System.out.println("Welcome to the system!\n" +
+            "This is the first time you enter the system, so we need you to create your username and password.\n" +
+            "This message will only appear once.");
+            adminMenu.CreateAdmin();
+        }
+        catch(IOException e){
+            
         }
     }
-    
+
+    public void ComprobationFirstLogin(){
+        FileReader fr;
+        BufferedReader bf;
+        
+        try {
+            fr = new FileReader("firstlogin.txt");
+            bf = new BufferedReader(fr);
+            String line;  
+            String first = "0";
+            line = bf.readLine();
+            if (line.equals(first)){
+                FirstLogin();
+            }
+        } catch (IOException e) {
+            
+        }
+    }
+
+    public static void showMainMenu() {
+        System.out.println("=== MENU ===");
+        System.out.println("1. Client Management ");
+        System.out.println("2. Providers Management ");
+        System.out.println("3. Clothing Management ");
+        System.out.println("4. Invoice Management ");
+        System.out.println("0. Exit");
+    }
+
+    public static void showSubmenu(final String tipoMenu) {
+        System.out.printf("*** Management Menu of %s***\n", tipoMenu);
+        System.out.println("1. Create");
+        System.out.println("2. Search");
+        System.out.println("3. Update");
+        System.out.println("4. Delete");
+        System.out.println("0. Exit");
+    }
+
+    public static void showSubmenuInvoice() {
+        System.out.println("*** Invoice Management Menu ***");
+        System.out.println("1. Create");
+        System.out.println("2. Search");
+        System.out.println("0. Exit");
+    }    
 }
