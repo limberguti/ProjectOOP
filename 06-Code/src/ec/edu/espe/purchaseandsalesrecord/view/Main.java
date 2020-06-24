@@ -1,5 +1,18 @@
 package ec.edu.espe.purchaseandsalesrecord.view;
 
+import java.io.IOException;
+import java.io.Reader; 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap; 
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -7,25 +20,6 @@ package ec.edu.espe.purchaseandsalesrecord.view;
  */
 public class Main {
     
-    private static final String INVOICES = "invoices";
-    private static final String PRODUCTS = "clothing";
-    private static final String PROVIDERS = "providers";
-    private static final String CLIENTS = "clients";
-    
-    private static final int CUSTOMER_MANAGEMENT = 1;
-    private static final int PROVIDERS_MANAGEMENT = 2;
-    private static final int PRODUCTS_MANAGEMENT = 3;
-    private static final int BILLING_MANAGEMENT = 4;
-
-    private static final int CREATE = 1;
-    private static final int SEARCH = 2;
-    private static final int UPDATE = 3;
-    private static final int DELETE = 4;
-    private static final int EXIT = 0;
-
-    private static final int YES = 1;
-    private static final int NO = 2;
-
     private static final String CLIENTS_CSV = "./clients.csv";
     private static final String PROVIDERS_CSV = "./providers.csv";
     private static final String CLOTHING_CSV = "./clothing.csv";
@@ -101,6 +95,16 @@ public class Main {
             switch (option) {
                 case CUSTOMER_MANAGEMENT:
                 
+                    do {
+                        ClientManagement clientManagement = new ClientManagement();
+                        do {
+                            
+                            adminMenu.showSubmenu("Clients");
+                            optionSubmenu = validation.catchInteger("Write your option ");
+
+                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                                validation.showMessage("ERROR: You must type a value between 0 and 4!");
+                                validation.next();
                             }
                         } while (optionSubmenu < EXIT || optionSubmenu > DELETE);
 
@@ -112,88 +116,103 @@ public class Main {
                             
                             case CREATE:
                                 
-                                
+                                client = clientManagement.createClient(clients);
+
+                                clients.add(client);
+
                                 break;
                             case SEARCH:
                                 if (!clients.isEmpty()) {
-                              
+                                    
+                                    client = clientManagement.searchClient(clients);
+
+                                    if (client != null) {
+                                        clientManagement.showClientData(client);
+                                    } else {
+                                        validation.showMessage("The client with the specified cédula number was not found!");
+                                    }
+                                } else {
+                                    validation.showMessage(
+                                            "The client has not been created yet. The search can not be performed!");
+                                }
 
                                 break;
-                            case UPDATE:
-                               
-                                break;
-                            case DELETE:
-                             
-                                break;
-                        }
-
-                        validation.next();
-                    } while (optionSubmenu != EXIT);
-
-                    break;
-                case PROVIDERS_MANAGEMENT:
-                    do {
-                        
-
-                                break;
-                            case UPDATE:
-                                
-                                break;
-                            case DELETE:
-                              
-                                break;
-                        }
-
-                        validation.next();
-                    } while (optionSubmenu != EXIT);
+                            
                     break;
                 case PRODUCTS_MANAGEMENT:
                     do {
-                      
-                        }
+                        ClothingManagement clothingManagement = new ClothingManagement();
+                        do {
+                            adminMenu.showSubmenu("Clothing");
+                            optionSubmenu = validation.catchInteger("Write your option: ");
 
-                        switch (optionSubmenu) {
-                            case CREATE:
-                              
-
-                                break;
-                            case SEARCH:
-                                
-
-                                break;
-                            case UPDATE:
-                               
-                                break;
-                            case DELETE:
-                                
-                                break;
-                        }
-
-                        validation.next();
-                    } while (optionSubmenu != EXIT);
-                    break;
-                case BILLING_MANAGEMENT:
-                    do {
-                        
-                        } while (optionSubmenu < EXIT || optionSubmenu > SEARCH);
+                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                                validation.showMessage("ERROR: You must type a value between 0 and 4!");
+                                validation.next();
+                            }
+                        } while (optionSubmenu < EXIT || optionSubmenu > DELETE);
 
                         if (optionSubmenu == EXIT) {
                             break;
                         }
 
                         switch (optionSubmenu) {
-                            case CREATE:                                
-                             
+                            case CREATE:
+                                if (!providers.isEmpty()) {
+                                    clothing = clothingManagement.createClothing(clothings, providers);
+
+                                    clothings.add(clothing);
+
+                                    validation.showMessage("The clothing was added successfully");
+                                } else {
+                                    validation.showMessage("Before you add clothing, you must create a provider!");
+                                }
+
                                 break;
                             case SEARCH:
-                               
+                                if (!clothings.isEmpty()) {
+                                    clothing = clothingManagement.searchClothing(clothings);
+
+                                    if (clothing != null) {
+                                        clothingManagement.showClothingData(clothing);
+                                    } else {
+                                        validation.showMessage("Clothing with the specified ID was not found!");
+                                    }
+                                } else {
+                                    validation.showMessage(
+                                            "Clothing has not been created yet. The search cannot be done!");
+                                }
+
+                                break;
+                            case UPDATE:
+                                if (!clothings.isEmpty()) {
+                                    clothing = clothingManagement.searchClothing(clothings);
+
+                                    if (clothing != null) {
+                                        clothingManagement.updateClothing(clothing, providers);
+                                        clothingManagement.showClothingData(clothing);
+                                    } else {
+                                        validation.showMessage("There is no provider with the specified ID.");
+                                    }
+                                } else {
+                                    validation.showMessage(
+                                            "Clothing has not been created yet. The update can not be done");
+                                }
+                                break;
+                            case DELETE:
+                                if (!clothings.isEmpty()) {
+                                    clothingManagement.deleteClothing(clothings, invoices);
+                                } else {
+                                    validation.showMessage(
+                                            "Clothing has not been created yet. Delete can not be done");
+                                }
                                 break;
                         }
 
                         validation.next();
                     } while (optionSubmenu != EXIT);
                     break;
-            }
+                
 
             validation.next();
 
@@ -206,10 +225,26 @@ public class Main {
         validation.next();
 
         if (!clients.isEmpty()) {
-          
+            do {
+                System.out.println("Save data?");
+                System.out.println("1. Yes");
+                System.out.println("2. No");
+                option = validation.catchInteger("Do you want to save the inventory data ?");
+
+                if (option == YES || option == NO) {
+                    break;
+                } else {
+                    validation.showMessage("You must answer Yes (1) or No (2)");
+                    validation.next();
+                }
             } while (true);
 
-           
+            if (option == YES) {
+                saveInventoryData(clients, providers, clothings, invoices);
+                System.out.println();
+                System.out.println("All inventory data has been saved successfully");
+                System.out.println();
+            }
         }
 
     }//Fin main 
