@@ -1,10 +1,11 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
-
+/**
+ *
+ * @author Duke's Children
+ */
 public class ProviderManagement {
 
     Validations validation = new Validations();

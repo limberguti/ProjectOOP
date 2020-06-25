@@ -1,5 +1,4 @@
 package ec.edu.espe.purchaseandsalesrecord.model;
-
 /**
  *
  * @author Duke's Children

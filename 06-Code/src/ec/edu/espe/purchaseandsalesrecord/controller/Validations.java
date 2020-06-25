@@ -1,6 +1,9 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
 import java.util.Scanner;
-
+/**
+ *
+ * @author Duke's Children
+ */
 public class Validations {
     public static Scanner scanner;
 

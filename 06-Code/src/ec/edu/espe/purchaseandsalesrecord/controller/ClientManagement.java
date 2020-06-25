@@ -1,10 +1,11 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
-
+/**
+ *
+ * @author Duke's Children
+ */
 public class ClientManagement {
     Validations validation = new Validations();
 

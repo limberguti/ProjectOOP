@@ -1,15 +1,16 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
-
+/**
+ *
+ * @author Duke's Children
+ */
 public class InvoiceManagement {
 
-    Validations validation = new Validations();
+    Validations validation = new Validations(); 
     private static final int EXIT = 0;
     
     public Invoice createInvoice(final List<Client> clients, final List<Clothing> clothings, final List<Invoice> invoices) {
