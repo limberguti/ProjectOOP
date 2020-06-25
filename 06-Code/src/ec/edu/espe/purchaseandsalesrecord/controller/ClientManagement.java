@@ -1,11 +1,15 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
 
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 
+/**
+ *
+ * @author Duke's Children
+ */
 public class ClientManagement {
+
     Validations validation = new Validations();
 
     public Client createClient(final List<Client> clients) {
@@ -128,7 +132,7 @@ public class ClientManagement {
         client.setDirection(address);
         client.setEmail(email);
     }
-    
+
     public void deleteClient(final List<Client> clients, final List<Invoice> invoices) {
         int numeroCedula;
         String cedula;

@@ -1,95 +1,97 @@
 package ec.edu.espe.purchaseandsalesrecord.model;
+
 /**
  *
  * @author Duke's Children
  */
 public class Clothing {
+
     private int id;
-	private String name;
-	private String description;
-	private double purchasePrice;
-	private double salePrice;
-	private int quantity;
-	private int quantityMinimaStock;
-	private int idProvider;
-	
-	public Clothing() {
-	}
+    private String name;
+    private String description;
+    private double purchasePrice;
+    private double salePrice;
+    private int quantity;
+    private int quantityMinimaStock;
+    private int idProvider;
 
-	public Clothing(int id, String name, String description, double purchasePrice, double salePrice, int quantity, int quantityMinimaStock, int idProvider) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.purchasePrice = purchasePrice;
-		this.salePrice = salePrice;
-		this.quantity = quantity;
-		this.quantityMinimaStock = quantityMinimaStock;
-		this.idProvider = idProvider;
-	}
+    public Clothing() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Clothing(int id, String name, String description, double purchasePrice, double salePrice, int quantity, int quantityMinimaStock, int idProvider) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.purchasePrice = purchasePrice;
+        this.salePrice = salePrice;
+        this.quantity = quantity;
+        this.quantityMinimaStock = quantityMinimaStock;
+        this.idProvider = idProvider;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public double getPurchasePrice() {
-		return purchasePrice;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setPurchasePrice(double purchasePrice) {
-		this.purchasePrice = purchasePrice;
-	}
+    public double getPurchasePrice() {
+        return purchasePrice;
+    }
 
-	public double getSalePrice() {
-		return salePrice;
-	}
+    public void setPurchasePrice(double purchasePrice) {
+        this.purchasePrice = purchasePrice;
+    }
 
-	public void setSalePrice(double salePrice) {
-		this.salePrice = salePrice;
-	}
+    public double getSalePrice() {
+        return salePrice;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public int getQuantityMinimaStock() {
-		return quantityMinimaStock;
-	}
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setQuantityMinimumStock(int quantityMinimaStock) {
-		this.quantityMinimaStock = quantityMinimaStock;
-	}
+    public int getQuantityMinimaStock() {
+        return quantityMinimaStock;
+    }
 
-	public int getIdProvider() {
-		return idProvider;
-	}
+    public void setQuantityMinimumStock(int quantityMinimaStock) {
+        this.quantityMinimaStock = quantityMinimaStock;
+    }
 
-	public void setIdProvider(int idProvider) {
-		this.idProvider = idProvider;
-	}
-    
+    public int getIdProvider() {
+        return idProvider;
+    }
+
+    public void setIdProvider(int idProvider) {
+        this.idProvider = idProvider;
+    }
+
 }

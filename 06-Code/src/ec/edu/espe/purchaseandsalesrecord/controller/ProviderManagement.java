@@ -1,10 +1,13 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
 
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
 
+/**
+ *
+ * @author Duke's Children
+ */
 public class ProviderManagement {
 
     Validations validation = new Validations();
@@ -52,7 +55,6 @@ public class ProviderManagement {
 
         return new Provider(id, name, String.valueOf(phoneNumber), address);
     }
-
 
     public Provider searchProvider(final List<Provider> providers) {
         System.out.println("--- 2. Search Provider ---");
@@ -142,5 +144,5 @@ public class ProviderManagement {
         System.out.println("Phone number: " + provider.getPhone());
         System.out.println("Address: " + provider.getDirection());
     }
-    
+
 }

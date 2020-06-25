@@ -2,16 +2,19 @@ package ec.edu.espe.purchaseandsalesrecord.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 
+/**
+ *
+ * @author Duke's Children
+ */
 public class InvoiceManagement {
 
     Validations validation = new Validations();
-    private static final int EXIT = 0;
-    
+    private static final int exit = 0;
+
     public Invoice createInvoice(final List<Client> clients, final List<Clothing> clothings, final List<Invoice> invoices) {
         System.out.println();
         System.out.println("--- 1. Create Invoice ---");
@@ -63,7 +66,7 @@ public class InvoiceManagement {
             System.out.println("0. Exit");
             idClothing = validation.catchInteger("Enter the clothing ID");
 
-            if (idClothing == EXIT && !idsClothing.isEmpty()) {
+            if (idClothing == exit && !idsClothing.isEmpty()) {
                 break;
             }
 
@@ -163,7 +166,7 @@ public class InvoiceManagement {
 
             System.out.println("ID: " + id);
             System.out.println("Name: " + clothing.getName());
-            System.out.println("Price: $" + clothing.getSalePrice());         
+            System.out.println("Price: $" + clothing.getSalePrice());
             System.out.println();
         }
     }
@@ -174,9 +177,8 @@ public class InvoiceManagement {
         System.out.println("--- 2. Search Invoice ---");
 
         int idInvoice;
-        
+
         Invoice invoice;
-        
 
         do {
             System.out.println("List of invoices");

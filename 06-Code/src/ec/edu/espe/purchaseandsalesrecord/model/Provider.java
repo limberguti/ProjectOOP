@@ -5,51 +5,53 @@ package ec.edu.espe.purchaseandsalesrecord.model;
  * @author Duke's Children
  */
 public class Provider {
+
     private int id;
-	private String name;
-	private String phone;
-	private String direction;
-	
-	public Provider() {
-	}
+    private String name;
+    private String phone;
+    private String direction;
 
-	public Provider(int id, String name, String phone, String direction) {
-		this.id = id;
-		this.name = name;
-		this.phone = phone;
-		this.direction = direction;
-	}
+    public Provider(int id, String name, String phone, String direction) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.direction = direction;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Provider() {
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getDirection() {
-		return direction;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setDirection(String direction) {
-		this.direction = direction;
-	}
-    
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
 }

@@ -1,89 +1,89 @@
 package ec.edu.espe.purchaseandsalesrecord.model;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import java.util.*;
 
 /**
  *
  * @author Duke's Children
  */
 public class Invoice {
+
     private static int counterIds = 1;
-	private int id;
-	private Date date;
-	private String cedulaClient;
-	private double tax;
-	private double total;
-	private List<Integer> idsClothings;
-	
-	public Invoice() {
-		id = counterIds;
-		++counterIds;
-		idsClothings = new ArrayList<>();
-	}
+    private int id;
+    private Date date;
+    private String cedulaClient;
+    private double tax;
+    private double total;
+    private List<Integer> idsClothings;
 
-	public Invoice(String cedulaClient, double tax) {
-		this();
-		date = new Date();
-		this.cedulaClient = cedulaClient;
-		this.tax = tax;
-	}
+    public Invoice() {
+        id = counterIds;
+        ++counterIds;
+        idsClothings = new ArrayList<>();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public Invoice(String cedulaClient, double tax) {
+        this();
+        date = new Date();
+        this.cedulaClient = cedulaClient;
+        this.tax = tax;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public String getCedulaClient() {
-		return cedulaClient;
-	}
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	public void setCedulaClient(String cedulaClient) {
-		this.cedulaClient = cedulaClient;
-	}
+    public String getCedulaClient() {
+        return cedulaClient;
+    }
 
-	public double getTax() {
-		return tax;
-	}
+    public void setCedulaClient(String cedulaClient) {
+        this.cedulaClient = cedulaClient;
+    }
 
-	public void setTax(double tax) {
-		this.tax = tax;
-	}
+    public double getTax() {
+        return tax;
+    }
 
-	public double getTotal() {
-		return total;
-	}
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
 
-	public void setTotal(double total) {
-		this.total = total;
-	}
-	
-	public void addIdClothings(int idClothings) {
-		idsClothings.add(idClothings);
-	}
+    public double getTotal() {
+        return total;
+    }
 
-	public Integer[] getIdsClothings() {
-		Integer[] idsProductsCopy = new Integer[idsClothings.size()];
-		idsClothings.toArray(idsProductsCopy);
-		
-		return idsProductsCopy;
-	}
+    public void setTotal(double total) {
+        this.total = total;
+    }
 
-	public void setIdsClothingsFromArrayStrings(String[] idsProductsStrings) {
-		for (String idProduct : idsProductsStrings) {
-			idsClothings.add(Integer.parseInt(idProduct));
-		}
-	}
-    
+    public void addIdClothings(int idClothings) {
+        idsClothings.add(idClothings);
+    }
+
+    public Integer[] getIdsClothings() {
+        Integer[] idsProductsCopy = new Integer[idsClothings.size()];
+        idsClothings.toArray(idsProductsCopy);
+
+        return idsProductsCopy;
+    }
+
+    public void setIdsClothingsFromArrayStrings(String[] idsProductsStrings) {
+        for (String idProduct : idsProductsStrings) {
+            idsClothings.add(Integer.parseInt(idProduct));
+        }
+    }
+
 }

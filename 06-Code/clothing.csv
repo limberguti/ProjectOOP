@@ -1,2 +1,3 @@
 id;name;description;purchasePrice;salePrice;quantity;quantityMinimumStock;idProvider
 6385;Pants;pants of a special fabric;20.0;25.0;90;90;34
+23;Pants;Pants;20.0;30.0;27;30;36

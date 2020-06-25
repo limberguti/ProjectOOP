@@ -1,6 +1,11 @@
 package ec.edu.espe.purchaseandsalesrecord.model;
 
+/**
+ *
+ * @author Duke's Children
+ */
 public class Admin {
+
     private String user;
     private String password;
 

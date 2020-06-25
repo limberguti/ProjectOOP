@@ -1,14 +1,17 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
 
+/**
+ *
+ * @author Duke's Children
+ */
 public class ClothingManagement {
+
     Validations validation = new Validations();
 
     public Clothing createClothing(final List<Clothing> clothings, final List<Provider> providers) {

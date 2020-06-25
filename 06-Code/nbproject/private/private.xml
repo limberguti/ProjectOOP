@@ -2,6 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/ProviderManagement.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/AdminMenu.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Invoice.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/ClientManagement.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Client.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/view/Main.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/InvoiceManagement.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/InventoryManagement.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/ClothingManagement.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/controller/Validations.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Clothing.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Provider.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Cover.java</file>
+            <file>file:/C:/Users/andre/Downloads/PurchaseAndSalesRecord/src/ec/edu/espe/purchaseandsalesrecord/model/Admin.java</file>
+        </group>
     </open-files>
 </project-private>

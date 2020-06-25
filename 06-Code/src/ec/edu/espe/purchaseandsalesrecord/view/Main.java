@@ -1,105 +1,68 @@
 package ec.edu.espe.purchaseandsalesrecord.view;
 
-import ec.edu.espe.purchaseandsalesrecord.model.Client;
-import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
-import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
-import ec.edu.espe.purchaseandsalesrecord.model.Cover;
-import ec.edu.espe.purchaseandsalesrecord.model.Provider;
-import ec.edu.espe.purchaseandsalesrecord.controller.AdminMenu;
-import ec.edu.espe.purchaseandsalesrecord.controller.Validations;
-import ec.edu.espe.purchaseandsalesrecord.controller.ClientManagement;
-import ec.edu.espe.purchaseandsalesrecord.controller.ProviderManagement;
-import ec.edu.espe.purchaseandsalesrecord.controller.ClothingManagement;
-import ec.edu.espe.purchaseandsalesrecord.controller.InvoiceManagement;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.Reader; 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap; 
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.lang3.StringUtils;
+import ec.edu.espe.purchaseandsalesrecord.model.*;
+import ec.edu.espe.purchaseandsalesrecord.controller.*;
+import java.util.*;
 
 /**
  *
  * @author Duke's Children
  */
 public class Main {
-    
-    private static final String INVOICES = "invoices";
-    private static final String PRODUCTS = "clothing";
-    private static final String PROVIDERS = "providers";
-    private static final String CLIENTS = "clients";
-    
-    private static final int CUSTOMER_MANAGEMENT = 1;
-    private static final int PROVIDERS_MANAGEMENT = 2;
-    private static final int PRODUCTS_MANAGEMENT = 3;
-    private static final int BILLING_MANAGEMENT = 4;
 
-    private static final int CREATE = 1;
-    private static final int SEARCH = 2;
-    private static final int UPDATE = 3;
-    private static final int DELETE = 4;
-    private static final int EXIT = 0;
+    private static final String invoices = "invoices";
+    private static final String products = "clothing";
+    private static final String providers = "providers";
+    private static final String clients = "clients";
 
-    private static final int YES = 1;
-    private static final int NO = 2;
+    private static final int customerManagement = 1;
+    private static final int providersManagement = 2;
+    private static final int productsManagement = 3;
+    private static final int billingManagement = 4;
 
-    private static final String CLIENTS_CSV = "./clients.csv";
-    private static final String PROVIDERS_CSV = "./providers.csv";
-    private static final String CLOTHING_CSV = "./clothing.csv";
-    private static final String INVOICE_CSV = "./invoices.csv";
+    private static final int create = 1;
+    private static final int search = 2;
+    private static final int update = 3;
+    private static final int delete = 4;
+    private static final int exit = 0;
 
-    private static final char DELIMITER = ';';
+    private static final int yes = 1;
+    private static final int no = 2;
 
     public static Scanner scanner;
     public static Validations validation = new Validations();
 
     public static void main(final String[] args) {
-
         scanner = new Scanner(System.in);
-
+        InventoryManagement inventoryManagement = new InventoryManagement();
         List<Client> clients = new ArrayList<>();
         List<Provider> providers = new ArrayList<>();
         List<Clothing> clothings = new ArrayList<>();
         List<Invoice> invoices = new ArrayList<>();
 
-        
-        final Map<String, Object> inventory = loadData();
+        final Map<String, Object> inventory = inventoryManagement.loadData();
+
+        if (inventory.get(Main.clients) != null) {
+            clients = (List<Client>) inventory.get(Main.clients);
+        }
+
+        if (inventory.get(Main.providers) != null) {
+            providers = (List<Provider>) inventory.get(Main.providers);
+        }
+
+        if (inventory.get(products) != null) {
+            clothings = (List<Clothing>) inventory.get(products);
+        }
+
+        if (inventory.get(Main.invoices) != null) {
+            invoices = (List<Invoice>) inventory.get(Main.invoices);
+        }
 
         Cover cover = new Cover();
-        
         cover.ESPE();
-        
-        if (inventory.get(CLIENTS) != null) {
-            clients = (List<Client>) inventory.get(CLIENTS);
-        }
 
-        if (inventory.get(PROVIDERS) != null) {
-            providers = (List<Provider>) inventory.get(PROVIDERS);
-        }
-
-        if (inventory.get(PRODUCTS) != null) {
-            clothings = (List<Clothing>) inventory.get(PRODUCTS);
-        }
-
-        if (inventory.get(INVOICES) != null) {
-            invoices = (List<Invoice>) inventory.get(INVOICES);
-        }
-
-        int option=0;
-        int optionSubmenu=0;
+        int option = 0;
+        int optionSubmenu = 0;
 
         Client client;
         Provider provider;
@@ -112,54 +75,53 @@ public class Main {
         adminMenu.Login();
 
         do {
-            
             do {
                 adminMenu.showMainMenu();
                 option = validation.catchInteger("Write your option ");
 
-                if (option < EXIT || option > BILLING_MANAGEMENT) {
+                if (option < exit || option > billingManagement) {
                     validation.showMessage("ERROR: You must type a value between 0 and 4!");
                 }
-            } while (option < EXIT || option > BILLING_MANAGEMENT);
+            } while (option < exit || option > billingManagement);
 
-            if (option == EXIT) {
+            if (option == exit) {
                 break;
             }
 
             System.out.println();
 
             switch (option) {
-                case CUSTOMER_MANAGEMENT:
-                
+                case customerManagement:
+
                     do {
                         ClientManagement clientManagement = new ClientManagement();
                         do {
-                            
+
                             adminMenu.showSubmenu("Clients");
                             optionSubmenu = validation.catchInteger("Write your option ");
 
-                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                            if (optionSubmenu < exit || optionSubmenu > delete) {
                                 validation.showMessage("ERROR: You must type a value between 0 and 4!");
                                 validation.next();
                             }
-                        } while (optionSubmenu < EXIT || optionSubmenu > DELETE);
+                        } while (optionSubmenu < exit || optionSubmenu > delete);
 
-                        if (optionSubmenu == EXIT) {
+                        if (optionSubmenu == exit) {
                             break;
                         }
 
                         switch (optionSubmenu) {
-                            
-                            case CREATE:
-                                
+
+                            case create:
+
                                 client = clientManagement.createClient(clients);
 
                                 clients.add(client);
 
                                 break;
-                            case SEARCH:
+                            case search:
                                 if (!clients.isEmpty()) {
-                                    
+
                                     client = clientManagement.searchClient(clients);
 
                                     if (client != null) {
@@ -173,7 +135,7 @@ public class Main {
                                 }
 
                                 break;
-                            case UPDATE:
+                            case update:
                                 if (!clients.isEmpty()) {
                                     client = clientManagement.searchClient(clients);
 
@@ -188,7 +150,7 @@ public class Main {
                                             "The client has not been created yet. The update can not be performed!");
                                 }
                                 break;
-                            case DELETE:
+                            case delete:
                                 if (!clients.isEmpty()) {
                                     clientManagement.deleteClient(clients, invoices);
                                 } else {
@@ -199,34 +161,34 @@ public class Main {
                         }
 
                         validation.next();
-                    } while (optionSubmenu != EXIT);
+                    } while (optionSubmenu != exit);
 
                     break;
-                case PROVIDERS_MANAGEMENT:
+                case providersManagement:
                     do {
-                        ProviderManagement providerManagement = new ProviderManagement(); 
+                        ProviderManagement providerManagement = new ProviderManagement();
                         do {
                             adminMenu.showSubmenu("Provideres");
                             optionSubmenu = validation.catchInteger("Write your option");
 
-                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                            if (optionSubmenu < exit || optionSubmenu > delete) {
                                 validation.showMessage("ERROR: You must type a value between 0 and 4!");
                                 validation.next();
                             }
-                        } while (optionSubmenu < EXIT || optionSubmenu > DELETE);
+                        } while (optionSubmenu < exit || optionSubmenu > delete);
 
-                        if (optionSubmenu == EXIT) {
+                        if (optionSubmenu == exit) {
                             break;
                         }
 
                         switch (optionSubmenu) {
-                            case CREATE:
+                            case create:
                                 provider = providerManagement.createProvider(providers);
 
                                 providers.add(provider);
 
                                 break;
-                            case SEARCH:
+                            case search:
                                 if (!providers.isEmpty()) {
                                     provider = providerManagement.searchProvider(providers);
 
@@ -241,7 +203,7 @@ public class Main {
                                 }
 
                                 break;
-                            case UPDATE:
+                            case update:
                                 if (!providers.isEmpty()) {
                                     provider = providerManagement.searchProvider(providers);
 
@@ -256,7 +218,7 @@ public class Main {
                                             "A provider has not been created yet. The update can not be performed!");
                                 }
                                 break;
-                            case DELETE:
+                            case delete:
                                 if (!providers.isEmpty()) {
                                     providerManagement.deleteProvider(providers, clothings);
                                 } else {
@@ -267,27 +229,27 @@ public class Main {
                         }
 
                         validation.next();
-                    } while (optionSubmenu != EXIT);
+                    } while (optionSubmenu != exit);
                     break;
-                case PRODUCTS_MANAGEMENT:
+                case productsManagement:
                     do {
                         ClothingManagement clothingManagement = new ClothingManagement();
                         do {
                             adminMenu.showSubmenu("Clothing");
                             optionSubmenu = validation.catchInteger("Write your option: ");
 
-                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                            if (optionSubmenu < exit || optionSubmenu > delete) {
                                 validation.showMessage("ERROR: You must type a value between 0 and 4!");
                                 validation.next();
                             }
-                        } while (optionSubmenu < EXIT || optionSubmenu > DELETE);
+                        } while (optionSubmenu < exit || optionSubmenu > delete);
 
-                        if (optionSubmenu == EXIT) {
+                        if (optionSubmenu == exit) {
                             break;
                         }
 
                         switch (optionSubmenu) {
-                            case CREATE:
+                            case create:
                                 if (!providers.isEmpty()) {
                                     clothing = clothingManagement.createClothing(clothings, providers);
 
@@ -299,7 +261,7 @@ public class Main {
                                 }
 
                                 break;
-                            case SEARCH:
+                            case search:
                                 if (!clothings.isEmpty()) {
                                     clothing = clothingManagement.searchClothing(clothings);
 
@@ -314,7 +276,7 @@ public class Main {
                                 }
 
                                 break;
-                            case UPDATE:
+                            case update:
                                 if (!clothings.isEmpty()) {
                                     clothing = clothingManagement.searchClothing(clothings);
 
@@ -329,7 +291,7 @@ public class Main {
                                             "Clothing has not been created yet. The update can not be done");
                                 }
                                 break;
-                            case DELETE:
+                            case delete:
                                 if (!clothings.isEmpty()) {
                                     clothingManagement.deleteClothing(clothings, invoices);
                                 } else {
@@ -340,27 +302,27 @@ public class Main {
                         }
 
                         validation.next();
-                    } while (optionSubmenu != EXIT);
+                    } while (optionSubmenu != exit);
                     break;
-                case BILLING_MANAGEMENT:
+                case billingManagement:
                     do {
                         InvoiceManagement invoiceManagement = new InvoiceManagement();
                         do {
                             adminMenu.showSubmenuInvoice();
                             optionSubmenu = validation.catchInteger("Write your option: ");
 
-                            if (optionSubmenu < EXIT || optionSubmenu > DELETE) {
+                            if (optionSubmenu < exit || optionSubmenu > delete) {
                                 validation.showMessage("You must type a value between 0 and 2!");
                                 validation.next();
                             }
-                        } while (optionSubmenu < EXIT || optionSubmenu > SEARCH);
+                        } while (optionSubmenu < exit || optionSubmenu > search);
 
-                        if (optionSubmenu == EXIT) {
+                        if (optionSubmenu == exit) {
                             break;
                         }
 
                         switch (optionSubmenu) {
-                            case CREATE:
+                            case create:
                                 if (!clients.isEmpty()) {
                                     if (!clothings.isEmpty()) {
                                         invoice = invoiceManagement.createInvoice(clients, clothings, invoices);
@@ -377,7 +339,7 @@ public class Main {
                                 }
 
                                 break;
-                            case SEARCH:
+                            case search:
                                 if (!invoices.isEmpty()) {
                                     invoice = invoiceManagement.searchInvoice(invoices);
 
@@ -394,13 +356,13 @@ public class Main {
                         }
 
                         validation.next();
-                    } while (optionSubmenu != EXIT);
+                    } while (optionSubmenu != exit);
                     break;
             }
 
             validation.next();
 
-        } while (option != EXIT);
+        } while (option != exit);
 
         System.out.println();
 
@@ -415,7 +377,7 @@ public class Main {
                 System.out.println("2. No");
                 option = validation.catchInteger("Do you want to save the inventory data ?");
 
-                if (option == YES || option == NO) {
+                if (option == yes || option == no) {
                     break;
                 } else {
                     validation.showMessage("You must answer Yes (1) or No (2)");
@@ -423,14 +385,14 @@ public class Main {
                 }
             } while (true);
 
-            if (option == YES) {
-                saveInventoryData(clients, providers, clothings, invoices);
+            if (option == yes) {
+                inventoryManagement.saveInventoryData(clients, providers, clothings, invoices);
                 System.out.println();
                 System.out.println("All inventory data has been saved successfully");
                 System.out.println();
             }
         }
 
-    }//Fin main 
-    
+    }
+
 }
