@@ -11,6 +11,7 @@ public class Provider {
 	private String direction;
 	
 	public Provider() {
+		
 	}
 
 	public Provider(int id, String name, String phone, String direction) {

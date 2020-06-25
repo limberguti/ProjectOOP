@@ -65,6 +65,4 @@ public class Validations {
         System.out.printf(message);
         System.out.println();
     }
-
-    
 }
