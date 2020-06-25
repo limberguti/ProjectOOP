@@ -1,20 +1,28 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-
 import java.util.ArrayList;
 import java.util.List;
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
 public class InvoiceManagement {
 
+<<<<<<< HEAD
     Validations validation = new Validations();
     private static final int exit = 0;
 
+=======
+    Validations validation = new Validations(); 
+    private static final int EXIT = 0;
+    
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
     public Invoice createInvoice(final List<Client> clients, final List<Clothing> clothings, final List<Invoice> invoices) {
         System.out.println();
         System.out.println("--- 1. Create Invoice ---");

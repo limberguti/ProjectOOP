@@ -1,11 +1,17 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 import java.util.*;
 import java.util.stream.Collectors;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children

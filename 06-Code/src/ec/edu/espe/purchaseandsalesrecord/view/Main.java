@@ -1,14 +1,21 @@
 package ec.edu.espe.purchaseandsalesrecord.view;
+<<<<<<< HEAD
 
 import ec.edu.espe.purchaseandsalesrecord.model.*;
 import ec.edu.espe.purchaseandsalesrecord.controller.*;
 import java.util.*;
 
+=======
+import ec.edu.espe.purchaseandsalesrecord.model.*;
+import ec.edu.espe.purchaseandsalesrecord.controller.*;
+import java.util.*;
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
 public class Main {
+<<<<<<< HEAD
 
     private static final String invoices = "invoices";
     private static final String products = "clothing";
@@ -28,12 +35,34 @@ public class Main {
 
     private static final int yes = 1;
     private static final int no = 2;
+=======
+    private static final String INVOICES = "invoices";
+    private static final String PRODUCTS = "clothing";
+    private static final String PROVIDERS = "providers";
+    private static final String CLIENTS = "clients";   
+    
+    private static final int CUSTOMER_MANAGEMENT = 1;
+    private static final int PROVIDERS_MANAGEMENT = 2;
+    private static final int PRODUCTS_MANAGEMENT = 3;
+    private static final int BILLING_MANAGEMENT = 4;
+
+    private static final int CREATE = 1;
+    private static final int SEARCH = 2;
+    private static final int UPDATE = 3;
+    private static final int DELETE = 4;
+    private static final int EXIT = 0;
+
+    private static final int YES = 1;
+    private static final int NO = 2;
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
     public static Scanner scanner;
     public static Validations validation = new Validations();
 
+    
     public static void main(final String[] args) {
         scanner = new Scanner(System.in);
+<<<<<<< HEAD
         InventoryManagement inventoryManagement = new InventoryManagement();
         List<Client> clients = new ArrayList<>();
         List<Provider> providers = new ArrayList<>();
@@ -44,6 +73,18 @@ public class Main {
 
         if (inventory.get(Main.clients) != null) {
             clients = (List<Client>) inventory.get(Main.clients);
+=======
+        InventoryManagement inventoryManagement = new InventoryManagement(); 
+        List<Client> clients = new ArrayList<>();
+        List<Provider> providers = new ArrayList<>();
+        List<Clothing> clothings = new ArrayList<>();
+        List<Invoice> invoices = new ArrayList<>(); 
+
+        final Map<String, Object> inventory = inventoryManagement.loadData();
+        
+        if (inventory.get(CLIENTS) != null) {
+            clients = (List<Client>) inventory.get(CLIENTS);
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
         }
 
         if (inventory.get(Main.providers) != null) {
@@ -57,12 +98,21 @@ public class Main {
         if (inventory.get(Main.invoices) != null) {
             invoices = (List<Invoice>) inventory.get(Main.invoices);
         }
+<<<<<<< HEAD
 
         Cover cover = new Cover();
         cover.ESPE();
 
         int option = 0;
         int optionSubmenu = 0;
+=======
+        
+        Cover cover = new Cover();
+        cover.ESPE();
+        
+        int option=0;
+        int optionSubmenu=0;
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
         Client client;
         Provider provider;
@@ -74,7 +124,11 @@ public class Main {
         adminMenu.ComprobationFirstLogin();
         adminMenu.Login();
 
+<<<<<<< HEAD
         do {
+=======
+        do {            
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
             do {
                 adminMenu.showMainMenu();
                 option = validation.catchInteger("Write your option ");
@@ -385,7 +439,11 @@ public class Main {
                 }
             } while (true);
 
+<<<<<<< HEAD
             if (option == yes) {
+=======
+            if (option == YES) {
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
                 inventoryManagement.saveInventoryData(clients, providers, clothings, invoices);
                 System.out.println();
                 System.out.println("All inventory data has been saved successfully");
@@ -394,5 +452,10 @@ public class Main {
         }
 
     }
+<<<<<<< HEAD
 
 }
+=======
+    
+}
+>>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
