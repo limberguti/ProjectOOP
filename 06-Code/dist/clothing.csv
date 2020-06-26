@@ -1,0 +1,3 @@
+id;name;description;purchasePrice;salePrice;quantity;quantityMinimumStock;idProvider
+6385;Pants;pants of a special fabric;20.0;25.0;40;90;34
+3;hat;hats;10.0;20.0;0;30;21
