@@ -2,16 +2,11 @@ package ec.edu.espe.purchaseandsalesrecord.controller;
 import java.util.List;
 import ec.edu.espe.purchaseandsalesrecord.model.Client;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
 public class ClientManagement {
-
     Validations validation = new Validations();
 
     public Client createClient(final List<Client> clients) {
@@ -130,11 +125,11 @@ public class ClientManagement {
 
         client.setNames(names);
         client.setLastName(surnames);
-        client.setPhone(String.valueOf(phoneNumber));
-        client.setDirection(address);
+        client.setPhoneNumber(String.valueOf(phoneNumber));
+        client.setAddress(address);
         client.setEmail(email);
     }
-
+    
     public void deleteClient(final List<Client> clients, final List<Invoice> invoices) {
         int numeroCedula;
         String cedula;
@@ -188,8 +183,8 @@ public class ClientManagement {
         System.out.println("Cédula: " + client.getCedula());
         System.out.println("Names: " + client.getNames());
         System.out.println("Surnames: " + client.getLastName());
-        System.out.println("Phone number: " + client.getPhone());
-        System.out.println("Address: " + client.getDirection());
+        System.out.println("Phone number: " + client.getPhoneNumber());
+        System.out.println("Address: " + client.getAddress());
         System.out.println("Email: " + client.getEmail());
     }
 }

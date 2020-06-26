@@ -1,23 +1,14 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 import java.util.*;
 import java.util.stream.Collectors;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
 public class ClothingManagement {
-
     Validations validation = new Validations();
 
     public Clothing createClothing(final List<Clothing> clothings, final List<Provider> providers) {
@@ -284,7 +275,7 @@ public class ClothingManagement {
         System.out.println("Purchase price: " + clothing.getPurchasePrice());
         System.out.println("Sale price: " + clothing.getSalePrice());
         System.out.println("Quantity: " + clothing.getQuantity());
-        System.out.println("Minimum quantity of stock: " + clothing.getQuantityMinimaStock());
+        System.out.println("Minimum quantity of stock: " + clothing.getQuantityMinimumStock());
         System.out.println("Provider ID : " + clothing.getIdProvider());
     }
 

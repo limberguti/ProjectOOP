@@ -2,10 +2,6 @@ package ec.edu.espe.purchaseandsalesrecord.controller;
 import java.util.List;
 import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Provider;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
@@ -58,6 +54,7 @@ public class ProviderManagement {
         return new Provider(id, name, String.valueOf(phoneNumber), address);
     }
 
+
     public Provider searchProvider(final List<Provider> providers) {
         System.out.println("--- 2. Search Provider ---");
 
@@ -97,8 +94,8 @@ public class ProviderManagement {
         address = validation.catchStringCharacters("Enter the provider's new address ");
 
         provider.setName(name);
-        provider.setPhone(String.valueOf(phone));
-        provider.setDirection(address);
+        provider.setPhoneNumber(String.valueOf(phone));
+        provider.setAddress(address);
     }
 
     public void deleteProvider(final List<Provider> providers, final List<Clothing> clothings) {
@@ -143,8 +140,8 @@ public class ProviderManagement {
         System.out.println("Provider Data: ");
         System.out.println("ID: " + provider.getId());
         System.out.println("Name: " + provider.getName());
-        System.out.println("Phone number: " + provider.getPhone());
-        System.out.println("Address: " + provider.getDirection());
+        System.out.println("Phone number: " + provider.getPhoneNumber());
+        System.out.println("Address: " + provider.getAddress());
     }
-
+    
 }

@@ -1,8 +1,4 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 import ec.edu.espe.purchaseandsalesrecord.model.*;
 import java.io.*;
 import java.nio.file.*;
@@ -14,21 +10,16 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
-<<<<<<< HEAD
-public class InventoryManagement {
-
+public class InventoryManagement {    
+    
     private static final String invoices = "invoices";
     private static final String products = "clothing";
     private static final String providers = "providers";
-    private static final String clients = "clients";
+    private static final String clients = "clients";   
 
     private static final String clientsCsv = "./clients.csv";
     private static final String providersCsv = "./providers.csv";
@@ -36,34 +27,14 @@ public class InventoryManagement {
     private static final String invoiceCsv = "./invoices.csv";
 
     private static final char delimiter = ';';
-
-=======
-public class InventoryManagement {    
-    
-    private static final String INVOICES = "invoices";
-    private static final String PRODUCTS = "clothing";
-    private static final String PROVIDERS = "providers";
-    private static final String CLIENTS = "clients";   
-
-    private static final String CLIENTS_CSV = "./clients.csv";
-    private static final String PROVIDERS_CSV = "./providers.csv";
-    private static final String CLOTHING_CSV = "./clothing.csv";
-    private static final String INVOICE_CSV = "./invoices.csv";
-
-    private static final char DELIMITER = ';';
       
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
     public Map<String, Object> loadData() {
         List<Client> clients = null;
         List<Provider> providers = null;
         List<Clothing> clothings = null;
         List<Invoice> invoices = null;
 
-<<<<<<< HEAD
         Path filePath = Paths.get(clientsCsv);
-=======
-        Path filePath = Paths.get(CLIENTS_CSV);
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
         if (Files.exists(filePath)) {
             clients = new ArrayList<>();
@@ -73,11 +44,7 @@ public class InventoryManagement {
                 final CSVParser csvParser = new CSVParser(reader,
                         CSVFormat.DEFAULT
                                 .withHeader("cedula", "names", "surnames", "phoneNumber", "address", "email")
-<<<<<<< HEAD
                                 .withDelimiter(delimiter));
-=======
-                                .withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 Client client;
 
@@ -97,11 +64,7 @@ public class InventoryManagement {
             }
         }
 
-<<<<<<< HEAD
         filePath = Paths.get(providersCsv);
-=======
-        filePath = Paths.get(PROVIDERS_CSV);
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
         if (Files.exists(filePath)) {
             providers = new ArrayList<>();
@@ -109,11 +72,7 @@ public class InventoryManagement {
             try {
                 final Reader reader = Files.newBufferedReader(filePath);
                 final CSVParser csvParser = new CSVParser(reader,
-<<<<<<< HEAD
                         CSVFormat.DEFAULT.withHeader("id", "names", "phoneNumber", "address").withDelimiter(delimiter));
-=======
-                        CSVFormat.DEFAULT.withHeader("id", "names", "phoneNumber", "address").withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 Provider provider;
 
@@ -133,11 +92,7 @@ public class InventoryManagement {
             }
         }
 
-<<<<<<< HEAD
         filePath = Paths.get(clothingCsv);
-=======
-        filePath = Paths.get(CLOTHING_CSV);
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
         if (Files.exists(filePath)) {
             clothings = new ArrayList<>();
@@ -146,12 +101,8 @@ public class InventoryManagement {
                 final Reader reader = Files.newBufferedReader(filePath);
                 final CSVParser csvParser = new CSVParser(reader,
                         CSVFormat.DEFAULT.withHeader("id", "name", "description", "purchasePrice", "salePrice",
-<<<<<<< HEAD
                                 "quantity", "quantityMinimumStock", "idProvider").withDelimiter(delimiter));
-=======
-                                "quantity", "quantityMinimumStock", "idProvider").withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
-
+                                
                 Clothing producto;
 
                 final List<CSVRecord> registros = csvParser.getRecords().stream().filter(r -> r.getRecordNumber() != 1)
@@ -178,11 +129,7 @@ public class InventoryManagement {
             }
         }
 
-<<<<<<< HEAD
         filePath = Paths.get(invoiceCsv);
-=======
-        filePath = Paths.get(INVOICE_CSV);
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
         if (Files.exists(filePath)) {
             invoices = new ArrayList<>();
@@ -192,11 +139,7 @@ public class InventoryManagement {
                 final CSVParser csvParser = new CSVParser(reader,
                         CSVFormat.DEFAULT
                                 .withHeader("id", "date", "cedulaClient", "tax", "total", "idsClothing")
-<<<<<<< HEAD
                                 .withDelimiter(delimiter));
-=======
-                                .withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 Invoice invoice;
 
@@ -229,43 +172,28 @@ public class InventoryManagement {
             }
         }
 
-        final Map<String, Object> inventario = new HashMap<>();
-<<<<<<< HEAD
-        inventario.put(InventoryManagement.clients, clients);
-        inventario.put(InventoryManagement.providers, providers);
-        inventario.put(products, clothings);
-        inventario.put(InventoryManagement.invoices, invoices);
-=======
-        inventario.put(CLIENTS, clients);
-        inventario.put(PROVIDERS, providers);
-        inventario.put(PRODUCTS, clothings);
-        inventario.put(INVOICES, invoices);
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
+        final Map<String, Object> inventory = new HashMap<>();
+        inventory.put(InventoryManagement.clients, clients);
+        inventory.put(InventoryManagement.providers, providers);
+        inventory.put(products, clothings);
+        inventory.put(InventoryManagement.invoices, invoices);
 
-        return inventario;
+        return inventory;
     }
 
     public void saveInventoryData(final List<Client> clients, final List<Provider> providers,
             final List<Clothing> clothings, final List<Invoice> invoices) {
 
         try {
-<<<<<<< HEAD
             final BufferedWriter writer = Files.newBufferedWriter(Paths.get(clientsCsv));
 
             final CSVPrinter csvPrinter = new CSVPrinter(writer,
                     CSVFormat.DEFAULT.withHeader("cedula", "names", "surnames", "phoneNumber", "address", "email")
                             .withDelimiter(delimiter));
-=======
-            final BufferedWriter writer = Files.newBufferedWriter(Paths.get(CLIENTS_CSV));
-
-            final CSVPrinter csvPrinter = new CSVPrinter(writer,
-                    CSVFormat.DEFAULT.withHeader("cedula", "names", "surnames", "phoneNumber", "address", "email")
-                            .withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
             for (final Client c : clients) {
-                csvPrinter.printRecord(c.getCedula(), c.getNames(), c.getLastName(), c.getPhone(),
-                        c.getDirection(), c.getEmail());
+                csvPrinter.printRecord(c.getCedula(), c.getNames(), c.getLastName(), c.getPhoneNumber(),
+                        c.getAddress(), c.getEmail());
             }
 
             csvPrinter.flush();
@@ -277,20 +205,13 @@ public class InventoryManagement {
 
         if (!providers.isEmpty()) {
             try {
-<<<<<<< HEAD
                 final BufferedWriter writer = Files.newBufferedWriter(Paths.get(providersCsv));
 
                 final CSVPrinter csvPrinter = new CSVPrinter(writer,
                         CSVFormat.DEFAULT.withHeader("id", "name", "phoneNumber", "address").withDelimiter(delimiter));
-=======
-                final BufferedWriter writer = Files.newBufferedWriter(Paths.get(PROVIDERS_CSV));
-
-                final CSVPrinter csvPrinter = new CSVPrinter(writer,
-                        CSVFormat.DEFAULT.withHeader("id", "name", "phoneNumber", "address").withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 for (final Provider p : providers) {
-                    csvPrinter.printRecord(p.getId(), p.getName(), p.getPhone(), p.getDirection());
+                    csvPrinter.printRecord(p.getId(), p.getName(), p.getPhoneNumber(), p.getAddress());
                 }
 
                 csvPrinter.flush();
@@ -303,23 +224,15 @@ public class InventoryManagement {
 
         if (!clothings.isEmpty()) {
             try {
-<<<<<<< HEAD
                 final BufferedWriter writer = Files.newBufferedWriter(Paths.get(clothingCsv));
 
                 final CSVPrinter csvPrinter = new CSVPrinter(writer,
                         CSVFormat.DEFAULT.withHeader("id", "name", "description", "purchasePrice", "salePrice",
                                 "quantity", "quantityMinimumStock", "idProvider").withDelimiter(delimiter));
-=======
-                final BufferedWriter writer = Files.newBufferedWriter(Paths.get(CLOTHING_CSV));
-
-                final CSVPrinter csvPrinter = new CSVPrinter(writer,
-                        CSVFormat.DEFAULT.withHeader("id", "name", "description", "purchasePrice", "salePrice",
-                                "quantity", "quantityMinimumStock", "idProvider").withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 for (final Clothing p : clothings) {
                     csvPrinter.printRecord(p.getId(), p.getName(), p.getDescription(), p.getPurchasePrice(),
-                            p.getSalePrice(), p.getQuantity(), p.getQuantityMinimaStock(), p.getIdProvider());
+                            p.getSalePrice(), p.getQuantity(), p.getQuantityMinimumStock(), p.getIdProvider());
                 }
 
                 csvPrinter.flush();
@@ -332,20 +245,12 @@ public class InventoryManagement {
 
         if (!invoices.isEmpty()) {
             try {
-<<<<<<< HEAD
                 final BufferedWriter writer = Files.newBufferedWriter(Paths.get(invoiceCsv));
-=======
-                final BufferedWriter writer = Files.newBufferedWriter(Paths.get(INVOICE_CSV));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 final CSVPrinter csvPrinter = new CSVPrinter(writer,
                         CSVFormat.DEFAULT
                                 .withHeader("id", "date", "cedulaClient", "tax", "total", "idsClothing")
-<<<<<<< HEAD
                                 .withDelimiter(delimiter));
-=======
-                                .withDelimiter(DELIMITER));
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 
                 final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -362,9 +267,5 @@ public class InventoryManagement {
             }
         }
     }
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 }

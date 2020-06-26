@@ -54,7 +54,7 @@ public class AdminMenu {
 
     }
 
-    public boolean Login() {
+    public boolean Login() {        
         String auxuser = "";
         String auxpassword = "";
         int attemps = 1;
@@ -98,7 +98,7 @@ public class AdminMenu {
                 }
 
             } catch (IOException e) {
-
+                
             }
 
         } while (attemps < 4);
@@ -111,40 +111,43 @@ public class AdminMenu {
         }
     }
 
+
+
     public void FirstLogin() {
         File file;
         FileWriter write;
-        AdminMenu adminMenu = new AdminMenu();
+        AdminMenu adminMenu = new AdminMenu(); 
 
         try {
-            file = new File("firstlogin.txt");
-            write = new FileWriter(file);
+            file = new File ("firstlogin.txt");
+            write = new FileWriter(file);            
             write.write("1");
-            write.close();
-            System.out.println("Welcome to the system!\n"
-                    + "This is the first time you enter the system, so we need you to create your username and password.\n"
-                    + "This message will only appear once.");
+            write.close();           
+            System.out.println("Welcome to the system!\n" +
+            "This is the first time you enter the system, so we need you to create your username and password.\n" +
+            "This message will only appear once.");
             adminMenu.CreateAdmin();
-        } catch (IOException e) {
-
+        }
+        catch(IOException e){
+            
         }
     }
 
-    public void ComprobationFirstLogin() {
+    public void ComprobationFirstLogin(){
         FileReader fr;
         BufferedReader bf;
-
+        
         try {
             fr = new FileReader("firstlogin.txt");
             bf = new BufferedReader(fr);
-            String line;
+            String line;  
             String first = "0";
             line = bf.readLine();
-            if (line.equals(first)) {
+            if (line.equals(first)){
                 FirstLogin();
             }
         } catch (IOException e) {
-
+            
         }
     }
 
@@ -171,5 +174,5 @@ public class AdminMenu {
         System.out.println("1. Create");
         System.out.println("2. Search");
         System.out.println("0. Exit");
-    }
+    }    
 }

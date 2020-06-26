@@ -1,16 +1,10 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
-
 import java.util.Scanner;
-<<<<<<< HEAD
-
-=======
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
 /**
  *
  * @author Duke's Children
  */
 public class Validations {
-
     public static Scanner scanner;
 
     public String catchStringCharacters(String message) {
@@ -74,8 +68,4 @@ public class Validations {
         System.out.printf(message);
         System.out.println();
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 1891c9580d32830d0ae304665d7260a3b26a302b
