@@ -12,7 +12,7 @@ public class Validations {
         String result;
         while (true) {
             System.out.printf("%s: ", message);
-            result = scanner.nextLine().strip();
+            result = scanner.nextLine();
 
             if (!result.isEmpty()) {
                 return result;
