@@ -157,9 +157,11 @@ public class InvoiceManagement {
 
         System.out.println("Clothing purchased:");
 
-        Clothing clothing;
-        ClothingManagement clothingManagement = new ClothingManagement();
+                    
+
         for (final Integer id : invoice.getIdsClothings()) {
+            ClothingManagement clothingManagement = new ClothingManagement();
+            Clothing clothing;
             clothing = clothingManagement.searchClothingById(clothings, id);
 
             System.out.println("ID: " + id);

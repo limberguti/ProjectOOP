@@ -21,10 +21,10 @@ public class InventoryManagement {
     private static final String providers = "providers";
     private static final String clients = "clients";   
 
-    private static final String clientsCsv = "./clients.csv";
-    private static final String providersCsv = "./providers.csv";
-    private static final String clothingCsv = "./clothing.csv";
-    private static final String invoiceCsv = "./invoices.csv";
+    private static final String clientsCsv = "data/clients.csv";
+    private static final String providersCsv = "data/providers.csv";
+    private static final String clothingCsv = "data/clothing.csv";
+    private static final String invoiceCsv = "data/invoices.csv";
 
     private static final char delimiter = ';';
       

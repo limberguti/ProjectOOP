@@ -25,7 +25,7 @@ public class AdminMenu {
         Scanner scanner = new Scanner(System.in);
         aux = new Admin();
 
-        try (FileWriter writer = new FileWriter(new File("Users.csv"), true)) {
+        try (FileWriter writer = new FileWriter(new File("data/Users.csv"), true)) {
 
             System.out.println("Create your user: ");
             user = scanner.nextLine();
@@ -71,7 +71,7 @@ public class AdminMenu {
             auxpassword = scanner.nextLine();
 
             try {
-                BufferedReader bufferLectura = new BufferedReader(new FileReader("Users.csv"));
+                BufferedReader bufferLectura = new BufferedReader(new FileReader("data/Users.csv"));
                 String linea = bufferLectura.readLine();
 
                 while (linea != null) {
