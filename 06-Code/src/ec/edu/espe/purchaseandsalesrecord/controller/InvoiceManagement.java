@@ -6,12 +6,13 @@ import ec.edu.espe.purchaseandsalesrecord.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecord.model.Invoice;
 /**
  *
- * @author Duke's Children
+ * @author Duke's Children, Jhonatan Lituma
  */
 public class InvoiceManagement {
 
     Validations validation = new Validations(); 
     private static final int exit = 0;
+    private Invoive invoice;
     
     public Invoice createInvoice(final List<Client> clients, final List<Clothing> clothings, final List<Invoice> invoices) {
         System.out.println();
@@ -157,9 +158,11 @@ public class InvoiceManagement {
 
         System.out.println("Clothing purchased:");
 
-        Clothing clothing;
-        ClothingManagement clothingManagement = new ClothingManagement();
+                    
+
         for (final Integer id : invoice.getIdsClothings()) {
+            ClothingManagement clothingManagement = new ClothingManagement();
+            Clothing clothing;
             clothing = clothingManagement.searchClothingById(clothings, id);
 
             System.out.println("ID: " + id);
