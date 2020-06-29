@@ -1,6 +1,7 @@
 package ec.edu.espe.purchaseandsalesrecord.controller;
 
 import ec.edu.espe.purchaseandsalesrecord.model.Admin;
+import ec.edu.espe.purchaseandsalesrecord.utils.Encryption;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,14 +20,14 @@ public class AdminMenu {
         Admin aux;
         String user;
         String password;
-
+        String finalPassword;
+        String auxfinalPassword;//borrar
         ArrayList<Admin> admins = new ArrayList();
-
         Scanner scanner = new Scanner(System.in);
+        Encryption encryption = new Encryption();
         aux = new Admin();
 
         try (FileWriter writer = new FileWriter(new File("data/Users.csv"), true)) {
-
             System.out.println("Create your user: ");
             user = scanner.nextLine();
             aux.setUser(user);
@@ -34,20 +35,21 @@ public class AdminMenu {
             System.out.println("Create your password: ");
             password = scanner.nextLine();
             aux.setPassword(password);
-
+            
+            finalPassword=encryption.codePassword(password);           
+            
             admins.add(aux);
-
             StringBuilder sb = new StringBuilder();
 
             sb.append(aux.getUser());
             sb.append(';');
-            sb.append(aux.getPassword());
+            sb.append(finalPassword);
             sb.append('\n');
 
-            writer.write(sb.toString());
-            writer.close();
+            writer.write(sb.toString());            
             writer.flush();
-
+            writer.close();
+            
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -57,10 +59,12 @@ public class AdminMenu {
     public boolean Login() {        
         String auxuser = "";
         String auxpassword = "";
+        String finalpassword = "";
         int attemps = 1;
         int size = 0;
         String SEPARADOR = ";";
         boolean find = false;
+        Encryption encryption = new Encryption();
 
         do {
             Scanner scanner = new Scanner(System.in);
@@ -69,25 +73,25 @@ public class AdminMenu {
             auxuser = scanner.nextLine();
             System.out.print("Enter your password: ");
             auxpassword = scanner.nextLine();
-
+          
             try {
                 BufferedReader bufferLectura = new BufferedReader(new FileReader("data/Users.csv"));
                 String linea = bufferLectura.readLine();
 
                 while (linea != null) {
-                    String[] users = linea.split(SEPARADOR);
+                    String[] users = linea.split(SEPARADOR);            
                     linea = bufferLectura.readLine();
                     size = users.length;
                     for (int i = 0; i < size; i++) {
-                        if (users[i].equals(auxuser) && users[i + 1].equals(auxpassword)) {
+                        if (users[i].equals(auxuser) && encryption.decipherCode(users[i + 1]).equals(auxpassword)) {
                             find = true;
+                            finalpassword=users[i + 1];
                         } else {
                             i++;
                         }
                     }
 
                 }
-
                 if (find == true) {
                     System.out.println("Welcome!");
                     attemps = 5;
@@ -119,7 +123,7 @@ public class AdminMenu {
         AdminMenu adminMenu = new AdminMenu(); 
 
         try {
-            file = new File ("firstlogin.txt");
+            file = new File ("data/firstlogin.txt");
             write = new FileWriter(file);            
             write.write("1");
             write.close();           
@@ -138,7 +142,7 @@ public class AdminMenu {
         BufferedReader bf;
         
         try {
-            fr = new FileReader("firstlogin.txt");
+            fr = new FileReader("data/firstlogin.txt");
             bf = new BufferedReader(fr);
             String line;  
             String first = "0";

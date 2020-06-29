@@ -12,7 +12,7 @@ public class InvoiceManagement {
 
     Validations validation = new Validations(); 
     private static final int exit = 0;
-    private Invoive invoice;
+    private Invoice invoice;
     
     public Invoice createInvoice(final List<Client> clients, final List<Clothing> clothings, final List<Invoice> invoices) {
         System.out.println();

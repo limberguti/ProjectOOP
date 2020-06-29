@@ -3,14 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/jhona/Documents/Project/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/view/Main.java</file>
-            <file>file:/C:/Users/jhona/Documents/Project/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/controller/ClothingManagement.java</file>
-            <file>file:/C:/Users/jhona/Documents/Project/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/controller/InvoiceManagement.java</file>
-=======
-            <file>file:/Users/edisonlascano/Desktop/Dropbox/ESPE/2020Marzo_Julio/POO_6385/code/Unit1Projects/Team2_DCH/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/model/Invoice.java</file>
-            <file>file:/Users/edisonlascano/Desktop/Dropbox/ESPE/2020Marzo_Julio/POO_6385/code/Unit1Projects/Team2_DCH/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/controller/InvoiceManagement.java</file>
->>>>>>> daa248d244ee19d49e2fc9f07d458dd4b6dc628b
+            <file>file:/C:/Users/jhona/Documents/Project/ProjectOOP/06-Code/src/ec/edu/espe/purchaseandsalesrecord/controller/AdminMenu.java</file>
         </group>
     </open-files>
 </project-private>
