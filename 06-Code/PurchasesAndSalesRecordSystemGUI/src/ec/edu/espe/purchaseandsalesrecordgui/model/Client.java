@@ -7,7 +7,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
 
 /**
  *
- * @author Jhonatan Lituma
+ * @author Andrés López
  */
 public class Client {
 
