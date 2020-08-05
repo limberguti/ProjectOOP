@@ -37,6 +37,8 @@ public class FRMDeleteClient extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setToolTipText("");
+
         jlbDeleteClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/deleteClientTitle.png"))); // NOI18N
         jlbDeleteClient.setText("Delete Client");
 

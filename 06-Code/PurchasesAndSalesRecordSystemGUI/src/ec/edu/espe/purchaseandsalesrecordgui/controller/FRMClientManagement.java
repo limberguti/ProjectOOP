@@ -37,6 +37,7 @@ public class FRMClientManagement extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Purchase and Sales Record");
 
         btnSearchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClient.png"))); // NOI18N
         btnSearchClient.setText("Search");

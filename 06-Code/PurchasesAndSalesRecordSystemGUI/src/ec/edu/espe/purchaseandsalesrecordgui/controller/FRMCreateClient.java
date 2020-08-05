@@ -54,6 +54,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
         jlbCreateClientTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Purchase and Sales Record");
 
         pnl.setPreferredSize(new java.awt.Dimension(705, 465));
 
@@ -142,7 +143,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                         .addComponent(btnEmptyFields)
                         .addGap(100, 100, 100)
                         .addComponent(btnReturn)
