@@ -5,13 +5,9 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -23,35 +19,31 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FRMInvoiceCreate extends javax.swing.JFrame {
 
-    private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+    private DefaultComboBoxModel<Client> model= new DefaultComboBoxModel<Client>();
     private DefaultTableModel modelTable = new DefaultTableModel();
-
     /**
      * Creates new form Aplication
      */
     public FRMInvoiceCreate() {
         completeModelComboBox();
+        completeModelTable();
         initComponents();
         setLocationRelativeTo(null);
     }
-
-    private void completeModelComboBox() {
-        ArrayList<Client> clients = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read("clients.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-        //System.out.println(json);
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
-        }.getType();
-        clients = gson.fromJson(json, clientType);
-        for (Client client : clients) {
-            model.addElement(client.getCedula());
-        }
-
+    
+    private void completeModelComboBox(){
+        model.addElement(new Client("1710234333", "Jhonatan", "Lituma", "0995863889", "Chill City", "jhonata@hotmail.com"));
+        /*model.addElement(new Client("1710234333","Mateo","Castilo","0987654563"));
+        model.addElement(new Client("1710436235","Juan","Bazurita","0987324121"));
+        model.addElement(new Client("1710723457","Armando","Paredes","0987987654"));*/
+    }
+    
+    private void completeModelTable(){
+        modelTable.addColumn("Cedula");
+        modelTable.addColumn("Name");
+        modelTable.addColumn("Last Name");
+        modelTable.addColumn("CellPhone");
+        
     }
 
     /**
@@ -65,6 +57,9 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         cmbPersons = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableData = new javax.swing.JTable();
+        jSeparator1 = new javax.swing.JSeparator();
         buttonShowData = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
@@ -93,6 +88,32 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
         jLabel1.setText("Cedula:");
 
         cmbPersons.setModel(model);
+        cmbPersons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPersonsActionPerformed(evt);
+            }
+        });
+
+        tableData.setModel(modelTable);
+        ListSelectionListener listSelectionListener = new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e){
+                if(e.getValueIsAdjusting()){
+                    int rowSelected = tableData.getSelectedRow();
+                    String cedula = (String) tableData.getValueAt(rowSelected, 0);
+                    String name = (String) tableData.getValueAt(rowSelected, 1);
+                    String lastName = (String) tableData.getValueAt(rowSelected, 2);
+                    String cellphone = (String) tableData.getValueAt(rowSelected, 3);
+
+                    txtCedula.setText(cedula);
+                    txtName.setText(name);
+                    txtLastName.setText(lastName);
+                    txtCellphone.setText(cellphone);
+                }
+            }
+        };
+        tableData.getSelectionModel().addListSelectionListener(listSelectionListener);
+        jScrollPane1.setViewportView(tableData);
 
         buttonShowData.setText("Show Data");
         buttonShowData.addActionListener(new java.awt.event.ActionListener() {
@@ -118,12 +139,6 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Last Name:");
-
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Pants");
 
@@ -225,20 +240,24 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
                     .addComponent(cmbPersons, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(282, 282, 282))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(315, 315, 315)
-                    .addComponent(buttonShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(buttonShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(48, 48, 48)))
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(71, 71, 71)
                         .addComponent(jButton1)
                         .addGap(71, 71, 71)
                         .addComponent(cleanButton)
                         .addGap(62, 62, 62)
                         .addComponent(cancelButton))
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,14 +268,18 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
                     .addComponent(buttonShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbPersons, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(cleanButton)
                     .addComponent(cancelButton))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(78, 78, 78))
         );
 
         pack();
@@ -264,32 +287,25 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
 
     private void buttonShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowDataActionPerformed
         // TODO add your handling code here:
-        ArrayList<Client> clients = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read("clients.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-        //System.out.println(json);
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
-        }.getType();
-        clients = gson.fromJson(json, clientType);
-        for (Client client : clients) {
-            model.addElement(client.getCedula());
-        }
+        Client person = (Client) cmbPersons.getSelectedItem();
         
+        String cedula = person.getCedula();
+        String name = person.getName();
+        String lastName = person.getLastName();
+        String cellPhone = person.getCellphone();
+        
+        String [] persons = {cedula,name,lastName,cellPhone};
+        modelTable.addRow(persons);
     }//GEN-LAST:event_buttonShowDataActionPerformed
 
     private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
         // TODO add your handling code here:
-
+        
         JTextField box;
-        for (int i = 0; i < panel.getComponentCount(); i++) {
-            if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-                box = (JTextField) panel.getComponent(i);
-                box.setText("");
+        for(int i=0; i<panel.getComponentCount();i++){
+            if(panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")){
+            box=(JTextField) panel.getComponent(i);
+            box.setText("");
             }
         }
     }//GEN-LAST:event_cleanButtonActionPerformed
@@ -301,9 +317,9 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+    private void cmbPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
+    }//GEN-LAST:event_cmbPersonsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,7 +363,7 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
     private javax.swing.JButton buttonShowData;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cleanButton;
-    private javax.swing.JComboBox<String> cmbPersons;
+    private javax.swing.JComboBox<Client> cmbPersons;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -361,7 +377,10 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panel;
+    private javax.swing.JTable tableData;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCellphone;
     private javax.swing.JTextField txtLastName;
