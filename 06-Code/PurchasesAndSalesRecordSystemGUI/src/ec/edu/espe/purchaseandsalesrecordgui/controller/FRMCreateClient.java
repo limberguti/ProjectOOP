@@ -1,6 +1,6 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template fileReader, choose Tools | Templates
  * and open the template in the editor.
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
@@ -8,9 +8,15 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -219,29 +225,36 @@ public class FRMCreateClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Client client = new Client();
-        ArrayList<Client> clients = new ArrayList<>();
 
-        client.setCedula(txtCedula.getText());
-        client.setName(txtName.getText());
-        client.setLastName(txtLastName.getText());
-        client.setCellphone(txtCellphone.getText());
-        client.setAddress(txtAddress.getText());
-        client.setEmail(txtEmail.getText());
-        client.setEmail(txtEmail.getText());
-
-        clients.add(client);
-
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(clients);
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
+        String filePath = "clients.json";
 
         try {
-            String filePath = "clients.json";
-            FileManager.createFile(filePath);
-            FileManager.writeRecord(jsonString, filePath);
-        } catch (IOException ex) {
-
+            FileReader fileReader = new FileReader(filePath);
+            jsonArray = (JSONArray) jsonParser.parse(fileReader);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred");
         }
+
+        jsonObject.put("cedula", txtCedula.getText());
+        jsonObject.put("name", txtName.getText());
+        jsonObject.put("lastName", txtLastName.getText());
+        jsonObject.put("cellphone", txtCellphone.getText());
+        jsonObject.put("address", txtAddress.getText());
+        jsonObject.put("email", txtEmail.getText());
+
+        jsonArray.add(jsonObject);
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(jsonArray.toJSONString());
+            fileWriter.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred");
+        }
+        JOptionPane.showMessageDialog(null, "Data saved");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**

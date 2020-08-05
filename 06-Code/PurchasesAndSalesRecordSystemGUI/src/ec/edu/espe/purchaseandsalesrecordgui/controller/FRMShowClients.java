@@ -5,6 +5,15 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,24 +23,46 @@ import javax.swing.table.DefaultTableModel;
 public class FRMShowClients extends javax.swing.JFrame {
 
     DefaultTableModel tableModel = new DefaultTableModel();
-    
+
     /**
      * Creates new form FrmShowClients
      */
-    public FRMShowClients() {
+    public FRMShowClients() throws IOException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel(){
+    private void loadTableModel() throws IOException {
         tableModel.addColumn("Cedula");
         tableModel.addColumn("Name");
         tableModel.addColumn("Last Name");
         tableModel.addColumn("Cellphone");
         tableModel.addColumn("Address");
         tableModel.addColumn("Email");
-        
+
+        fillTable();
+    }
+
+    private void fillTable() throws IOException {
+        ArrayList<Client> clients = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+
+        try {
+            json = FileManager.read("clients.json");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+        }
+
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        }.getType();
+        clients = gson.fromJson(json, clientType);
+
+        for (Client client : clients) {
+            String[] rowClients = {client.getCedula(), client.getName(), client.getLastName(), client.getCellphone(), client.getAddress(), client.getEmail()};
+            tableModel.addRow(rowClients);
+        }
     }
 
     /**
@@ -76,11 +107,11 @@ public class FRMShowClients extends javax.swing.JFrame {
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addGap(209, 209, 209)
+                        .addGap(358, 358, 358)
                         .addComponent(jlbShowClients)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +184,11 @@ public class FRMShowClients extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMShowClients().setVisible(true);
+                try {
+                    new FRMShowClients().setVisible(true);
+                } catch (IOException ex) {
+
+                }
             }
         });
     }

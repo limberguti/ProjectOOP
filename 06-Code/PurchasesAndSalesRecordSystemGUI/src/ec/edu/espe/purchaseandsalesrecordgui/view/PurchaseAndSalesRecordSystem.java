@@ -1,12 +1,11 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * To change this template fileReader, choose Tools | Templates
  * and open the template in the editor.
  */
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FRMMenuOption;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
@@ -15,8 +14,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -28,8 +25,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     /**
      * Creates new form PurchaseAndSalesRecordSystem
      */
-    JSONArray jrr= new JSONArray();
-    
+    JSONArray jsonArray = new JSONArray();
+
     public PurchaseAndSalesRecordSystem() {
         initComponents();
         setLocationRelativeTo(null);
@@ -99,29 +96,28 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogin)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnRegister)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLogin)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnRegister)
                                 .addGap(42, 42, 42)
-                                .addComponent(btnDelete)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                                .addComponent(btnDelete))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(jTextField1))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,102 +145,97 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        FRMMenuOption menu = new FRMMenuOption();
-            menu.setVisible(true);
-            dispose();
-        
-            JSONArray jrr=new JSONArray();
-            Object ob = null;
-            JSONParser Jp= new JSONParser();
-            
-            //fetch file ---
-            try {
-                FileReader file=new FileReader("UserData.json");
-                ob=Jp.parse(file);
-                jrr=(JSONArray) ob;
-                file.close();
-                
-                
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null,"Error ocurred while fetching");
-                
-            } catch (ParseException ex) {
-            
+        JSONArray jsonArray = new JSONArray();
+        Object object = null;
+        JSONParser jsonParser = new JSONParser();
+
+        //fetch fileReader ---
+        try {
+            FileReader fileReader = new FileReader("UserData.json");
+            object = jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) object;
+            fileReader.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred while fetching");
+
+        } catch (ParseException ex) {
+
         }
-            
-            JSONObject obj = new JSONObject();
-        
-        int size=jrr.size();
-       
-        obj.put("Username",jTextField1.getText());
-        obj.put("Password",jPasswordField1.getText());
-        for(int i=0;i<size;i++){
-            if(obj.equals(jrr.get(i))){
-            JOptionPane.showMessageDialog(null,"Password Matched");
-            break;
-            
-        }else if(i==size-1){
-            JOptionPane.showMessageDialog(null,"Incorret User/Password ");
-            
-        }
-            
-        }
-        
+            JSONObject jsonObject = new JSONObject();
+
+            int size = jsonArray.size();
+
+            jsonObject.put("username", jTextField1.getText());
+            jsonObject.put("password", jPasswordField1.getText());
+            for (int i = 0; i < size; i++) {
+                if (jsonObject.equals(jsonArray.get(i))) {
+                    JOptionPane.showMessageDialog(null, "Password Matched");
+                    FRMMenuOption frmMenuOption = new FRMMenuOption();
+                    frmMenuOption.setVisible(true);
+                    dispose();
+                    //break;
+                } else if (i == size - 1) {
+                    JOptionPane.showMessageDialog(null, "Incorret User/Password ");
+                    this.setVisible(true);
+                }
+            }
     }//GEN-LAST:event_btnLoginActionPerformed
+    
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        JSONObject obj = new JSONObject();
-        JSONArray jrr= new JSONArray();
-        JSONParser jp= new JSONParser();
-         try{
-             FileReader file = new FileReader("UserData.json");
-             jrr=(JSONArray) jp.parse(file);
-         }catch(Exception ex){
-             JOptionPane.showMessageDialog(null,"Error ocurred");
-         }
-        
-        obj.put("Username",jTextField1.getText());
-        obj.put("Password",jPasswordField1.getText());
-        jrr.add(obj);
-          try {
-                FileWriter file=new FileWriter("UserData.json");
-                file.write(jrr.toJSONString());
-                file.close();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"Error ocurred");
-                
-            }
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
+        try {
+            FileReader fileReader = new FileReader("UserData.json");
+            jsonArray = (JSONArray) jsonParser.parse(fileReader);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred");
+        }
+
+        jsonObject.put("username", jTextField1.getText());
+        jsonObject.put("password", jPasswordField1.getText());
+        jsonArray.add(jsonObject);
+        try {
+            FileWriter fileWriter = new FileWriter("UserData.json");
+            fileWriter.write(jsonArray.toJSONString());
+            fileWriter.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error ocurred");
+
+        }
         JOptionPane.showMessageDialog(null, "Data saved");
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        JSONObject obj = new JSONObject();
-        int size=jrr.size();
-       
-        obj.put("Username",jTextField1.getText());
-        obj.put("Password",jPasswordField1.getText());
-        for(int i=0;i<size;i++){
-            if(obj.equals(jrr.get(0))){
+        JSONObject jsonObject = new JSONObject();
+        int size = jsonArray.size();
+
+        jsonObject.put("username", jTextField1.getText());
+        jsonObject.put("password", jPasswordField1.getText());
+        for (int i = 0; i < size; i++) {
+            if (jsonObject.equals(jsonArray.get(0))) {
                 try {
-                FileWriter file=new FileWriter("UserData.json");
-                jrr.remove(i);
-                file.write(jrr.toJSONString());
-                file.close();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null,"Error ocurred");
-                
+                    FileWriter fileWriter = new FileWriter("UserData.json");
+                    jsonArray.remove(i);
+                    fileWriter.write(jsonArray.toJSONString());
+                    fileWriter.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error ocurred");
+
+                }
+                jsonArray.remove(i);
+                JOptionPane.showMessageDialog(null, "Data Remove");
+                break;
+
+            } else if (i == size - 1) {
+                JOptionPane.showMessageDialog(null, "Incorret User/Password ");
+
             }
-                jrr.remove(i);
-            JOptionPane.showMessageDialog(null,"Data Remove");
-            break;
-            
-        }else if(i==size-1){
-            JOptionPane.showMessageDialog(null,"Incorret User/Password ");
-            
-        }
-            
+
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
