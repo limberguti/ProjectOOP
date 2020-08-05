@@ -6,16 +6,30 @@
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FRMMenuOption;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import javax.swing.JOptionPane;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author Jhonatan Lituma
+ * @author Jonathan Maigua
  */
 public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
     /**
      * Creates new form PurchaseAndSalesRecordSystem
      */
+    JSONArray jrr= new JSONArray();
+    
     public PurchaseAndSalesRecordSystem() {
         initComponents();
         setLocationRelativeTo(null);
@@ -36,7 +50,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Duke's Children");
@@ -64,31 +79,49 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        jButton2.setText("Forgot your password?");
+        btnDelete.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(btnLogin)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLogin)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnRegister)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(btnDelete)))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,8 +139,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
-                    .addComponent(jButton2))
-                .addContainerGap(78, Short.MAX_VALUE))
+                    .addComponent(btnDelete)
+                    .addComponent(btnRegister))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,9 +150,103 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         FRMMenuOption menu = new FRMMenuOption();
-        menu.setVisible(true);
-        dispose();
+            menu.setVisible(true);
+            dispose();
+        
+            JSONArray jrr=new JSONArray();
+            Object ob = null;
+            JSONParser Jp= new JSONParser();
+            
+            //fetch file ---
+            try {
+                FileReader file=new FileReader("UserData.json");
+                ob=Jp.parse(file);
+                jrr=(JSONArray) ob;
+                file.close();
+                
+                
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null,"Error ocurred while fetching");
+                
+            } catch (ParseException ex) {
+            
+        }
+            
+            JSONObject obj = new JSONObject();
+        
+        int size=jrr.size();
+       
+        obj.put("Username",jTextField1.getText());
+        obj.put("Password",jPasswordField1.getText());
+        for(int i=0;i<size;i++){
+            if(obj.equals(jrr.get(i))){
+            JOptionPane.showMessageDialog(null,"Password Matched");
+            break;
+            
+        }else if(i==size-1){
+            JOptionPane.showMessageDialog(null,"Incorret User/Password ");
+            
+        }
+            
+        }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+        JSONObject obj = new JSONObject();
+        JSONArray jrr= new JSONArray();
+        JSONParser jp= new JSONParser();
+         try{
+             FileReader file = new FileReader("UserData.json");
+             jrr=(JSONArray) jp.parse(file);
+         }catch(Exception ex){
+             JOptionPane.showMessageDialog(null,"Error ocurred");
+         }
+        
+        obj.put("Username",jTextField1.getText());
+        obj.put("Password",jPasswordField1.getText());
+        jrr.add(obj);
+          try {
+                FileWriter file=new FileWriter("UserData.json");
+                file.write(jrr.toJSONString());
+                file.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null,"Error ocurred");
+                
+            }
+        JOptionPane.showMessageDialog(null, "Data saved");
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        JSONObject obj = new JSONObject();
+        int size=jrr.size();
+       
+        obj.put("Username",jTextField1.getText());
+        obj.put("Password",jPasswordField1.getText());
+        for(int i=0;i<size;i++){
+            if(obj.equals(jrr.get(0))){
+                try {
+                FileWriter file=new FileWriter("UserData.json");
+                jrr.remove(i);
+                file.write(jrr.toJSONString());
+                file.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null,"Error ocurred");
+                
+            }
+                jrr.remove(i);
+            JOptionPane.showMessageDialog(null,"Data Remove");
+            break;
+            
+        }else if(i==size-1){
+            JOptionPane.showMessageDialog(null,"Incorret User/Password ");
+            
+        }
+            
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,8 +284,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
