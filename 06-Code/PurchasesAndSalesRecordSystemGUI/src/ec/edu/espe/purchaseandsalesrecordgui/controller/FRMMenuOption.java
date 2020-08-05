@@ -43,6 +43,11 @@ public class FRMMenuOption extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Client");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Inventory");
@@ -51,7 +56,7 @@ public class FRMMenuOption extends javax.swing.JFrame {
         jMenu4.setText("Providers");
         jMenuBar1.add(jMenu4);
 
-        jMenu6.setText("Ivoices");
+        jMenu6.setText("Invoices");
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu6MouseClicked(evt);
@@ -80,6 +85,11 @@ public class FRMMenuOption extends javax.swing.JFrame {
         FRMInvoiceManagement invoices = new FRMInvoiceManagement();
         invoices.setVisible(true);
     }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        this.setVisible(false);
+        new FRMClientManagement().setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
