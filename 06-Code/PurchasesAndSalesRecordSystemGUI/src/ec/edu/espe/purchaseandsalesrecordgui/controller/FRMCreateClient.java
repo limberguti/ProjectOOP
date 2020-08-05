@@ -5,6 +5,11 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.google.gson.Gson;
+import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 
 /**
@@ -80,6 +85,11 @@ public class FRMCreateClient extends javax.swing.JFrame {
         txtEmail.setToolTipText("The email must have an @");
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +116,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(229, Short.MAX_VALUE)
                 .addComponent(jlbCreateClientTitle)
                 .addGap(174, 174, 174))
             .addGroup(pnlLayout.createSequentialGroup()
@@ -132,9 +142,9 @@ public class FRMCreateClient extends javax.swing.JFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEmptyFields)
-                        .addGap(87, 87, 87)
+                        .addGap(100, 100, 100)
                         .addComponent(btnReturn)
                         .addGap(34, 34, 34))))
         );
@@ -206,6 +216,32 @@ public class FRMCreateClient extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        Client client = new Client();
+        ArrayList<Client> clients = new ArrayList<>();
+
+        client.setCedula(txtCedula.getText());
+        client.setName(txtName.getText());
+        client.setLastName(txtLastName.getText());
+        client.setCellphone(txtCellphone.getText());
+        client.setAddress(txtAddress.getText());
+        client.setEmail(txtEmail.getText());
+        client.setEmail(txtEmail.getText());
+
+        clients.add(client);
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(clients);
+
+        try {
+            String filePath = "clients.json";
+            FileManager.createFile(filePath);
+            FileManager.writeRecord(jsonString, filePath);
+        } catch (IOException ex) {
+
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
