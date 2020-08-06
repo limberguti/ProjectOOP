@@ -11,7 +11,8 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
  */
 public class Provider {
 
-    private int id;
+    private String id;
+    private String provider;
     private String name;
     private String phoneNumber;
     private String address;
@@ -20,21 +21,15 @@ public class Provider {
 
     }
 
-    public Provider(int id, String name, String phoneNumber, String address) {
+    public Provider(String id,String provider, String name, String phoneNumber, String address) {
         this.id = id;
+        this.provider=provider;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+   
     public String getName() {
         return name;
     }
@@ -57,6 +52,34 @@ public class Provider {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the provider
+     */
+    public String getProvider() {
+        return provider;
+    }
+
+    /**
+     * @param provider the provider to set
+     */
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 
 }
