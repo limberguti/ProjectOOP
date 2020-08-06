@@ -5,6 +5,8 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import java.io.IOException;
+
 /**
  *
  * @author Andrés López
@@ -169,9 +171,13 @@ public class FRMClientManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnShowClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowClientsActionPerformed
-        FRMShowClients frmShowClients = new FRMShowClients();
-        frmShowClients.setVisible(true);
-        dispose();
+        try {
+            FRMShowClients frmShowClients = new FRMShowClients();
+            frmShowClients.setVisible(true);
+            dispose();
+        } catch (IOException ex) {
+
+        }
     }//GEN-LAST:event_btnShowClientsActionPerformed
 
     /**
