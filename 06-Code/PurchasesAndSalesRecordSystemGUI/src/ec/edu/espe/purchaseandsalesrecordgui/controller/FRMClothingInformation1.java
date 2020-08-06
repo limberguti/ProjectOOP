@@ -39,7 +39,7 @@ public class FRMClothingInformation1 extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("clothing.json");
+            json = FileManager.read("data/clothing.json");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -60,7 +60,7 @@ public class FRMClothingInformation1 extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("clothing.json");
+            json = FileManager.read("data/clothing.json");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }

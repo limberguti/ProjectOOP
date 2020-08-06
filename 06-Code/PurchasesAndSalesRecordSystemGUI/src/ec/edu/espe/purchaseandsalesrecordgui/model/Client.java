@@ -80,7 +80,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" + "cedula=" + cedula + ", names=" + name + ", lastName=" + lastName + ", phoneNumber=" + cellphone + ", address=" + address + ", email=" + email + '}';
+        return this.cedula;
     }
 
 }
