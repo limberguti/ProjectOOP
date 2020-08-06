@@ -151,7 +151,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
         //fetch fileReader ---
         try {
-            FileReader fileReader = new FileReader("UserData.json");
+            FileReader fileReader = new FileReader("data/UserData.json");
             object = jsonParser.parse(fileReader);
             jsonArray = (JSONArray) object;
             fileReader.close();
@@ -174,7 +174,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                     FRMMenuOption frmMenuOption = new FRMMenuOption();
                     frmMenuOption.setVisible(true);
                     dispose();
-                    //break;
+                    break;
                 } else if (i == size - 1) {
                     JOptionPane.showMessageDialog(null, "Incorret User/Password ");
                     this.setVisible(true);
@@ -189,7 +189,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
         try {
-            FileReader fileReader = new FileReader("UserData.json");
+            FileReader fileReader = new FileReader("data/UserData.json");
             jsonArray = (JSONArray) jsonParser.parse(fileReader);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
@@ -219,7 +219,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(0))) {
                 try {
-                    FileWriter fileWriter = new FileWriter("UserData.json");
+                    FileWriter fileWriter = new FileWriter("data/UserData.json");
                     jsonArray.remove(i);
                     fileWriter.write(jsonArray.toJSONString());
                     fileWriter.close();

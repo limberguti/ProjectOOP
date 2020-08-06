@@ -11,8 +11,6 @@ import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -50,7 +48,7 @@ public class FRMShowClients extends javax.swing.JFrame {
         String json = "";
 
         try {
-            json = FileManager.read("clients.json");
+            json = FileManager.read("data/clients.json");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
