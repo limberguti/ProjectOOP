@@ -229,7 +229,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-        String filePath = "data/clients.json";
+        String filePath = "clients.json";
 
         try {
             FileReader fileReader = new FileReader(filePath);
