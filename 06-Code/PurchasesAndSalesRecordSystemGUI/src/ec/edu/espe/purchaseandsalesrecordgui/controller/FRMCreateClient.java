@@ -23,6 +23,7 @@ import org.json.simple.parser.JSONParser;
  * @author Andrés López
  */
 public class FRMCreateClient extends javax.swing.JFrame {
+    
 
     /**
      * Creates new form FrmClient
@@ -229,7 +230,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-        String filePath = "clients.json";
+        String filePath = "data/clients.json";
 
         try {
             FileReader fileReader = new FileReader(filePath);

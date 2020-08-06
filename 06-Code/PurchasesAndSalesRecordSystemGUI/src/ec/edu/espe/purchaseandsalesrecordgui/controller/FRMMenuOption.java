@@ -89,11 +89,6 @@ public class FRMMenuOption extends javax.swing.JFrame {
 
         jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/camiseta.png"))); // NOI18N
         jMenu7.setText("Clothing");
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
-            }
-        });
         jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
@@ -135,6 +130,7 @@ public class FRMMenuOption extends javax.swing.JFrame {
         // TODO add your handling code here:
         FRMInvoiceManagement invoices = new FRMInvoiceManagement();
         invoices.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -147,12 +143,6 @@ public class FRMMenuOption extends javax.swing.JFrame {
         frmSystem.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        FRMClothingScreen clothingScreen= new FRMClothingScreen ();
-        clothingScreen.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenu7MouseClicked
 
     /**
      * @param args the command line arguments
