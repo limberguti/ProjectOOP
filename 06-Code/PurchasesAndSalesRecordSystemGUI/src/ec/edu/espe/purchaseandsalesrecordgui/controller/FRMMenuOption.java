@@ -40,7 +40,6 @@ public class FRMMenuOption extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
 
@@ -72,6 +71,11 @@ public class FRMMenuOption extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/inventario_opt_opt.png"))); // NOI18N
         jMenu2.setText("Inventory");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/proveedor_opt_opt.png"))); // NOI18N
@@ -91,10 +95,6 @@ public class FRMMenuOption extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu6);
-
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/camiseta.png"))); // NOI18N
-        jMenu7.setText("Clothing");
-        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -154,6 +154,11 @@ public class FRMMenuOption extends javax.swing.JFrame {
         new FRMProviderManagement().setVisible(true);
     }//GEN-LAST:event_jMenu4MouseClicked
 
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        this.setVisible(false);
+        new FRMInventoryManagement().setVisible(true);
+    }//GEN-LAST:event_jMenu2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -199,7 +204,6 @@ public class FRMMenuOption extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

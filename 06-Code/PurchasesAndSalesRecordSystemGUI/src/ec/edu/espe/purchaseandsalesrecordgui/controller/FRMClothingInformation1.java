@@ -335,8 +335,8 @@ public class FRMClothingInformation1 extends javax.swing.JFrame {
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
-        FRMClothingScreen clothingScreen = new FRMClothingScreen();
-        clothingScreen.setVisible(true);
+        FRMInventoryManagement inventoryManagement = new FRMInventoryManagement();
+        inventoryManagement.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backActionPerformed
 

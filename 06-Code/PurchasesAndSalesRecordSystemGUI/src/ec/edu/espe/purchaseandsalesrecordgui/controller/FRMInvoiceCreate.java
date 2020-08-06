@@ -440,7 +440,7 @@ public class FRMInvoiceCreate extends javax.swing.JFrame {
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
         if (saveOption == 0) {
             try {
-                FileWriter fileWriter = new FileWriter("invoices.json");
+                FileWriter fileWriter = new FileWriter("data/invoices.json");
 
                 fileWriter.write(jsonArray.toJSONString());
                 fileWriter.close();
