@@ -40,11 +40,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         completeModelComboBox2();
         initComponents();
         setLocationRelativeTo(null);
-
-    }
-
-    private void completeModelComboBox() {
-        // TODO add your handling code here:
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        txtDate.setEditable(false);
+        txtDate.setText(simpleDateFormat.format(date));
 
     }
 
@@ -80,9 +79,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cmbPersons = new javax.swing.JComboBox<>();
-        buttonShowData = new javax.swing.JButton();
+        btnShowData = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        cancelButton = new javax.swing.JButton();
+        btnReturn = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -108,9 +107,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         labelID = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtTax = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -122,10 +123,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         cmbPersons.setModel(model);
 
-        buttonShowData.setText("Show Data");
-        buttonShowData.addActionListener(new java.awt.event.ActionListener() {
+        btnShowData.setText("Show Data");
+        btnShowData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonShowDataActionPerformed(evt);
+                btnShowDataActionPerformed(evt);
             }
         });
 
@@ -136,26 +137,18 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             }
         });
 
-        cancelButton.setText("Return");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        btnReturn.setText("Return");
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                btnReturnActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Last Name:");
 
-        txtName.setEnabled(false);
-
-        txtLastName.setEnabled(false);
-
         jLabel5.setText("Cedula:");
 
-        txtCedula.setEnabled(false);
-
         jLabel6.setText("Cellphone: ");
-
-        txtCellphone.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Date of the Invoice:");
@@ -164,11 +157,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel10.setText("Address:");
 
-        txtAddress.setEnabled(false);
-
         jLabel12.setText("Email:");
-
-        txtEmail.setEnabled(false);
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -194,15 +183,15 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel12))
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCellphone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(txtCedula))))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,23 +235,19 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         labelID.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelID.setText("Invoice ID:");
-        labelID.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                labelIDPropertyChange(evt);
-            }
-        });
 
         labelDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelDate.setText("Date:");
-        labelDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                labelDatePropertyChange(evt);
-            }
-        });
 
         jLabel13.setText("Tax:");
 
         jLabel14.setText("Total:");
+
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,10 +263,15 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                         .addGap(282, 282, 282))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelDate))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDate)))
                         .addGap(48, 48, 48)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -300,11 +290,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cancelButton))
+                                .addComponent(btnReturn))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
                                 .addComponent(jLabel8)
@@ -319,7 +309,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(78, 78, 78))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -334,10 +324,12 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelID)
-                    .addComponent(labelDate))
-                .addGap(32, 32, 32)
+                    .addComponent(labelDate)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbPersons, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
@@ -357,20 +349,20 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(cancelButton))
+                    .addComponent(btnReturn))
                 .addGap(56, 56, 56))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowDataActionPerformed
+    private void btnShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDataActionPerformed
         // TODO add your handling code here:
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
@@ -386,20 +378,26 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         clients = gson.fromJson(json, clientType);
         Client client = (Client) model.getSelectedItem();
         txtName.setText(client.getName());
+        txtName.setEditable(false);
         txtLastName.setText(client.getLastName());
+        txtLastName.setEditable(false);
         txtCedula.setText(client.getCedula());
+        txtCedula.setEditable(false);
         txtCellphone.setText(client.getCellphone());
+        txtCellphone.setEditable(false);
         txtAddress.setText(client.getAddress());
+        txtAddress.setEditable(false);
         txtEmail.setText(client.getEmail());
+        txtEmail.setEditable(false);
 
-    }//GEN-LAST:event_buttonShowDataActionPerformed
+    }//GEN-LAST:event_btnShowDataActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         // TODO add your handling code here:
         FrmInvoiceManagement invoices = new FrmInvoiceManagement();
         invoices.setVisible(true);
         dispose();
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
@@ -411,9 +409,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             FileReader fileReader = new FileReader("data/invoices.json");
             jsonArray = (JSONArray) jsonParser.parse(fileReader);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
+            JOptionPane.showMessageDialog(null, "File not found.");
         }
-        jsonObject.put("id:", "0");
+        
+
+        jsonObject.put("id", txtId.getText());
         jsonObject.put("cedula", txtCedula.getText());
         jsonObject.put("name", txtName.getText());
         jsonObject.put("lastName", txtLastName.getText());
@@ -421,15 +421,28 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jsonObject.put("address", txtAddress.getText());
         jsonObject.put("email", txtEmail.getText());
 
-        jsonObject.put("pants", cmbPants.getSelectedItem().toString());
+        jsonObject.put("pants", cmbPants.getSelectedItem());
+        float pricePants = Integer.parseInt((String) cmbPants.getSelectedItem());
         jsonObject.put("shoes", cmbShoes.getSelectedItem());
-        jsonObject.put("jackets", cmbJackets.getSelectedIndex());
+        float priceShoes = Integer.parseInt((String) cmbShoes.getSelectedItem());
+        jsonObject.put("jackets", cmbJackets.getSelectedItem());
+        float priceJackets = Integer.parseInt((String) cmbJackets.getSelectedItem());
 
+        float tax = Float.parseFloat(txtTax.getText());
+        jsonObject.put("tax", txtTax.getText());
+        float total = (priceJackets + pricePants + priceShoes) * tax;
+        String totalAsString = Float.toString(total);
+        txtTotal.setText(totalAsString);
+        jsonObject.put("total", txtTotal.getText());
         jsonArray.add(jsonObject);
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
         if (saveOption == 0) {
             try {
+                int id = Integer.parseInt(txtId.getText());
+                id++;
+                String idAsString= Integer.toString(id);
+                txtId.setText(idAsString);
                 FileWriter fileWriter = new FileWriter("data/invoices.json");
 
                 fileWriter.write(jsonArray.toJSONString());
@@ -445,20 +458,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void labelIDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_labelIDPropertyChange
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
 
-        labelID.setText("Invoice ID: " + "1");
-
-    }//GEN-LAST:event_labelIDPropertyChange
-
-    private void labelDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_labelDatePropertyChange
-        // TODO add your handling code here:
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
-
-        labelDate.setText("Date: " + simpleDateFormat.format(date));
-    }//GEN-LAST:event_labelDatePropertyChange
+    }//GEN-LAST:event_txtDateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -511,9 +514,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton buttonShowData;
-    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton btnShowData;
     private javax.swing.JComboBox<String> cmbJackets;
     private javax.swing.JComboBox<String> cmbPants;
     private javax.swing.JComboBox<Client> cmbPersons;
@@ -535,16 +538,18 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelID;
     private javax.swing.JPanel panel;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtCellphone;
+    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtTax;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

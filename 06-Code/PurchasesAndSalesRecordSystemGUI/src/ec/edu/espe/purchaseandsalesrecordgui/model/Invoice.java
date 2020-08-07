@@ -73,7 +73,7 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice{" + "id=" + id + ", date=" + date + ", cedulaClient=" + cedula + ", tax=" + tax + ", total=" + total + '}';
+        return Integer.toString(this.id);
     }
 
     
