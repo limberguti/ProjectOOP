@@ -82,7 +82,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         cmbPersons = new javax.swing.JComboBox<>();
         buttonShowData = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        cleanButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -137,13 +136,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             }
         });
 
-        cleanButton.setText("Clear");
-        cleanButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cleanButtonActionPerformed(evt);
-            }
-        });
-
         cancelButton.setText("Return");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,9 +145,17 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel4.setText("Last Name:");
 
+        txtName.setEnabled(false);
+
+        txtLastName.setEnabled(false);
+
         jLabel5.setText("Cedula:");
 
+        txtCedula.setEnabled(false);
+
         jLabel6.setText("Cellphone: ");
+
+        txtCellphone.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Date of the Invoice:");
@@ -164,7 +164,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel10.setText("Address:");
 
+        txtAddress.setEnabled(false);
+
         jLabel12.setText("Email:");
+
+        txtEmail.setEnabled(false);
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -189,16 +193,16 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel12))
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCedula)
-                                    .addComponent(txtCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtEmail)))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCellphone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,12 +285,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                         .addGap(48, 48, 48)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -305,8 +303,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(113, 113, 113)
-                                .addComponent(cleanButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cancelButton))
                             .addGroup(layout.createSequentialGroup()
@@ -325,6 +321,12 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(78, 78, 78))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +363,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(cleanButton)
                     .addComponent(cancelButton))
                 .addGap(56, 56, 56))
         );
@@ -393,17 +394,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonShowDataActionPerformed
 
-    private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
-        // TODO add your handling code here:
-        JTextField box;
-        for (int i = 0; i < panel.getComponentCount(); i++) {
-            if (panel.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-                box = (JTextField) panel.getComponent(i);
-                box.setText("");
-            }
-        }
-    }//GEN-LAST:event_cleanButtonActionPerformed
-
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
         FrmInvoiceManagement invoices = new FrmInvoiceManagement();
@@ -423,7 +413,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
         }
-        jsonObject.put("id:", labelID);
+        jsonObject.put("id:", "0");
         jsonObject.put("cedula", txtCedula.getText());
         jsonObject.put("name", txtName.getText());
         jsonObject.put("lastName", txtLastName.getText());
@@ -524,7 +514,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton buttonShowData;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JButton cleanButton;
     private javax.swing.JComboBox<String> cmbJackets;
     private javax.swing.JComboBox<String> cmbPants;
     private javax.swing.JComboBox<Client> cmbPersons;

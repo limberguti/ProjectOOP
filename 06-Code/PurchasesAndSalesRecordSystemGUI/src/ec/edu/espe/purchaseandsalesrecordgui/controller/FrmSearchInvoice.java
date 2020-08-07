@@ -5,12 +5,24 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jhonatan Lituma
  */
 public class FrmSearchInvoice extends javax.swing.JFrame {
-
+    private DefaultComboBoxModel<Client> modelInvoicesbyCedula = new DefaultComboBoxModel<Client>();
+    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<Client>();
+    private DefaultTableModel modelTable = new DefaultTableModel();
     /**
      * Creates new form FRMInvoiceSearch
      */
@@ -19,6 +31,27 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    
+    private void completeModelComboBox() {
+        // TODO add your handling code here:
+        ArrayList<Client> clients = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read("data/invoices.json");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+        }
+        //System.out.println(json);
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        }.getType();
+        clients = gson.fromJson(json, clientType);
+
+        for (Client client : clients) {
+            model.addElement(client);
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,17 +61,50 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbInvoicesById = new javax.swing.JComboBox<>();
+        cmbInvoicesByCedula = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Invoice by ID:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Invoice by Cedula:");
+
+        cmbInvoicesById.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cmbInvoicesByCedula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbInvoicesByCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbInvoicesById, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cmbInvoicesById, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbInvoicesByCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,5 +149,9 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cmbInvoicesByCedula;
+    private javax.swing.JComboBox<String> cmbInvoicesById;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
