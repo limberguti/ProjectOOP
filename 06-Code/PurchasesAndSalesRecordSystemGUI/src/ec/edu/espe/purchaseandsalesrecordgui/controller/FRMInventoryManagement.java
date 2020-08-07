@@ -9,12 +9,12 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
  *
  * @author Jhonatan Lituma
  */
-public class FRMInventoryManagement extends javax.swing.JFrame {
+public class FrmInventoryManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FRMInventoryManagement
      */
-    public FRMInventoryManagement() {
+    public FrmInventoryManagement() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -115,25 +115,25 @@ public class FRMInventoryManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FRMClothingRegister clothingRegister = new FRMClothingRegister();
+        FrmClothingRegister clothingRegister = new FrmClothingRegister();
         clothingRegister.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        FRMMenuOption menuOption = new FRMMenuOption();
+        FrmMenuOption menuOption = new FrmMenuOption();
         menuOption.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        FRMClothingInformation1 clothingInformation1 = new FRMClothingInformation1();
+        FrmClothingInformation clothingInformation1 = new FrmClothingInformation();
         clothingInformation1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        FRMClothingSearch clothingSearch = new FRMClothingSearch();
+        FrmClothingSearch clothingSearch = new FrmClothingSearch();
         clothingSearch.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -155,20 +155,21 @@ public class FRMInventoryManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInventoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMInventoryManagement().setVisible(true);
+                new FrmInventoryManagement().setVisible(true);
             }
         });
     }

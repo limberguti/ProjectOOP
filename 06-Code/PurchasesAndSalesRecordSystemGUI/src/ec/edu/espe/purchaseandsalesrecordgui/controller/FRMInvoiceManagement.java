@@ -9,12 +9,12 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
  *
  * @author Jhonatan Lituma
  */
-public class FRMInvoiceManagement extends javax.swing.JFrame {
+public class FrmInvoiceManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FRMInvoicesManagment
      */
-    public FRMInvoiceManagement() {
+    public FrmInvoiceManagement() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -99,22 +99,22 @@ public class FRMInvoiceManagement extends javax.swing.JFrame {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
-        FRMInvoiceCreate invoiceCreate = new FRMInvoiceCreate();
-        invoiceCreate.setVisible(true);
+        FrmCreateInvoice createInvoice = new FrmCreateInvoice();
+        createInvoice.setVisible(true);
         dispose();
     }//GEN-LAST:event_createButtonActionPerformed
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
-        FRMMenuOption menuOption = new FRMMenuOption();
+        FrmMenuOption menuOption = new FrmMenuOption();
         menuOption.setVisible(true);
         dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        FRMInvoiceSearch invoiceSearch = new FRMInvoiceSearch();
-        invoiceSearch.setVisible(true);
+        FrmSearchInvoice frmSearchInvoice = new FrmSearchInvoice();
+        frmSearchInvoice.setVisible(true);
         dispose();        
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -135,14 +135,18 @@ public class FRMInvoiceManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmInvoiceManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -151,7 +155,7 @@ public class FRMInvoiceManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMInvoiceManagement().setVisible(true);
+                new FrmInvoiceManagement().setVisible(true);
             }
         });
     }

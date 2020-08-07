@@ -5,7 +5,7 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
-import ec.edu.espe.purchaseandsalesrecordgui.controller.FRMMenuOption;
+import ec.edu.espe.purchaseandsalesrecordgui.controller.FrmMenuOption;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
@@ -150,7 +150,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
         //fetch fileReader ---
         try {
-            FileReader fileReader = new FileReader("data/UserData.json");
+            FileReader fileReader = new FileReader("data/users.json");
             object = jsonParser.parse(fileReader);
             jsonArray = (JSONArray) object;
             fileReader.close();
@@ -170,7 +170,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 JOptionPane.showMessageDialog(null, "Password Matched");
-                FRMMenuOption frmMenuOption = new FRMMenuOption();
+                FrmMenuOption frmMenuOption = new FrmMenuOption();
                 frmMenuOption.setVisible(true);
                 dispose();
                 break;
@@ -188,7 +188,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
         try {
-            FileReader fileReader = new FileReader("data/UserData.json");
+            FileReader fileReader = new FileReader("data/users.json");
             jsonArray = (JSONArray) jsonParser.parse(fileReader);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
@@ -198,7 +198,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jsonObject.put("password", txtPassword.getText());
         jsonArray.add(jsonObject);
         try {
-            FileWriter fileWriter = new FileWriter("data/UserData.json");
+            FileWriter fileWriter = new FileWriter("data/users.json");
             fileWriter.write(jsonArray.toJSONString());
             fileWriter.close();
         } catch (Exception ex) {
@@ -214,7 +214,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader("data/UserData.json");
+            FileReader fileReader = new FileReader("data/users.json");
             object = jsonParser.parse(fileReader);
             jsonArray = (JSONArray) object;
             fileReader.close();
@@ -230,7 +230,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 try {
-                    FileWriter fileWriter = new FileWriter("data/UserData.json");
+                    FileWriter fileWriter = new FileWriter("data/users.json");
                     jsonArray.remove(i);
                     fileWriter.write(jsonArray.toJSONString());
                     fileWriter.close();

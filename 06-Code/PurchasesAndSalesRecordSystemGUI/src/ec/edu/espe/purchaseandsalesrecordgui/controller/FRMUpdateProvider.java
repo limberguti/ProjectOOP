@@ -11,12 +11,12 @@ import javax.swing.JTextField;
  *
  * @author jONATHAN MAIGUA
  */
-public class FRMUpdateProvider extends javax.swing.JFrame {
+public class FrmUpdateProvider extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmUpdateClient
      */
-    public FRMUpdateProvider() {
+    public FrmUpdateProvider() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -187,7 +187,7 @@ public class FRMUpdateProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_txtProviderActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FRMProviderManagement frmProviderMenu = new FRMProviderManagement();
+        FrmProviderManagement frmProviderMenu = new FrmProviderManagement();
         frmProviderMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
@@ -219,14 +219,30 @@ public class FRMUpdateProvider extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUpdateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -247,7 +263,7 @@ public class FRMUpdateProvider extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMUpdateProvider().setVisible(true);
+                new FrmUpdateProvider().setVisible(true);
             }
         });
     }

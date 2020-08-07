@@ -20,14 +20,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jonathan Maigua
  */
-public class FRMShowProvider extends javax.swing.JFrame {
+public class FrmShowProvider extends javax.swing.JFrame {
 
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
      */
-    public FRMShowProvider() throws IOException {
+    public FrmShowProvider() throws IOException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
@@ -147,7 +147,7 @@ public class FRMShowProvider extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FRMProviderManagement frmProviderMenu = new FRMProviderManagement();
+        FrmProviderManagement frmProviderMenu = new FrmProviderManagement();
         frmProviderMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
@@ -169,14 +169,30 @@ public class FRMShowProvider extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -198,7 +214,7 @@ public class FRMShowProvider extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FRMShowProvider().setVisible(true);
+                    new FrmShowProvider().setVisible(true);
                 } catch (IOException ex) {
 
                 }

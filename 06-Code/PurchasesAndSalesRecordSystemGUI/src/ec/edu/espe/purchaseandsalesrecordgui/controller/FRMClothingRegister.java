@@ -11,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Christopher Loachami
  */
-public class FRMClothingRegister extends javax.swing.JFrame {
+public class FrmClothingRegister extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmClothing
      */
-    public FRMClothingRegister() {
+    public FrmClothingRegister() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -172,7 +172,7 @@ public class FRMClothingRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        FRMInventoryManagement inventoryManagement = new FRMInventoryManagement();
+        FrmInventoryManagement inventoryManagement = new FrmInventoryManagement();
         inventoryManagement.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -194,21 +194,23 @@ public class FRMClothingRegister extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmClothingRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMClothingRegister().setVisible(true);
+                new FrmClothingRegister().setVisible(true);
             }
         });
     }

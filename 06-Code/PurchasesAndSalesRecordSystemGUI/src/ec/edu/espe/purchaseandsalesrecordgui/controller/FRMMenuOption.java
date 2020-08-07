@@ -11,12 +11,12 @@ import ec.edu.espe.purchaseandsalesrecordgui.view.PurchaseAndSalesRecordSystem;
  *
  * @author Jhonatan Lituma
  */
-public class FRMMenuOption extends javax.swing.JFrame {
+public class FrmMenuOption extends javax.swing.JFrame {
 
     /**
      * Creates new form FRMMenuOption
      */
-    public FRMMenuOption() {
+    public FrmMenuOption() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -133,13 +133,13 @@ public class FRMMenuOption extends javax.swing.JFrame {
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         // TODO add your handling code here:
-        FRMInvoiceManagement invoices = new FRMInvoiceManagement();
+        FrmInvoiceManagement invoices = new FrmInvoiceManagement();
         invoices.setVisible(true);
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         this.setVisible(false);
-        new FRMClientManagement().setVisible(true);
+        new FrmClientManagement().setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -151,12 +151,12 @@ public class FRMMenuOption extends javax.swing.JFrame {
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        new FRMProviderManagement().setVisible(true);
+        new FrmProviderManagement().setVisible(true);
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         this.setVisible(false);
-        new FRMInventoryManagement().setVisible(true);
+        new FrmInventoryManagement().setVisible(true);
     }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
@@ -176,20 +176,21 @@ public class FRMMenuOption extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuOption.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMMenuOption().setVisible(true);
+                new FrmMenuOption().setVisible(true);
             }
         });
     }

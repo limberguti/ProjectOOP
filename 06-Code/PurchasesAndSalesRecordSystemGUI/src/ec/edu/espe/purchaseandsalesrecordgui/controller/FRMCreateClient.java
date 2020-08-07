@@ -17,12 +17,12 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Andrés López
  */
-public class FRMCreateClient extends javax.swing.JFrame {
+public class FrmCreateClient extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmClient
      */
-    public FRMCreateClient() {
+    public FrmCreateClient() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -157,7 +157,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                         .addComponent(btnEmptyFields)
                         .addGap(100, 100, 100)
                         .addComponent(btnReturn)
@@ -202,6 +202,10 @@ public class FRMCreateClient extends javax.swing.JFrame {
 
         jlbOnlyNumbersCedula.setForeground(new java.awt.Color(255, 0, 0));
 
+        jlbOnlyNumbersCellphone.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbValidateEmail.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,7 +236,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FRMClientManagement frmClientMenu = new FRMClientManagement();
+        FrmClientManagement frmClientMenu = new FrmClientManagement();
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
@@ -329,14 +333,22 @@ public class FRMCreateClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -349,7 +361,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMCreateClient().setVisible(true);
+                new FrmCreateClient().setVisible(true);
             }
         });
     }

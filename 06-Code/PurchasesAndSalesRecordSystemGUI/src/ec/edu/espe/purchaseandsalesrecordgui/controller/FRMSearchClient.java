@@ -26,7 +26,7 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Andrés López
  */
-public class FRMSearchClient extends javax.swing.JFrame {
+public class FrmSearchClient extends javax.swing.JFrame {
 
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -34,7 +34,7 @@ public class FRMSearchClient extends javax.swing.JFrame {
     /**
      * Creates new form FrmSearch
      */
-    public FRMSearchClient() {
+    public FrmSearchClient() {
         loadComboBoxModel();
         loadTableModel();
         initComponents();
@@ -193,7 +193,7 @@ public class FRMSearchClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FRMClientManagement frmClientMenu = new FRMClientManagement();
+        FrmClientManagement frmClientMenu = new FrmClientManagement();
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
@@ -281,14 +281,22 @@ public class FRMSearchClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FRMSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FRMSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FRMSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FRMSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -301,7 +309,7 @@ public class FRMSearchClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FRMSearchClient().setVisible(true);
+                new FrmSearchClient().setVisible(true);
             }
         });
     }
