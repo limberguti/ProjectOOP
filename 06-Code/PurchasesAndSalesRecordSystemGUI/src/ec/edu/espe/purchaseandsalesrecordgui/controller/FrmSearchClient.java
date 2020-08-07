@@ -6,7 +6,6 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
@@ -14,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -87,6 +85,18 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         btnDeleteClient = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        jlbUpdateName = new javax.swing.JLabel();
+        jlbUpdateLastName = new javax.swing.JLabel();
+        txtUpdateName = new javax.swing.JTextField();
+        txtUpdateLastName = new javax.swing.JTextField();
+        jlbUpdateCellphone = new javax.swing.JLabel();
+        jlbUpdateAddress = new javax.swing.JLabel();
+        jlbUpdateEmail = new javax.swing.JLabel();
+        txtUpdateCellphone = new javax.swing.JTextField();
+        txtUpdateAddress = new javax.swing.JTextField();
+        txtUpdateEmail = new javax.swing.JTextField();
+        jlbUpdateFields = new javax.swing.JLabel();
+        jlbValidateEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,6 +133,30 @@ public class FrmSearchClient extends javax.swing.JFrame {
         });
 
         btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        jlbUpdateName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
+        jlbUpdateName.setText("Name: ");
+
+        jlbUpdateLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
+        jlbUpdateLastName.setText("Last Name: ");
+
+        jlbUpdateCellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/phoneNumber.png"))); // NOI18N
+        jlbUpdateCellphone.setText("Cellphone: ");
+
+        jlbUpdateAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/address.png"))); // NOI18N
+        jlbUpdateAddress.setText("Address: ");
+
+        jlbUpdateEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/email.png"))); // NOI18N
+        jlbUpdateEmail.setText("Email: ");
+
+        jlbUpdateFields.setText("Enter the new values in each field:");
+
+        jlbValidateEmail.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,26 +165,58 @@ public class FrmSearchClient extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(btnUpdate)
-                .addGap(157, 157, 157)
+                .addGap(139, 139, 139)
                 .addComponent(btnDeleteClient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReturn)
-                .addGap(65, 65, 65))
+                .addGap(89, 89, 89))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlbSearchTitle)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jlbCedula)
-                        .addGap(48, 48, 48)
-                        .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(78, 78, 78)
-                .addComponent(btnSearch)
-                .addContainerGap(129, Short.MAX_VALUE))
+                        .addGap(123, 123, 123)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlbSearchTitle)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jlbCedula)
+                                .addGap(48, 48, 48)
+                                .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(78, 78, 78)
+                        .addComponent(btnSearch))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlbUpdateName)
+                                    .addComponent(jlbUpdateLastName))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUpdateName, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                    .addComponent(txtUpdateLastName))
+                                .addGap(33, 33, 33))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jlbUpdateFields)
+                                .addGap(78, 78, 78)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jlbUpdateCellphone)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlbUpdateAddress)
+                                    .addComponent(jlbUpdateEmail))
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtUpdateAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                    .addComponent(txtUpdateEmail)))
+                            .addComponent(jlbValidateEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,24 +229,51 @@ public class FrmSearchClient extends javax.swing.JFrame {
                     .addComponent(btnSearch)
                     .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
+                        .addGap(18, 18, 18)
+                        .addComponent(jlbUpdateFields)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbUpdateName)
+                            .addComponent(txtUpdateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate)
-                            .addComponent(btnDeleteClient)
-                            .addComponent(btnReturn))
-                        .addGap(25, 25, 25))))
+                            .addComponent(jlbUpdateLastName)
+                            .addComponent(txtUpdateLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlbUpdateCellphone)
+                            .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlbUpdateAddress)
+                            .addComponent(txtUpdateAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlbUpdateEmail)
+                            .addComponent(txtUpdateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbValidateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnDeleteClient)
+                    .addComponent(btnReturn))
+                .addGap(13, 13, 13))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +310,22 @@ public class FrmSearchClient extends javax.swing.JFrame {
             client.getEmail()};
 
         tableModel.addRow(rowClients);
+
+        try {
+            json = FileManager.read("data/clients.json");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+        }
+
+        clients = gson.fromJson(json, clientType);
+
+        txtUpdateName.setText(client.getName());
+        txtUpdateLastName.setText(client.getLastName());
+        txtUpdateCellphone.setText(client.getCellphone());
+        txtUpdateAddress.setText(client.getAddress());
+        txtUpdateEmail.setText(client.getEmail());
     }//GEN-LAST:event_btnSearchActionPerformed
+
 
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
         JSONObject jsonObject = new JSONObject();
@@ -243,7 +351,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jsonObject.put("cellphone", client.getCellphone());
         jsonObject.put("address", client.getAddress());
         jsonObject.put("email", client.getEmail());
-        
+
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 try {
@@ -251,6 +359,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
                     jsonArray.remove(i);
                     fileWriter.write(jsonArray.toJSONString());
                     fileWriter.close();
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }
@@ -263,6 +372,88 @@ public class FrmSearchClient extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnDeleteClientActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+
+        String filePath = "data/clients.json";
+        JSONObject jsonObject = new JSONObject();
+        Client client = (Client) comboBoxModel.getSelectedItem();
+
+        JSONArray jsonArray = new JSONArray();
+        Object object = null;
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            object = jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) object;
+            fileReader.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+        }
+
+        int size = jsonArray.size();
+        jsonObject.put("cedula", client.getCedula());
+        jsonObject.put("name", client.getName());
+        jsonObject.put("lastName", client.getLastName());
+        jsonObject.put("cellphone", client.getCellphone());
+        jsonObject.put("address", client.getAddress());
+        jsonObject.put("email", client.getEmail());
+
+        String email = txtUpdateEmail.getText();
+        if (validateEmail(email) == true) {
+            for (int i = 0; i < size; i++) {
+                if (jsonObject.equals(jsonArray.get(i))) {
+                    try {
+                        FileWriter fileWriter = new FileWriter(filePath);
+                        jsonArray.remove(i);
+                        fileWriter.write(jsonArray.toJSONString());
+                        fileWriter.close();
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+                    }
+                    tableModel.removeRow(0);
+                    break;
+                } else if (i == size - 1) {
+                    JOptionPane.showMessageDialog(null, "Cedula was not found!");
+                }
+            }
+
+            try {
+                FileReader fileReader = new FileReader(filePath);
+                jsonArray = (JSONArray) jsonParser.parse(fileReader);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error ocurred");
+            }
+
+            jsonObject.put("cedula", client.getCedula());
+            jsonObject.put("name", txtUpdateName.getText());
+            jsonObject.put("lastName", txtUpdateLastName.getText());
+            jsonObject.put("cellphone", txtUpdateCellphone.getText());
+            jsonObject.put("address", txtUpdateAddress.getText());
+
+            jsonObject.put("email", txtUpdateEmail.getText());
+
+            jsonArray.add(jsonObject);
+
+            try {
+                FileWriter fileWriter = new FileWriter(filePath);
+                fileWriter.write(jsonArray.toJSONString());
+                fileWriter.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error ocurred!");
+            }
+            JOptionPane.showMessageDialog(null, "Client updated");
+        } else {
+            jlbValidateEmail.setText("Invalid Email!");
+        }
+       
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private boolean validateEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
+    }
 
     /**
      * @param args the command line arguments
@@ -325,5 +516,17 @@ public class FrmSearchClient extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlbCedula;
     private javax.swing.JLabel jlbSearchTitle;
+    private javax.swing.JLabel jlbUpdateAddress;
+    private javax.swing.JLabel jlbUpdateCellphone;
+    private javax.swing.JLabel jlbUpdateEmail;
+    private javax.swing.JLabel jlbUpdateFields;
+    private javax.swing.JLabel jlbUpdateLastName;
+    private javax.swing.JLabel jlbUpdateName;
+    private javax.swing.JLabel jlbValidateEmail;
+    private javax.swing.JTextField txtUpdateAddress;
+    private javax.swing.JTextField txtUpdateCellphone;
+    private javax.swing.JTextField txtUpdateEmail;
+    private javax.swing.JTextField txtUpdateLastName;
+    private javax.swing.JTextField txtUpdateName;
     // End of variables declaration//GEN-END:variables
 }
