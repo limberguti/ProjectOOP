@@ -76,5 +76,4 @@ public class Invoice {
         return Integer.toString(this.id);
     }
 
-    
 }
