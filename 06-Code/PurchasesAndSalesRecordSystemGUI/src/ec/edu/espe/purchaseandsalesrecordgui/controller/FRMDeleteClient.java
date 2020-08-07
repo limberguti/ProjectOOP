@@ -1,9 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -46,6 +47,11 @@ public class FRMDeleteClient extends javax.swing.JFrame {
         jlbCedula.setText("Cédula:");
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +121,33 @@ public class FRMDeleteClient extends javax.swing.JFrame {
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        int size = jsonArray.size();
+
+        jsonObject.put("cedula", txtCedula.getText());
+        
+        for (int i = 0; i < size; i++) {
+            if (jsonObject.equals(jsonArray.get(0))) {//0
+                try {
+                    FileWriter fileWriter = new FileWriter("clients.json");
+                    jsonArray.remove(i);
+                    fileWriter.write(jsonArray.toJSONString());
+                    fileWriter.close();
+                    JOptionPane.showMessageDialog(null, "Client Remove");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error ocurred");
+                }
+//                jsonArray.remove(i);
+//                JOptionPane.showMessageDialog(null, "Client Remove");
+                break;
+            } else if (i == size - 1) {
+                JOptionPane.showMessageDialog(null, "Cedula does not exist");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments

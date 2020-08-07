@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
@@ -58,7 +53,10 @@ public class FRMShowClients extends javax.swing.JFrame {
         clients = gson.fromJson(json, clientType);
 
         for (Client client : clients) {
-            String[] rowClients = {client.getCedula(), client.getName(), client.getLastName(), client.getCellphone(), client.getAddress(), client.getEmail()};
+            String[] rowClients = {client.getCedula(), client.getName(), 
+                client.getLastName(), client.getCellphone(), client.getAddress(), 
+                client.getEmail()};
+            
             tableModel.addRow(rowClients);
         }
     }

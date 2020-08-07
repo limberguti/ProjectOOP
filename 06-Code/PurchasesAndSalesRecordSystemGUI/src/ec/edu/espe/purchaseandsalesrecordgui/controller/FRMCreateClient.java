@@ -5,13 +5,8 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.google.gson.Gson;
-import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.json.simple.JSONArray;
@@ -23,7 +18,6 @@ import org.json.simple.parser.JSONParser;
  * @author Andrés López
  */
 public class FRMCreateClient extends javax.swing.JFrame {
-    
 
     /**
      * Creates new form FrmClient
@@ -59,6 +53,9 @@ public class FRMCreateClient extends javax.swing.JFrame {
         btnEmptyFields = new javax.swing.JButton();
         jlbCedula = new javax.swing.JLabel();
         jlbCreateClientTitle = new javax.swing.JLabel();
+        jlbOnlyNumbersCedula = new javax.swing.JLabel();
+        jlbOnlyNumbersCellphone = new javax.swing.JLabel();
+        jlbValidateEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Purchase and Sales Record");
@@ -81,16 +78,26 @@ public class FRMCreateClient extends javax.swing.JFrame {
         jlbEmail.setText("Email: ");
 
         txtCedula.setToolTipText("Enter only 10 numbers");
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyPressed(evt);
+            }
+        });
 
         txtName.setToolTipText("Don't use special characteres");
 
         txtLastName.setToolTipText("Don't use special characteres");
 
         txtCellphone.setToolTipText("Enter only 10 numbers");
+        txtCellphone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCellphoneKeyPressed(evt);
+            }
+        });
 
         txtAddress.setToolTipText("Don't use special characteres");
 
-        txtEmail.setToolTipText("The email must have an @");
+        txtEmail.setToolTipText("The email must have a local part, then an @, and then a domain name\n");
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -150,7 +157,7 @@ public class FRMCreateClient extends javax.swing.JFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(btnEmptyFields)
                         .addGap(100, 100, 100)
                         .addComponent(btnReturn)
@@ -193,17 +200,32 @@ public class FRMCreateClient extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
+        jlbOnlyNumbersCedula.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbValidateEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(162, 162, 162)
+                .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(jlbValidateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,19 +266,51 @@ public class FRMCreateClient extends javax.swing.JFrame {
         jsonObject.put("lastName", txtLastName.getText());
         jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("address", txtAddress.getText());
-        jsonObject.put("email", txtEmail.getText());
 
-        jsonArray.add(jsonObject);
+        String email = txtEmail.getText();
+        if (validateEmail(email) == true) {
+            jsonObject.put("email", txtEmail.getText());
 
-        try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write(jsonArray.toJSONString());
-            fileWriter.close();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
+            jsonArray.add(jsonObject);
+
+            try {
+                FileWriter fileWriter = new FileWriter(filePath);
+                fileWriter.write(jsonArray.toJSONString());
+                fileWriter.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error ocurred!");
+            }
+            JOptionPane.showMessageDialog(null, "Data saved");
+        } else {
+            jlbValidateEmail.setText("Invalid Email!");
         }
-        JOptionPane.showMessageDialog(null, "Data saved");
+
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
+        char character = evt.getKeyChar();
+        if (Character.isLetter(character)) {
+            txtCedula.setEditable(false);
+            jlbOnlyNumbersCedula.setText("Only Numbers!");
+        } else {
+            txtCedula.setEditable(true);
+        }
+    }//GEN-LAST:event_txtCedulaKeyPressed
+
+    private void txtCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCellphoneKeyPressed
+        char character = evt.getKeyChar();
+        if(Character.isLetter(character)){
+            txtCellphone.setEditable(false);
+            jlbOnlyNumbersCellphone.setText("Only Numbers!");
+        } else {
+            txtCellphone.setEditable(true);
+        }
+    }//GEN-LAST:event_txtCellphoneKeyPressed
+
+    private boolean validateEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
+    }
 
     /**
      * @param args the command line arguments
@@ -311,6 +365,9 @@ public class FRMCreateClient extends javax.swing.JFrame {
     private javax.swing.JLabel jlbEmail;
     private javax.swing.JLabel jlbLastName;
     private javax.swing.JLabel jlbName;
+    private javax.swing.JLabel jlbOnlyNumbersCedula;
+    private javax.swing.JLabel jlbOnlyNumbersCellphone;
+    private javax.swing.JLabel jlbValidateEmail;
     private javax.swing.JPanel pnl;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCedula;

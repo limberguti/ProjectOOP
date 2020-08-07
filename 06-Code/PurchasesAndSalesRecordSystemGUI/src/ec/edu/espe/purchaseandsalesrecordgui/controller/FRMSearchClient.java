@@ -5,7 +5,22 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -13,26 +28,46 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FRMSearchClient extends javax.swing.JFrame {
 
+    DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
-    
+
     /**
      * Creates new form FrmSearch
      */
     public FRMSearchClient() {
+        loadComboBoxModel();
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel(){
+    private void loadComboBoxModel() {
+        ArrayList<Client> clients = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read("data/clients.json");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+        }
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        }.getType();
+        clients = gson.fromJson(json, clientType);
+
+        for (Client client : clients) {
+            comboBoxModel.addElement(client);
+        }
+    }
+
+    private void loadTableModel() {
         tableModel.addColumn("Cedula");
         tableModel.addColumn("Name");
         tableModel.addColumn("Last Name");
         tableModel.addColumn("Cellphone");
         tableModel.addColumn("Address");
         tableModel.addColumn("Email");
-        
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,10 +80,13 @@ public class FRMSearchClient extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jlbSearchTitle = new javax.swing.JLabel();
         jlbCedula = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbClientInformation = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
+        cmbCedula = new javax.swing.JComboBox<>();
+        btnSearch = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btnDeleteClient = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,11 +96,6 @@ public class FRMSearchClient extends javax.swing.JFrame {
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
         jlbCedula.setText("Cedula: ");
 
-        txtCedula.setToolTipText("Enter only 10 numbers");
-
-        jtbClientInformation.setModel(tableModel);
-        jScrollPane1.setViewportView(jtbClientInformation);
-
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,45 +103,77 @@ public class FRMSearchClient extends javax.swing.JFrame {
             }
         });
 
+        cmbCedula.setModel(comboBoxModel);
+
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(tableModel);
+        jScrollPane1.setViewportView(jTable1);
+
+        btnDeleteClient.setText("Delete");
+        btnDeleteClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteClientActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Update");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(jlbSearchTitle))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jlbCedula)
-                        .addGap(33, 33, 33)
-                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 16, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnReturn)
-                        .addGap(58, 58, 58))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
+                .addGap(107, 107, 107)
+                .addComponent(btnUpdate)
+                .addGap(157, 157, 157)
+                .addComponent(btnDeleteClient)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReturn)
+                .addGap(65, 65, 65))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlbSearchTitle)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jlbCedula)
+                        .addGap(48, 48, 48)
+                        .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(78, 78, 78)
+                .addComponent(btnSearch)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(12, 12, 12)
                 .addComponent(jlbSearchTitle)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCedula)
-                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch)
+                    .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnReturn)
-                .addGap(32, 32, 32))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(165, 165, 165)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnUpdate)
+                            .addComponent(btnDeleteClient)
+                            .addComponent(btnReturn))
+                        .addGap(25, 25, 25))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -132,6 +197,72 @@ public class FRMSearchClient extends javax.swing.JFrame {
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        ArrayList<Client> clients = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read("data/clients.json");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+        }
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        }.getType();
+        clients = gson.fromJson(json, clientType);
+        Client client = (Client) comboBoxModel.getSelectedItem();
+
+        String[] rowClients = {client.getCedula(), client.getName(),
+            client.getLastName(), client.getCellphone(), client.getAddress(),
+            client.getEmail()};
+
+        tableModel.addRow(rowClients);
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
+        JSONObject jsonObject = new JSONObject();
+        Client client = (Client) comboBoxModel.getSelectedItem();
+
+        JSONArray jsonArray = new JSONArray();
+        Object object = null;
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+            FileReader fileReader = new FileReader("data/clients.json");
+            object = jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) object;
+            fileReader.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+        }
+
+        int size = jsonArray.size();
+        jsonObject.put("cedula", client.getCedula());
+        jsonObject.put("name", client.getName());
+        jsonObject.put("lastName", client.getLastName());
+        jsonObject.put("cellphone", client.getCellphone());
+        jsonObject.put("address", client.getAddress());
+        jsonObject.put("email", client.getEmail());
+        
+        for (int i = 0; i < size; i++) {
+            if (jsonObject.equals(jsonArray.get(i))) {
+                try {
+                    FileWriter fileWriter = new FileWriter("data/clients.json");
+                    jsonArray.remove(i);
+                    fileWriter.write(jsonArray.toJSONString());
+                    fileWriter.close();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+                }
+                JOptionPane.showMessageDialog(null, "Client Removed");
+                tableModel.removeRow(0);
+                comboBoxModel.removeElement(client);
+                break;
+            } else if (i == size - 1) {
+                JOptionPane.showMessageDialog(null, "Cedula was not found!");
+            }
+        }
+    }//GEN-LAST:event_btnDeleteClientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,12 +307,15 @@ public class FRMSearchClient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeleteClient;
     private javax.swing.JButton btnReturn;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cmbCedula;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlbCedula;
     private javax.swing.JLabel jlbSearchTitle;
-    private javax.swing.JTable jtbClientInformation;
-    private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
 }

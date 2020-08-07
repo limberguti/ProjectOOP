@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import java.io.IOException;
@@ -165,6 +160,7 @@ public class FRMClientManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
         FRMDeleteClient frmDeleteClient = new FRMDeleteClient();
         frmDeleteClient.setVisible(true);
         dispose();

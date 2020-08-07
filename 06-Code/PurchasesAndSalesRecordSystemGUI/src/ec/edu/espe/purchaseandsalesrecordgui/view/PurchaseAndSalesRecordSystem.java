@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
@@ -42,8 +41,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtUser = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
@@ -58,7 +57,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jLabel1.setText("Almacen Lizbeth");
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jTextField1.setToolTipText("Enter the user name.");
+        txtUser.setToolTipText("Enter the user name.");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/usuario_opt.png"))); // NOI18N
@@ -115,8 +114,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                            .addComponent(jTextField1))))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(txtUser))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -126,11 +125,11 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -162,26 +161,26 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         } catch (ParseException ex) {
 
         }
-            JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
 
-            int size = jsonArray.size();
+        int size = jsonArray.size();
 
-            jsonObject.put("username", jTextField1.getText());
-            jsonObject.put("password", jPasswordField1.getText());
-            for (int i = 0; i < size; i++) {
-                if (jsonObject.equals(jsonArray.get(i))) {
-                    JOptionPane.showMessageDialog(null, "Password Matched");
-                    FRMMenuOption frmMenuOption = new FRMMenuOption();
-                    frmMenuOption.setVisible(true);
-                    dispose();
-                    break;
-                } else if (i == size - 1) {
-                    JOptionPane.showMessageDialog(null, "Incorret User/Password ");
-                    this.setVisible(true);
-                }
+        jsonObject.put("username", txtUser.getText());
+        jsonObject.put("password", txtPassword.getText());
+        for (int i = 0; i < size; i++) {
+            if (jsonObject.equals(jsonArray.get(i))) {
+                JOptionPane.showMessageDialog(null, "Password Matched");
+                FRMMenuOption frmMenuOption = new FRMMenuOption();
+                frmMenuOption.setVisible(true);
+                dispose();
+                break;
+            } else if (i == size - 1) {
+                JOptionPane.showMessageDialog(null, "Incorret User/Password ");
+                this.setVisible(true);
             }
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
-    
+
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
@@ -195,8 +194,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error ocurred");
         }
 
-        jsonObject.put("username", jTextField1.getText());
-        jsonObject.put("password", jPasswordField1.getText());
+        jsonObject.put("username", txtUser.getText());
+        jsonObject.put("password", txtPassword.getText());
         jsonArray.add(jsonObject);
         try {
             FileWriter fileWriter = new FileWriter("data/UserData.json");
@@ -210,33 +209,41 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        JSONArray jsonArray = new JSONArray();
+        Object object = null;
+        JSONParser jsonParser = new JSONParser();
+
+        try {
+            FileReader fileReader = new FileReader("data/UserData.json");
+            object = jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) object;
+            fileReader.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+        }
+
         JSONObject jsonObject = new JSONObject();
         int size = jsonArray.size();
+        jsonObject.put("username", txtUser.getText());
+        jsonObject.put("password", txtPassword.getText());
 
-        jsonObject.put("username", jTextField1.getText());
-        jsonObject.put("password", jPasswordField1.getText());
         for (int i = 0; i < size; i++) {
-            if (jsonObject.equals(jsonArray.get(0))) {
+            if (jsonObject.equals(jsonArray.get(i))) {
                 try {
                     FileWriter fileWriter = new FileWriter("data/UserData.json");
                     jsonArray.remove(i);
                     fileWriter.write(jsonArray.toJSONString());
                     fileWriter.close();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Error ocurred");
-
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }
-                jsonArray.remove(i);
-                JOptionPane.showMessageDialog(null, "Data Remove");
+                JOptionPane.showMessageDialog(null, "Data Removed");
                 break;
-
             } else if (i == size - 1) {
-                JOptionPane.showMessageDialog(null, "Incorret User/Password ");
-
+                JOptionPane.showMessageDialog(null, "Incorrect User/Password!");
             }
-
         }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -281,7 +288,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
