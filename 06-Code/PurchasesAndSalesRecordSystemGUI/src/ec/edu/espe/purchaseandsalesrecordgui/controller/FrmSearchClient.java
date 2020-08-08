@@ -114,6 +114,11 @@ public class FrmSearchClient extends javax.swing.JFrame {
         });
 
         cmbCedula.setModel(comboBoxModel);
+        cmbCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCedulaActionPerformed(evt);
+            }
+        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -449,6 +454,10 @@ public class FrmSearchClient extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void cmbCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCedulaActionPerformed
 
     private boolean validateEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";

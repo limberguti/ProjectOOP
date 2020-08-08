@@ -75,6 +75,11 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbAddress.setText("Address: ");
 
         txtId.setToolTipText("Enter only 10 numbers");
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
 
         txtProvider.setToolTipText("Don't use special characteres");
 
@@ -142,7 +147,7 @@ public class FrmCreateProvider extends javax.swing.JFrame {
                 .addComponent(btnEmptyFields)
                 .addGap(51, 51, 51)
                 .addComponent(btnReturn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,6 +247,10 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(null, "Data saved");
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
 
     /**
      * @param args the command line arguments

@@ -122,6 +122,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jLabel1.setText("Cedula:");
 
         cmbPersons.setModel(model);
+        cmbPersons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPersonsActionPerformed(evt);
+            }
+        });
 
         btnShowData.setText("Show Data");
         btnShowData.addActionListener(new java.awt.event.ActionListener() {
@@ -462,6 +467,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_txtDateActionPerformed
+
+    private void cmbPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPersonsActionPerformed
 
     /**
      * @param args the command line arguments

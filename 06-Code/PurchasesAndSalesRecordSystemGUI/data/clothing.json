@@ -1,0 +1,40 @@
+[
+  {
+    "category": "Coat",
+    "brand": "ADIDAS"
+  
+  },
+  {
+    "category": "shirt",
+    "brand": "NIKE"
+  },
+  {
+    "category": "T-shirt",
+    "brand": "PUMA"
+  },
+  {
+    "category": "sweater",
+    "brand": "PRADA"
+  },
+  {
+    "category": "jacket",
+    "brand": "GUCCI"
+  },
+  {
+    "category": "coat",
+    "brand": "DIOR"
+   
+  },
+  {
+    "category": "jeans",
+    "brand": "ZARA"
+  },
+  {
+    "category": "socks",
+    "brand": "Calvin Klein"
+  },
+  {
+    "category": "shorts",
+    "brand": "Reebok"
+  }
+]

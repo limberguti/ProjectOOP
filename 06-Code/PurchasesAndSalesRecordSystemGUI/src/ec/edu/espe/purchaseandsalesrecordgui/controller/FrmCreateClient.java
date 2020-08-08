@@ -78,6 +78,11 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbEmail.setText("Email: ");
 
         txtCedula.setToolTipText("Enter only 10 numbers");
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyPressed(evt);
@@ -310,6 +315,10 @@ public class FrmCreateClient extends javax.swing.JFrame {
             txtCellphone.setEditable(true);
         }
     }//GEN-LAST:event_txtCellphoneKeyPressed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     private boolean validateEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
