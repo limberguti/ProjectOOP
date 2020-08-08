@@ -169,7 +169,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jsonObject.put("password", txtPassword.getText());
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
-                JOptionPane.showMessageDialog(null, "Password Matched");
                 FrmMenuOption frmMenuOption = new FrmMenuOption();
                 frmMenuOption.setVisible(true);
                 dispose();
