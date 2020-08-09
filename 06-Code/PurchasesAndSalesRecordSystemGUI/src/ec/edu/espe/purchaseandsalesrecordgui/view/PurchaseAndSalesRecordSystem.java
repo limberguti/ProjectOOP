@@ -45,8 +45,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Duke's Children");
@@ -67,25 +65,11 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jLabel3.setText("  Password:");
 
         btnLogin.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/login.png"))); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnRegister.setText("Register");
-        btnRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegisterActionPerformed(evt);
             }
         });
 
@@ -97,15 +81,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLogin)
-                                .addGap(40, 40, 40)
-                                .addComponent(btnRegister)
-                                .addGap(42, 42, 42)
-                                .addComponent(btnDelete))))
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +90,10 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                            .addComponent(txtUser))))
+                            .addComponent(txtUser)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(186, 186, 186)
+                        .addComponent(btnLogin)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -130,12 +109,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnDelete)
-                    .addComponent(btnRegister))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnLogin)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,7 +141,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jsonObject.put("password", txtPassword.getText());
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
-                JOptionPane.showMessageDialog(null, "Password Matched");
                 FrmMenuOption frmMenuOption = new FrmMenuOption();
                 frmMenuOption.setVisible(true);
                 dispose();
@@ -177,64 +152,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jsonParser = new JSONParser();
-        try {
-            
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathUsers));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
-        }
-
-        jsonObject.put("username", txtUser.getText());
-        jsonObject.put("password", txtPassword.getText());
-        jsonArray.add(jsonObject);
-        try {
-            FileManager.writeRecord(filePathUsers, jsonArray.toJSONString());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
-        }
-        JOptionPane.showMessageDialog(null, "Data saved");
-    }//GEN-LAST:event_btnRegisterActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        JSONArray jsonArray = new JSONArray();
-        Object object = null;
-        JSONParser jsonParser = new JSONParser();
-
-        try {
-
-            object = jsonParser.parse(FileManager.readRecord(filePathUsers));
-            jsonArray = (JSONArray) object;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        int size = jsonArray.size();
-        jsonObject.put("username", txtUser.getText());
-        jsonObject.put("password", txtPassword.getText());
-
-        for (int i = 0; i < size; i++) {
-            if (jsonObject.equals(jsonArray.get(i))) {
-                try {
-                    jsonArray.remove(i);
-                    FileManager.writeRecord(filePathUsers, jsonArray.toJSONString());
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-                }
-                JOptionPane.showMessageDialog(null, "Data Removed");
-                break;
-            } else if (i == size - 1) {
-                JOptionPane.showMessageDialog(null, "Incorrect User/Password!");
-            }
-        }
-
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,9 +189,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton btnRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

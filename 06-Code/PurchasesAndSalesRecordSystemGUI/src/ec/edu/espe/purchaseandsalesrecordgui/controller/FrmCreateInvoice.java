@@ -370,23 +370,28 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
+        
         try {
             json = FileManager.read(filePathClients);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
         //System.out.println(json);
+        Client client = (Client) model.getSelectedItem();
+        
+        String cedula = Integer.toString(client.getCedula());
+        String cellphone = Integer.toString(client.getCellphone());
+        
         java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
         }.getType();
         clients = gson.fromJson(json, clientType);
-        Client client = (Client) model.getSelectedItem();
         txtName.setText(client.getName());
         txtName.setEditable(false);
         txtLastName.setText(client.getLastName());
         txtLastName.setEditable(false);
-        txtCedula.setText(client.getCedula());
+        txtCedula.setText(cedula);
         txtCedula.setEditable(false);
-        txtCellphone.setText(client.getCellphone());
+        txtCellphone.setText(cellphone);
         txtCellphone.setEditable(false);
         txtAddress.setText(client.getAddress());
         txtAddress.setEditable(false);

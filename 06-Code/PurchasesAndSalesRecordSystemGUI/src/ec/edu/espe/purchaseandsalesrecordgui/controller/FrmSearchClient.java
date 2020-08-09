@@ -9,8 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
-import java.io.FileReader;
-import java.io.FileWriter;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -116,11 +115,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
         });
 
         cmbCedula.setModel(comboBoxModel);
-        cmbCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCedulaActionPerformed(evt);
-            }
-        });
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -312,8 +306,11 @@ public class FrmSearchClient extends javax.swing.JFrame {
         clients = gson.fromJson(json, clientType);
         Client client = (Client) comboBoxModel.getSelectedItem();
 
-        String[] rowClients = {client.getCedula(), client.getName(),
-            client.getLastName(), client.getCellphone(), client.getAddress(),
+        String cedula = Integer.toString(client.getCedula());
+        String cellphone = Integer.toString(client.getCellphone());
+        
+        String[] rowClients = {cedula, client.getName(),
+            client.getLastName(), cellphone, client.getAddress(),
             client.getEmail()};
 
         tableModel.addRow(rowClients);
@@ -328,7 +325,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
 
         txtUpdateName.setText(client.getName());
         txtUpdateLastName.setText(client.getLastName());
-        txtUpdateCellphone.setText(client.getCellphone());
+        txtUpdateCellphone.setText(cellphone);
         txtUpdateAddress.setText(client.getAddress());
         txtUpdateEmail.setText(client.getEmail());
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -383,6 +380,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
+        Validation validation = new Validation();
 
         try {
             object = jsonParser.parse(FileManager.readRecord(filePathClients));
@@ -400,7 +398,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jsonObject.put("email", client.getEmail());
 
         String email = txtUpdateEmail.getText();
-        if (validateEmail(email) == true) {
+        if (validation.validateEmail(email) == true) {
             for (int i = 0; i < size; i++) {
                 if (jsonObject.equals(jsonArray.get(i))) {
                     try {
@@ -445,15 +443,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void cmbCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCedulaActionPerformed
-
-    private boolean validateEmail(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
-    }
 
     /**
      * @param args the command line arguments

@@ -54,8 +54,12 @@ public class FrmShowClients extends javax.swing.JFrame {
         clients = gson.fromJson(json, clientType);
 
         for (Client client : clients) {
-            String[] rowClients = {client.getCedula(), client.getName(),
-                client.getLastName(), client.getCellphone(), client.getAddress(),
+
+            String cedula = Integer.toString(client.getCedula());
+            String cellphone = Integer.toString(client.getCellphone());
+
+            String[] rowClients = {cedula, client.getName(),
+                client.getLastName(), cellphone, client.getAddress(),
                 client.getEmail()};
 
             tableModel.addRow(rowClients);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.purchaseandsalesrecordgui.model;
 
 /**
@@ -11,17 +6,18 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
  */
 public class Client {
 
-    private String cedula;
+    private int cedula;
     private String name;
     private String lastName;
-    private String cellphone;
+    private int cellphone;
     private String address;
     private String email;
 
     public Client() {
+        
     }
 
-    public Client(String cedula, String name, String lastName, String cellphone, String address, String email) {
+    public Client(int cedula, String name, String lastName, int cellphone, String address, String email) {
         this.cedula = cedula;
         this.name = name;
         this.lastName = lastName;
@@ -30,11 +26,11 @@ public class Client {
         this.email = email;
     }
 
-    public String getCedula() {
+    public int getCedula() {
         return cedula;
     }
 
-    public void setCedula(String cedula) {
+    public void setCedula(int cedula) {
         this.cedula = cedula;
     }
 
@@ -54,11 +50,11 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public String getCellphone() {
+    public int getCellphone() {
         return cellphone;
     }
 
-    public void setCellphone(String cellphone) {
+    public void setCellphone(int cellphone) {
         this.cellphone = cellphone;
     }
 
@@ -77,10 +73,14 @@ public class Client {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     @Override
     public String toString() {
-        return this.cedula;
+        return "Client{" + "cedula=" + cedula + ", name=" + name + ", lastName=" + lastName + ", cellphone=" + cellphone + ", address=" + address + ", email=" + email + '}';
     }
-
+    
+    /*@Override
+    public String toString() {
+        return this.cedula;
+    }*/
 }
