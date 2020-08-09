@@ -5,13 +5,8 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.google.gson.Gson;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.json.simple.JSONArray;
@@ -23,6 +18,8 @@ import org.json.simple.parser.JSONParser;
  * @author Jonathan Maigua
  */
 public class FrmCreateProvider extends javax.swing.JFrame {
+
+    String filePathProviders = "data/providers.json";
 
     /**
      * Creates new form FrmProvider
@@ -219,30 +216,25 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-        String filePath = "provider.json";
 
         try {
-            FileReader fileReader = new FileReader(filePath);
-            jsonArray = (JSONArray) jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathProviders));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
         }
-        
-        
-        jsonObject.put("id",txtId.getText());
+
+        jsonObject.put("id", txtId.getText());
         jsonObject.put("name", txtProvider.getText());
         jsonObject.put("lastName", txtName.getText());
         jsonObject.put("phoneNumber", txtPhoneNumber.getText());
         jsonObject.put("address", txtAddress.getText());
-        
 
         jsonArray.add(jsonObject);
 
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write(jsonArray.toJSONString());
-            fileWriter.close();
-        } catch (Exception ex) {
+            FileManager.writeRecord(filePathProviders, jsonArray.toJSONString());
+
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "");
         }
         JOptionPane.showMessageDialog(null, "Data saved");

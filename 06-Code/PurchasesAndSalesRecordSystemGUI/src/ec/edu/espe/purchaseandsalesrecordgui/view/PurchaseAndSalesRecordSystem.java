@@ -5,13 +5,12 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
+import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FrmMenuOption;
-import java.io.FileReader;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
@@ -20,7 +19,7 @@ import org.json.simple.parser.ParseException;
  * @author Jonathan Maigua
  */
 public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
-
+    String filePathUsers = "data/users.json";
     /**
      * Creates new form PurchaseAndSalesRecordSystem
      */
@@ -144,22 +143,19 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
 
         //fetch fileReader ---
         try {
-            FileReader fileReader = new FileReader("data/users.json");
-            object = jsonParser.parse(fileReader);
+            
+            object = jsonParser.parse(FileManager.readRecord(filePathUsers));
             jsonArray = (JSONArray) object;
-            fileReader.close();
 
-        } catch (IOException ex) {
+        } catch (IOException | ParseException ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred while fetching");
-
-        } catch (ParseException ex) {
-
         }
         JSONObject jsonObject = new JSONObject();
 
@@ -169,6 +165,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jsonObject.put("password", txtPassword.getText());
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
+                JOptionPane.showMessageDialog(null, "Password Matched");
                 FrmMenuOption frmMenuOption = new FrmMenuOption();
                 frmMenuOption.setVisible(true);
                 dispose();
@@ -187,8 +184,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
         try {
-            FileReader fileReader = new FileReader("data/users.json");
-            jsonArray = (JSONArray) jsonParser.parse(fileReader);
+            
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathUsers));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
         }
@@ -197,12 +194,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jsonObject.put("password", txtPassword.getText());
         jsonArray.add(jsonObject);
         try {
-            FileWriter fileWriter = new FileWriter("data/users.json");
-            fileWriter.write(jsonArray.toJSONString());
-            fileWriter.close();
-        } catch (Exception ex) {
+            FileManager.writeRecord(filePathUsers, jsonArray.toJSONString());
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error ocurred");
-
         }
         JOptionPane.showMessageDialog(null, "Data saved");
     }//GEN-LAST:event_btnRegisterActionPerformed
@@ -213,10 +207,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader("data/users.json");
-            object = jsonParser.parse(fileReader);
+
+            object = jsonParser.parse(FileManager.readRecord(filePathUsers));
             jsonArray = (JSONArray) object;
-            fileReader.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
@@ -229,10 +222,8 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 try {
-                    FileWriter fileWriter = new FileWriter("data/users.json");
                     jsonArray.remove(i);
-                    fileWriter.write(jsonArray.toJSONString());
-                    fileWriter.close();
+                    FileManager.writeRecord(filePathUsers, jsonArray.toJSONString());
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }

@@ -133,8 +133,9 @@ public class FrmMenuOption extends javax.swing.JFrame {
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         // TODO add your handling code here:
-        FrmInvoiceManagement invoices = new FrmInvoiceManagement();
-        invoices.setVisible(true);
+        FrmInvoiceManagement frmInvoiceManagement = new FrmInvoiceManagement();
+        frmInvoiceManagement.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked

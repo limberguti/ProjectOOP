@@ -6,8 +6,7 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
-import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.json.simple.JSONArray;
@@ -19,6 +18,8 @@ import org.json.simple.parser.JSONParser;
  * @author Andrés López
  */
 public class FrmCreateClient extends javax.swing.JFrame {
+
+    String filePathClients = "data/clients.json";
 
     /**
      * Creates new form FrmClient
@@ -79,6 +80,11 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbEmail.setText("Email: ");
 
         txtCedula.setToolTipText("Enter only 10 numbers");
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyPressed(evt);
@@ -243,8 +249,13 @@ public class FrmCreateClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
-        Validation validation = new Validation();
-        validation.emptyFields(evt, pnl);
+        JTextField box;
+        for (int i = 0; i < pnl.getComponentCount(); i++) {
+            if (pnl.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
+                box = (JTextField) pnl.getComponent(i);
+                box.setText("");
+            }
+        }
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -252,14 +263,11 @@ public class FrmCreateClient extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-        Validation validation = new Validation();
-        String filePath = "data/clients.json";
 
         try {
-            FileReader fileReader = new FileReader(filePath);
-            jsonArray = (JSONArray) jsonParser.parse(fileReader);
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
         jsonObject.put("cedula", txtCedula.getText());
@@ -269,16 +277,15 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jsonObject.put("address", txtAddress.getText());
 
         String email = txtEmail.getText();
-
-        if (validation.validateEmail(email) == true) {
+        if (validateEmail(email) == true) {
             jsonObject.put("email", txtEmail.getText());
 
             jsonArray.add(jsonObject);
 
             try {
-                FileManager.writeRecord(jsonArray.toJSONString(), filePath);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error ocurred!");
+                FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
             }
             JOptionPane.showMessageDialog(null, "Data saved");
         } else {
@@ -288,16 +295,34 @@ public class FrmCreateClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
-        Validation validation = new Validation();
-        validation.validateOnlyNumbers(evt, txtCedula, jlbOnlyNumbersCedula);
+        char character = evt.getKeyChar();
+        if (Character.isLetter(character)) {
+            txtCedula.setEditable(false);
+            jlbOnlyNumbersCedula.setText("Only Numbers!");
+        } else {
+            txtCedula.setEditable(true);
+        }
     }//GEN-LAST:event_txtCedulaKeyPressed
 
     private void txtCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCellphoneKeyPressed
-        Validation validation = new Validation();
-        validation.validateOnlyNumbers(evt, txtCellphone, jlbOnlyNumbersCellphone);
+        char character = evt.getKeyChar();
+        if (Character.isLetter(character)) {
+            txtCellphone.setEditable(false);
+            jlbOnlyNumbersCellphone.setText("Only Numbers!");
+        } else {
+            txtCellphone.setEditable(true);
+        }
     }//GEN-LAST:event_txtCellphoneKeyPressed
 
-    
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
+
+    private boolean validateEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
+    }
+
     /**
      * @param args the command line arguments
      */

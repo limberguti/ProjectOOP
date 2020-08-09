@@ -8,7 +8,6 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Jhonatan Lituma
  */
 public class FrmSearchInvoice extends javax.swing.JFrame {
-
+    String filePathInvoices = "data/invoices.json";
     private DefaultComboBoxModel modelInvoicesbyCedula = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelInvoicesbyId = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
@@ -45,7 +44,7 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/invoices.json");
+            json = FileManager.read(filePathInvoices);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }

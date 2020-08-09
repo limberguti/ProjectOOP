@@ -11,8 +11,6 @@ import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Jonathan Maigua
  */
 public class FrmShowProvider extends javax.swing.JFrame {
-
+    String filePathProviders = "data/providers.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -39,7 +37,6 @@ public class FrmShowProvider extends javax.swing.JFrame {
         tableModel.addColumn("Name");
         tableModel.addColumn("PhoneNumber");
         tableModel.addColumn("Address");
-        
 
         fillTable();
     }
@@ -50,9 +47,9 @@ public class FrmShowProvider extends javax.swing.JFrame {
         String json = "";
 
         try {
-            json = FileManager.read("provider.json");
+            json = FileManager.read(filePathProviders);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
@@ -60,8 +57,8 @@ public class FrmShowProvider extends javax.swing.JFrame {
         providers = gson.fromJson(json, providerType);
 
         for (Provider provider : providers) {
-           String[] rowProviders = {provider.getId(),provider.getProvider(),provider.getName(),provider.getPhoneNumber(),provider.getAddress()};
-            
+            String[] rowProviders = {provider.getId(), provider.getProvider(), provider.getName(), provider.getPhoneNumber(), provider.getAddress()};
+
             tableModel.addRow(rowProviders);
         }
     }

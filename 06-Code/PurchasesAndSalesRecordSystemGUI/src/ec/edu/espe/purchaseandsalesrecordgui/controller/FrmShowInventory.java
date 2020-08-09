@@ -14,19 +14,20 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author Christopher Loachami
  */
 public class FrmShowInventory extends javax.swing.JFrame {
 
-       DefaultTableModel tableModel = new DefaultTableModel();
-       DefaultTableModel tableModel1 = new DefaultTableModel();
-       
+    String filePahtInventory = "data/inventory.json";
+    DefaultTableModel tableModel = new DefaultTableModel();
+    DefaultTableModel tableModel1 = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
+     *
+     * @throws java.io.IOException
      */
     public FrmShowInventory() throws IOException {
         loadTableModel1();
@@ -41,49 +42,48 @@ public class FrmShowInventory extends javax.swing.JFrame {
         tableModel.addColumn("Clothing");
         tableModel.addColumn("Brand");
         tableModel.addColumn("Quantity");
-        tableModel.addColumn("Price");
+        tableModel.addColumn("Price by unit");
         tableModel.addColumn("Total");
         fillTable();
     }
 
     private void fillTable() throws IOException {
-        ArrayList<Inventory> inventorys = new ArrayList<>();
-        
+        ArrayList<Inventory> inventories = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read("data/inventory.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            json = FileManager.read(filePahtInventory);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
         java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
         }.getType();
-        inventorys = gson.fromJson(json, inventoryType);
+        inventories = gson.fromJson(json, inventoryType);
 
-        for (Inventory inventory : inventorys) {
-            String[] rowInventorys = {inventory.getProvider(), inventory.getClothing(),inventory.getBrand(), inventory.getQuantity(),inventory.getPrice(), inventory.getTotal()};
-            
-            tableModel.addRow(rowInventorys);
+        for (Inventory inventory : inventories) {
+            String[] rowInventory = {inventory.getProvider(), inventory.getClothing(), inventory.getBrand(), Integer.toString(inventory.getQuantity()), Float.toString(inventory.getPrice()), Float.toString(inventory.getTotal())};
+            tableModel.addRow(rowInventory);
         }
     }
-    
-     private void loadTableModel1() throws IOException {
+
+    private void loadTableModel1() throws IOException {
         tableModel1.addColumn("Total");
-        
+
     }
+
     private void fillTable1() throws IOException {
         ArrayList<Inventory> inventorys = new ArrayList<>();
-        float sumatotal=0;
-        
+        float sumatotal = 0;
+
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read("data/inventory.json");
+            json = FileManager.read(filePahtInventory);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
         java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
@@ -91,18 +91,17 @@ public class FrmShowInventory extends javax.swing.JFrame {
         inventorys = gson.fromJson(json, inventoryType);
 
         for (Inventory inventory : inventorys) {
-            float[] roowInventorys = { Float.parseFloat(inventory.getTotal())};
-        
-        
-       for (int contador =0; contador <roowInventorys.length;contador++){
-            sumatotal+=roowInventorys[contador];}
-       } 
-        
-       String[] totalsuma={ Float.toString(sumatotal)};
-            tableModel1.addRow(totalsuma);
-        
-    }
+            float[] roowInventorys = {inventory.getTotal()};
 
+            for (int contador = 0; contador < roowInventorys.length; contador++) {
+                sumatotal += roowInventorys[contador];
+            }
+        }
+
+        String[] totalsuma = {Float.toString(sumatotal)};
+        tableModel1.addRow(totalsuma);
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -245,7 +244,7 @@ public class FrmShowInventory extends javax.swing.JFrame {
                 try {
                     new FrmShowInventory().setVisible(true);
                 } catch (IOException ex) {
-                 
+
                 }
             }
         });

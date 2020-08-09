@@ -11,39 +11,49 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
  */
 public class Clothing {
 
- 
     private String category;
     private String brand;
+
+    public Clothing() {
+
+    }
+
+    public Clothing(String category, String brand) {
+        this.category = category;
+        this.brand = brand;
+    }
+
+    /**
+     * @return the category
+     */
+    public String getCategory() {
+        return category;
+    }
+
+    /**
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * @return the brand
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+    /**
+     * @param brand the brand to set
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
     @Override
     public String toString() {
         return "Clothing{" + "category=" + category + ", brand=" + brand + '}';
     }
 
-    
-    
-    public Clothing(String category, String brand) {
-        this.category = category;
-        this.brand = brand;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-    
 }
- 
-
-  

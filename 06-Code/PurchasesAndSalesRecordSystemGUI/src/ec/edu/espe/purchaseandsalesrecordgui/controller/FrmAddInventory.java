@@ -9,34 +9,35 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Inventory;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
-import java.io.FileReader;
-import java.io.FileWriter;
-
-
+import java.awt.HeadlessException;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Christopher Loachami
  */
-public class FrmCreateInventory extends javax.swing.JFrame {
-       private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-       private DefaultComboBoxModel<String> modelBrand = new DefaultComboBoxModel<String>();
-       private DefaultComboBoxModel<String> modelProvider = new DefaultComboBoxModel<String>();
-  
+public class FrmAddInventory extends javax.swing.JFrame {
 
+    String filePathInventory = "data/inventory.json";
+    String filePathProviders = "data/providers.json";
+    String filePathClothing = "data/clothing.json";
+    private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<String> modelBrand = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<String> modelProvider = new DefaultComboBoxModel<>();
 
     /**
      * Creates new form Aplication
      */
-    public FrmCreateInventory() {
+    public FrmAddInventory() {
         completeModelComboBox();
         completeModelComboBox2();
         initComponents();
@@ -48,9 +49,9 @@ public class FrmCreateInventory extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/clothing.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            json = FileManager.read(filePathClothing);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
         java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
@@ -59,29 +60,28 @@ public class FrmCreateInventory extends javax.swing.JFrame {
         for (Clothing clothing : clothes) {
             model.addElement(clothing.getCategory());
             modelBrand.addElement(clothing.getBrand());
- 
+
         }
 
     }
-    
-      private void completeModelComboBox2() {
+
+    private void completeModelComboBox2() {
         ArrayList<Provider> providers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/provider.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            json = FileManager.read(filePathProviders);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
         }.getType();
         providers = gson.fromJson(json, providerType);
-        for (Provider provider: providers) {
-            modelProvider.addElement(provider.getId());
+        for (Provider provider : providers) {
+            modelProvider.addElement(String.valueOf(provider.getId()));
 
         }
-        
 
     }
 
@@ -116,7 +116,7 @@ public class FrmCreateInventory extends javax.swing.JFrame {
 
         jLabel2.setText("Brand");
 
-        jLabel3.setText("Price");
+        jLabel3.setText("Price by unit");
 
         jLabel4.setText("Quantity");
 
@@ -136,12 +136,10 @@ public class FrmCreateInventory extends javax.swing.JFrame {
                 .addContainerGap(91, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbClothing, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -174,7 +172,7 @@ public class FrmCreateInventory extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         btmSave.setText("Save");
@@ -199,22 +197,21 @@ public class FrmCreateInventory extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btmSave, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(347, 347, 347)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btmSave, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,17 +223,26 @@ public class FrmCreateInventory extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(61, 61, 61))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,43 +250,58 @@ public class FrmCreateInventory extends javax.swing.JFrame {
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
         // TODO add your handling code here:
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonNewObject = new JSONObject();
+        JSONObject jsonOldObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
 
+        ArrayList<Inventory> inventories = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+
         try {
-            FileReader fileReader = new FileReader("data/inventory.json");
-            jsonArray = (JSONArray) jsonParser.parse(fileReader);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
+            json = FileManager.read(filePathInventory);
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInventory));
+        } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
-        
-        jsonObject.put("provider", cmbProvider.getSelectedItem().toString());
-        jsonObject.put("clothing", cmbClothing.getSelectedItem().toString());
-        jsonObject.put("brand", cmbBrand.getSelectedItem());
-        jsonObject.put("quantity", txtQuantity.getText());
-        jsonObject.put("price", txtPrice.getText());
-        
-        int quantity1 = Integer.parseInt(txtQuantity.getText());
-        float price1 = Float.parseFloat(txtPrice.getText());
-        float total= quantity1*price1;
-        jsonObject.put("total", total);
-        
-        
-        
-       
 
-        jsonArray.add(jsonObject);
+        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
+        }.getType();
+        inventories = gson.fromJson(json, inventoryType);
 
-        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+        jsonNewObject.put("provider", cmbProvider.getSelectedItem());
+        jsonNewObject.put("clothing", cmbClothing.getSelectedItem());
+        jsonNewObject.put("brand", cmbBrand.getSelectedItem());
+
+        jsonNewObject.put("quantity", txtQuantity.getText());
+        jsonNewObject.put("price", txtPrice.getText());
+
+        int quantity = Integer.parseInt(txtQuantity.getText());
+
+        float price = Float.parseFloat(txtPrice.getText());
+        float total = quantity * price;
+        jsonNewObject.put("total", total);
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            jsonOldObject = (JSONObject) jsonArray.get(i);
+            if (jsonOldObject.get("provider").equals(jsonNewObject.get("provider")) && jsonOldObject.get("clothing").equals(jsonNewObject.get("clothing")) && jsonOldObject.get("brand").equals(jsonNewObject.get("brand"))) {
+                long newQuantity = Long.parseLong(txtQuantity.getText());
+                long currentlyQuantity = (long) (jsonOldObject.get("quantity"));
+                long totalQuantity = newQuantity + currentlyQuantity;
+                jsonNewObject.put("quantity", totalQuantity);
+                jsonArray.remove(i);
+            }
+        }
+
+        jsonArray.add(jsonNewObject);
+
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
         if (saveOption == 0) {
             try {
-                FileWriter fileWriter = new FileWriter("data/inventory.json");
-
-                fileWriter.write(jsonArray.toJSONString());
-                fileWriter.close();
+                FileManager.writeRecord(filePathInventory, jsonArray.toJSONString());
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
-            } catch (Exception ex) {
+            } catch (HeadlessException | IOException ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
             }
 
@@ -313,21 +334,23 @@ public class FrmCreateInventory extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddInventory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCreateInventory().setVisible(true);
+                new FrmAddInventory().setVisible(true);
             }
         });
     }

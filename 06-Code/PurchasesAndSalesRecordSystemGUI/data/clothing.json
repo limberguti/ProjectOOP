@@ -1,40 +1,31 @@
 [
   {
     "category": "Coat",
-    "brand": "ADIDAS"
+    "brand": "Adidas"
   
   },
   {
     "category": "shirt",
-    "brand": "NIKE"
+    "brand": "Nike"
   },
   {
     "category": "T-shirt",
-    "brand": "PUMA"
+    "brand": "Puma"
   },
   {
-    "category": "sweater",
-    "brand": "PRADA"
+    "category": "Sweaters",
+    "brand": "FreshHoods"
   },
   {
-    "category": "jacket",
-    "brand": "GUCCI"
+    "category": "Jackets",
+    "brand": "Gucci"
   },
   {
-    "category": "coat",
-    "brand": "DIOR"
-   
+    "category": "Jeans",
+    "brand": "Zara"
   },
   {
-    "category": "jeans",
-    "brand": "ZARA"
-  },
-  {
-    "category": "socks",
+    "category": "Socks",
     "brand": "Calvin Klein"
-  },
-  {
-    "category": "shorts",
-    "brand": "Reebok"
   }
 ]

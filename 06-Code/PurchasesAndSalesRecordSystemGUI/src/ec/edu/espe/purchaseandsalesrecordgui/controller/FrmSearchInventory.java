@@ -26,6 +26,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class FrmSearchInventory extends javax.swing.JFrame {
 
+    String filePathInventory = "data/inventory.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
@@ -44,7 +45,7 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/inventory.json");
+            json = FileManager.read(filePathInventory);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -54,7 +55,7 @@ public class FrmSearchInventory extends javax.swing.JFrame {
 
         for (Inventory inventory : inventorys) {
             comboBoxModel.addElement(inventory);
-           
+
         }
     }
 
@@ -196,8 +197,8 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/inventory.json");
-        } catch (Exception e) {
+            json = FileManager.read(filePathInventory);
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
         java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
@@ -205,7 +206,7 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         inventorys = gson.fromJson(json, inventoryType);
         Inventory inventory = (Inventory) comboBoxModel.getSelectedItem();
 
-        String[] rowInventory= {inventory.getProvider(),inventory.getClothing(), inventory.getBrand(),inventory.getQuantity(), inventory.getPrice()};
+        String[] rowInventory = {inventory.getProvider(), inventory.getClothing(), inventory.getBrand(), Integer.toString(inventory.getQuantity()), Float.toString(inventory.getPrice())};
 
         tableModel.addRow(rowInventory);
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -219,10 +220,8 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader("data/inventory.json");
-            object = jsonParser.parse(fileReader);
+            object = jsonParser.parse(FileManager.readRecord(filePathInventory));
             jsonArray = (JSONArray) object;
-            fileReader.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
@@ -233,14 +232,13 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         jsonObject.put("brand", inventory.getBrand());
         jsonObject.put("quantity", inventory.getQuantity());
         jsonObject.put("price", inventory.getPrice());
-        
+
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 try {
-                    FileWriter fileWriter = new FileWriter("data/inventory.json");
                     jsonArray.remove(i);
-                    fileWriter.write(jsonArray.toJSONString());
-                    fileWriter.close();
+                    FileManager.writeRecord(filePathInventory, jsonArray.toJSONString());
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }

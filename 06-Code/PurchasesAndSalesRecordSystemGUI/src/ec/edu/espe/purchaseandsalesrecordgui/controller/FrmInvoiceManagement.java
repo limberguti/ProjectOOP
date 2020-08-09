@@ -52,8 +52,8 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
             }
         });
 
-        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cruz-entrecruzada_opt.png"))); // NOI18N
-        exitButton.setText("      Exit");
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/espalda (1)_opt.png"))); // NOI18N
+        exitButton.setText("Return");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -78,7 +78,7 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(jLabel1)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +91,7 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
                 .addComponent(searchButton)
                 .addGap(40, 40, 40)
                 .addComponent(exitButton)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();

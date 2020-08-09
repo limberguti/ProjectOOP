@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -26,6 +27,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class FrmSearchClient extends javax.swing.JFrame {
 
+    String filePathClients = "data/clients.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
@@ -44,7 +46,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -301,7 +303,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -317,7 +319,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         tableModel.addRow(rowClients);
 
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -341,10 +343,9 @@ public class FrmSearchClient extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader("data/clients.json");
-            object = jsonParser.parse(fileReader);
+
+            object = jsonParser.parse(FileManager.readRecord(filePathClients));
             jsonArray = (JSONArray) object;
-            fileReader.close();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
@@ -360,12 +361,9 @@ public class FrmSearchClient extends javax.swing.JFrame {
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 try {
-                    FileWriter fileWriter = new FileWriter("data/clients.json");
                     jsonArray.remove(i);
-                    fileWriter.write(jsonArray.toJSONString());
-                    fileWriter.close();
-
-                } catch (Exception ex) {
+                    FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+                } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }
                 JOptionPane.showMessageDialog(null, "Client Removed");
@@ -380,20 +378,16 @@ public class FrmSearchClient extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
-        String filePath = "data/clients.json";
         JSONObject jsonObject = new JSONObject();
         Client client = (Client) comboBoxModel.getSelectedItem();
-
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader(filePath);
-            object = jsonParser.parse(fileReader);
+            object = jsonParser.parse(FileManager.readRecord(filePathClients));
             jsonArray = (JSONArray) object;
-            fileReader.close();
-        } catch (Exception ex) {
+        } catch (IOException | ParseException ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
@@ -410,10 +404,9 @@ public class FrmSearchClient extends javax.swing.JFrame {
             for (int i = 0; i < size; i++) {
                 if (jsonObject.equals(jsonArray.get(i))) {
                     try {
-                        FileWriter fileWriter = new FileWriter(filePath);
                         jsonArray.remove(i);
-                        fileWriter.write(jsonArray.toJSONString());
-                        fileWriter.close();
+                        FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                     }
@@ -425,8 +418,8 @@ public class FrmSearchClient extends javax.swing.JFrame {
             }
 
             try {
-                FileReader fileReader = new FileReader(filePath);
-                jsonArray = (JSONArray) jsonParser.parse(fileReader);
+                
+                jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error ocurred");
             }
@@ -442,9 +435,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
             jsonArray.add(jsonObject);
 
             try {
-                FileWriter fileWriter = new FileWriter(filePath);
-                fileWriter.write(jsonArray.toJSONString());
-                fileWriter.close();
+                FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error ocurred!");
             }
@@ -452,7 +443,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         } else {
             jlbValidateEmail.setText("Invalid Email!");
         }
-       
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void cmbCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCedulaActionPerformed

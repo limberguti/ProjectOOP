@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowClients extends javax.swing.JFrame {
 
+    String filePathClients = "data/clients.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -43,7 +44,7 @@ public class FrmShowClients extends javax.swing.JFrame {
         String json = "";
 
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
@@ -53,10 +54,10 @@ public class FrmShowClients extends javax.swing.JFrame {
         clients = gson.fromJson(json, clientType);
 
         for (Client client : clients) {
-            String[] rowClients = {client.getCedula(), client.getName(), 
-                client.getLastName(), client.getCellphone(), client.getAddress(), 
+            String[] rowClients = {client.getCedula(), client.getName(),
+                client.getLastName(), client.getCellphone(), client.getAddress(),
                 client.getEmail()};
-            
+
             tableModel.addRow(rowClients);
         }
     }

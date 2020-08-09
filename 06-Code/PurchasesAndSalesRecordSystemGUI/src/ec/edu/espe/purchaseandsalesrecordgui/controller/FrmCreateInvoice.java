@@ -6,23 +6,20 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -30,6 +27,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
+    String filePathClients = "data/clients.json";
     private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<Client>();
     private DefaultTableModel modelTable = new DefaultTableModel();
 
@@ -37,7 +35,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
      * Creates new form Aplication
      */
     public FrmCreateInvoice() {
-        completeModelComboBox2();
+        completeModelComboBox();
         initComponents();
         setLocationRelativeTo(null);
         Date date = new Date();
@@ -47,14 +45,14 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     }
 
-    private void completeModelComboBox2() {
+    private void completeModelComboBox() {
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
         java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
@@ -373,9 +371,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read("data/clients.json");
+            json = FileManager.read(filePathClients);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
         //System.out.println(json);
         java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
@@ -411,12 +409,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            FileReader fileReader = new FileReader("data/invoices.json");
-            jsonArray = (JSONArray) jsonParser.parse(fileReader);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "File not found.");
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
+        } catch (IOException | ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
-        
 
         jsonObject.put("id", txtId.getText());
         jsonObject.put("cedula", txtCedula.getText());
@@ -446,12 +442,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             try {
                 int id = Integer.parseInt(txtId.getText());
                 id++;
-                String idAsString= Integer.toString(id);
+                String idAsString = Integer.toString(id);
                 txtId.setText(idAsString);
-                FileWriter fileWriter = new FileWriter("data/invoices.json");
 
-                fileWriter.write(jsonArray.toJSONString());
-                fileWriter.close();
+                FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
