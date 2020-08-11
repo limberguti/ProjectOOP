@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
+import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -53,7 +54,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         txtDate.setEditable(false);
         txtDate.setText(simpleDateFormat.format(date));
         txtQuantity.setText("0");
-
+        txtTotal.setText("0.0");
     }
 
     private void completeModelComboBoxClients() {
@@ -93,42 +94,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         }
     }
 
-    /*
-    private void completeModelComboBoxSizeOfClothing() {
-        ArrayList<Clothing> clothes = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathSizeOfClothing);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
-        }.getType();
-        clothes = gson.fromJson(json, clothingType);
-        for (Clothing clothing : clothes) {
-            modelSize.addElement(clothing.getSize());
-        }
-    }
-
-    private void completeModelComboBoxQuantity() {
-        ArrayList<Clothing> clothes = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathClients);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
-        }.getType();
-        clothes = gson.fromJson(json, clothingType);
-
-        for (Clothing clothing : clothes) {
-            modelClothing.addElement(clothing.getQuantity());
-        }
-    }
-     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -487,13 +452,18 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        jsonObject.put("id", txtId.getText());
+        jsonObject.put("idInvoice", txtId.getText());
+        jsonObject.put("date", txtDate.getText());
         jsonObject.put("cedula", txtCedula.getText());
         jsonObject.put("name", txtName.getText());
         jsonObject.put("lastName", txtLastName.getText());
-        jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("address", txtAddress.getText());
+        jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("email", txtEmail.getText());
+        jsonObject.put("clothing", cmbClothing.getSelectedItem());
+        jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
+        jsonObject.put("quantity", txtQuantity.getText());
+        jsonObject.put("tax", txtTax.getText());
         jsonObject.put("total", txtTotal.getText());
 
         jsonArray.add(jsonObject);
@@ -507,37 +477,61 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 txtId.setText(idAsString);
                 FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
-            } catch (Exception ex) {
+            } catch (HeadlessException | IOException | NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
             }
 
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-            //TODO Actions taken when the users selects NO
+            
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
+
+        JSONObject jsonNewObject = new JSONObject();
+        JSONObject jsonOldObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
         double tax;
         double pricePerUnit;
-        double totalWithoutIva;
-        double totalWithIva=0;
+        double totalWithoutIva = 0;
+        double totalWithIva = Double.parseDouble(txtTotal.getText());
         double quantity;
+        long totalQuantity = Long.parseLong(txtQuantity.getText());
+
+        try {
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
+        } catch (IOException | ParseException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
 
         Clothing clothing = (Clothing) modelClothing.getSelectedItem();
+        long quantityOfClothing = Long.valueOf(txtQuantity.getText());
 
-        int quantityOfClothing = Integer.valueOf(txtQuantity.getText());
-        if (quantityOfClothing > Integer.valueOf(clothing.getQuantity())) {
+        jsonOldObject = (JSONObject) jsonArray.get(cmbClothing.getSelectedIndex());
+
+        if (jsonOldObject.get("id").equals(clothing.getId()) && jsonOldObject.get("typeOfClothing").equals(clothing.getTypeOfClothing()) && jsonOldObject.get("size").equals(clothing.getSize()) && jsonOldObject.get("idProvider").equals(clothing.getIdProvider()) && jsonOldObject.get("brand").equals(clothing.getBrand()) && quantityOfClothing > Long.parseLong(String.valueOf(jsonOldObject.get("quantity")))) {
             JOptionPane.showMessageDialog(null, "Exceeds the quantity available.");
         } else {
-            txtTotal.setText(String.valueOf(totalWithIva));
             tax = Integer.parseInt(txtTax.getText());
             pricePerUnit = clothing.getSalePrice();
             quantity = clothing.getQuantity();
             totalWithoutIva = (pricePerUnit * quantity);
-            totalWithIva = totalWithoutIva + (totalWithoutIva * (tax / 100));
+            totalWithIva += totalWithoutIva + (totalWithoutIva * (tax / 100));
             txtTotal.setText(String.valueOf(totalWithIva));
 
+            long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
+            currentlyQuantity -= totalQuantity;
+            jsonOldObject.put("quantity", currentlyQuantity);
+            jsonArray.remove(cmbClothing.getSelectedIndex());
+            
+            jsonArray.add(cmbClothing.getSelectedIndex(),jsonOldObject);
+            try {
+                FileManager.writeRecord(filePathClothing, jsonArray.toJSONString());
+            } catch (HeadlessException | IOException ex) {
+                JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+            }
         }
 
 
