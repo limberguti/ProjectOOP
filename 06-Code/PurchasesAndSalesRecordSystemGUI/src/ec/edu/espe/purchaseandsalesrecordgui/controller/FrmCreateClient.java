@@ -6,10 +6,9 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -127,14 +126,14 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbCedula.setText("Cédula: ");
 
         jlbCreateClientTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClientTitle.png"))); // NOI18N
-        jlbCreateClientTitle.setText("Register Client");
+        jlbCreateClientTitle.setText("Create Client");
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
+                .addContainerGap(229, Short.MAX_VALUE)
                 .addComponent(jlbCreateClientTitle)
                 .addGap(174, 174, 174))
             .addGroup(pnlLayout.createSequentialGroup()
@@ -245,7 +244,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
-        Validation validation = new Validation();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
         validation.emptyFields(evt, pnl, jlbOnlyNumbersCedula, jlbOnlyNumbersCellphone, jlbValidateEmail);
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
 
@@ -254,7 +253,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-        Validation validation = new Validation();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
 
         try {
             jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
@@ -300,12 +299,12 @@ public class FrmCreateClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
-        Validation validation = new Validation();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
         validation.validateOnlyNumbers(evt, txtCedula, jlbOnlyNumbersCedula);
     }//GEN-LAST:event_txtCedulaKeyPressed
 
     private void txtCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCellphoneKeyPressed
-        Validation validation = new Validation();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
         validation.validateOnlyNumbers(evt, txtCellphone, jlbOnlyNumbersCellphone);
     }//GEN-LAST:event_txtCellphoneKeyPressed
 

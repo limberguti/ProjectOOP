@@ -16,9 +16,10 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Jonathan Maigua
+ * @author Christopher Loachamin
  */
 public class FrmShowProvider extends javax.swing.JFrame {
+
     String filePathProviders = "data/providers.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
@@ -32,10 +33,11 @@ public class FrmShowProvider extends javax.swing.JFrame {
     }
 
     private void loadTableModel() throws IOException {
-        tableModel.addColumn("Id");
-        tableModel.addColumn("Provider");
+        tableModel.addColumn("Provider ID");
         tableModel.addColumn("Name");
-        tableModel.addColumn("PhoneNumber");
+        tableModel.addColumn("Last Name");
+        tableModel.addColumn("Brand");
+        tableModel.addColumn("Phone Number");
         tableModel.addColumn("Address");
 
         fillTable();
@@ -57,7 +59,10 @@ public class FrmShowProvider extends javax.swing.JFrame {
         providers = gson.fromJson(json, providerType);
 
         for (Provider provider : providers) {
-            String[] rowProviders = {String.valueOf(provider.getIdProvider()), provider.getBrand(), provider.getName(), provider.getPhoneNumber(), provider.getAddress()};
+
+            String[] rowProviders = {provider.getIdProvider(), provider.getName(),
+                provider.getLastName(),provider.getBrand(), provider.getPhoneNumber(),
+                provider.getAddress()};
 
             tableModel.addRow(rowProviders);
         }
@@ -80,7 +85,7 @@ public class FrmShowProvider extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jlbShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClientsTitle.png"))); // NOI18N
+        jlbShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showProveedorTitle.png"))); // NOI18N
         jlbShowClients.setText("Show Registered Provider");
 
         jtbClientsInformation.setModel(tableModel);
@@ -100,23 +105,22 @@ public class FrmShowProvider extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnReturn)
-                .addGap(44, 44, 44))
+                .addGap(24, 24, 24))
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlLayout.createSequentialGroup()
-                        .addGap(358, 358, 358)
-                        .addComponent(jlbShowClients)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbShowClients)
+                .addGap(258, 258, 258))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(33, 33, 33)
                 .addComponent(jlbShowClients)
-                .addGap(52, 52, 52)
+                .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReturn)

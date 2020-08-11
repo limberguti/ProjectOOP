@@ -6,9 +6,9 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,16 +52,17 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
         btnEmptyFields = new javax.swing.JButton();
         jlbCedula = new javax.swing.JLabel();
-        jlbCreateClientTitle = new javax.swing.JLabel();
+        jlbCreateProviderTitle = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
+        jlbOnlyNumbersPhoneNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Purchase and Sales Record");
 
         pnl.setPreferredSize(new java.awt.Dimension(705, 465));
 
-        jlbName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
+        jlbName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/brand.png"))); // NOI18N
         jlbName.setText("Brand:");
 
         jlbLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
@@ -73,18 +74,18 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/address.png"))); // NOI18N
         jlbAddress.setText("Address: ");
 
-        txtId.setToolTipText("Enter only 10 numbers");
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
+        txtId.setToolTipText("Enter only numbers");
 
         txtBrand.setToolTipText("Don't use special characteres");
 
         txtName.setToolTipText("Don't use special characteres");
 
         txtPhoneNumber.setToolTipText("Enter only 10 numbers");
+        txtPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPhoneNumberKeyPressed(evt);
+            }
+        });
 
         txtAddress.setToolTipText("Don't use special characteres");
 
@@ -112,25 +113,29 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
         jlbCedula.setText("ID:");
 
-        jlbCreateClientTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClientTitle.png"))); // NOI18N
-        jlbCreateClientTitle.setText("Register Provider");
+        jlbCreateProviderTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/createProviderTitle.png"))); // NOI18N
+        jlbCreateProviderTitle.setText("Register Provider");
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
         jLabel1.setText("Last Name:");
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbCreateProviderTitle)
+                .addGap(141, 141, 141))
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(24, 24, 24)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jlbCellphone)
                     .addComponent(jlbAddress)
                     .addComponent(jlbName)
                     .addComponent(jlbCedula)
-                    .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)
-                        .addComponent(jlbLastName)))
+                    .addComponent(jLabel1)
+                    .addComponent(jlbLastName))
                 .addGap(24, 24, 24)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPhoneNumber)
@@ -140,25 +145,21 @@ public class FrmCreateProvider extends javax.swing.JFrame {
                     .addComponent(txtId)
                     .addComponent(txtLastName))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
-                .addComponent(btnSave)
-                .addGap(52, 52, 52)
-                .addComponent(btnEmptyFields)
-                .addGap(51, 51, 51)
-                .addComponent(btnReturn)
-                .addGap(103, 103, 103))
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(185, 185, 185)
-                .addComponent(jlbCreateClientTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 160, Short.MAX_VALUE)
+                .addComponent(btnSave)
+                .addGap(79, 79, 79)
+                .addComponent(btnEmptyFields)
+                .addGap(76, 76, 76)
+                .addComponent(btnReturn)
+                .addGap(18, 18, 18))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jlbCreateClientTitle)
-                .addGap(37, 37, 37)
+                .addComponent(jlbCreateProviderTitle)
+                .addGap(31, 31, 31)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCedula))
@@ -170,7 +171,7 @@ public class FrmCreateProvider extends javax.swing.JFrame {
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbLastName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,13 +183,15 @@ public class FrmCreateProvider extends javax.swing.JFrame {
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbAddress)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEmptyFields)
                     .addComponent(btnReturn)
                     .addComponent(btnSave))
                 .addGap(50, 50, 50))
         );
+
+        jlbOnlyNumbersPhoneNumber.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,11 +200,17 @@ public class FrmCreateProvider extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlbOnlyNumbersPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 341, Short.MAX_VALUE)
+                .addComponent(jlbOnlyNumbersPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
 
         pack();
@@ -214,13 +223,8 @@ public class FrmCreateProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
-        JTextField box;
-        for (int i = 0; i < pnl.getComponentCount(); i++) {
-            if (pnl.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
-                box = (JTextField) pnl.getComponent(i);
-                box.setText("");
-            }
-        }
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.emptyFields(evt, pnl,jlbOnlyNumbersPhoneNumber);
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
@@ -248,14 +252,16 @@ public class FrmCreateProvider extends javax.swing.JFrame {
             FileManager.writeRecord(filePathProviders, jsonArray.toJSONString());
 
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "");
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         JOptionPane.showMessageDialog(null, "Data saved");
+        jlbOnlyNumbersPhoneNumber.setText("");
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
+    private void txtPhoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtPhoneNumber, jlbOnlyNumbersPhoneNumber);
+    }//GEN-LAST:event_txtPhoneNumberKeyPressed
 
     /**
      * @param args the command line arguments
@@ -363,9 +369,10 @@ public class FrmCreateProvider extends javax.swing.JFrame {
     private javax.swing.JLabel jlbAddress;
     private javax.swing.JLabel jlbCedula;
     private javax.swing.JLabel jlbCellphone;
-    private javax.swing.JLabel jlbCreateClientTitle;
+    private javax.swing.JLabel jlbCreateProviderTitle;
     private javax.swing.JLabel jlbLastName;
     private javax.swing.JLabel jlbName;
+    private javax.swing.JLabel jlbOnlyNumbersPhoneNumber;
     private javax.swing.JPanel pnl;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtBrand;

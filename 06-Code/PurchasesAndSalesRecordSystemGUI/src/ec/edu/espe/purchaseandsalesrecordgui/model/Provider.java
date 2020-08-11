@@ -79,7 +79,6 @@ public class Provider {
         this.brand = brand;
     }
 
-
     @Override
     public String toString() {
         return this.idProvider;

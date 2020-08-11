@@ -10,6 +10,9 @@ import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -59,12 +62,12 @@ public class FrmSearchClient extends javax.swing.JFrame {
     }
 
     private void loadTableModel() {
-        tableModel.addColumn("Cedula");
-        tableModel.addColumn("Name");
-        tableModel.addColumn("Last Name");
-        tableModel.addColumn("Cellphone");
-        tableModel.addColumn("Address");
-        tableModel.addColumn("Email");
+        tableModel.addColumn("cedula");
+        tableModel.addColumn("name");
+        tableModel.addColumn("last Name");
+        tableModel.addColumn("cellphone");
+        tableModel.addColumn("address");
+        tableModel.addColumn("email");
     }
 
     /**
@@ -76,7 +79,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnl = new javax.swing.JPanel();
         jlbSearchTitle = new javax.swing.JLabel();
         jlbCedula = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
@@ -98,6 +101,8 @@ public class FrmSearchClient extends javax.swing.JFrame {
         txtUpdateEmail = new javax.swing.JTextField();
         jlbUpdateFields = new javax.swing.JLabel();
         jlbValidateEmail = new javax.swing.JLabel();
+        btnEmptyFields = new javax.swing.JButton();
+        jlbOnlyNumbersCellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,115 +160,139 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jlbUpdateEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/email.png"))); // NOI18N
         jlbUpdateEmail.setText("Email: ");
 
+        txtUpdateCellphone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUpdateCellphoneKeyPressed(evt);
+            }
+        });
+
         jlbUpdateFields.setText("Enter the new values in each field:");
 
         jlbValidateEmail.setForeground(new java.awt.Color(255, 0, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(btnUpdate)
-                .addGap(139, 139, 139)
-                .addComponent(btnDeleteClient)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(89, 89, 89))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
+        btnEmptyFields.setText("Empty Fields");
+        btnEmptyFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmptyFieldsActionPerformed(evt);
+            }
+        });
+
+        jlbOnlyNumbersCellphone.setForeground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
+        pnl.setLayout(pnlLayout);
+        pnlLayout.setHorizontalGroup(
+            pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLayout.createSequentialGroup()
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnlLayout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jlbSearchTitle)
+                                    .addGroup(pnlLayout.createSequentialGroup()
+                                        .addComponent(jlbCedula)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(78, 78, 78)
+                                .addComponent(btnSearch))
+                            .addGroup(pnlLayout.createSequentialGroup()
+                                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jlbUpdateFields)
+                                        .addGap(55, 55, 55))
+                                    .addGroup(pnlLayout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnDeleteClient)
+                                            .addGroup(pnlLayout.createSequentialGroup()
+                                                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jlbUpdateName)
+                                                    .addComponent(jlbUpdateLastName))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(txtUpdateName, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                                    .addComponent(txtUpdateLastName))))
+                                        .addGap(26, 26, 26)))
+                                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(pnlLayout.createSequentialGroup()
+                                        .addComponent(jlbUpdateCellphone)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlbUpdateAddress)
+                                            .addComponent(jlbUpdateEmail))
+                                        .addGap(20, 20, 20)
+                                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtUpdateAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
+                                            .addComponent(txtUpdateEmail)))
+                                    .addComponent(jlbValidateEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(btnUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                                .addComponent(btnEmptyFields)
+                                .addGap(66, 66, 66)
+                                .addComponent(btnReturn)
+                                .addGap(59, 59, 59)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlbSearchTitle)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbCedula)
-                                .addGap(48, 48, 48)
-                                .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(78, 78, 78)
-                        .addComponent(btnSearch))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlbUpdateName)
-                                    .addComponent(jlbUpdateLastName))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUpdateName, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                    .addComponent(txtUpdateLastName))
-                                .addGap(33, 33, 33))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jlbUpdateFields)
-                                .addGap(78, 78, 78)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlbUpdateCellphone)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlbUpdateAddress)
-                                    .addComponent(jlbUpdateEmail))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUpdateAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                    .addComponent(txtUpdateEmail)))
-                            .addComponent(jlbValidateEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlLayout.setVerticalGroup(
+            pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jlbSearchTitle)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCedula)
                     .addComponent(btnSearch)
                     .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jlbUpdateFields)
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbUpdateFields)
+                            .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jlbUpdateCellphone)
+                                .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbUpdateName)
                             .addComponent(txtUpdateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbUpdateLastName)
                             .addComponent(txtUpdateLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlbUpdateCellphone)
-                            .addComponent(txtUpdateCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbUpdateAddress)
                             .addComponent(txtUpdateAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlbUpdateEmail)
                             .addComponent(txtUpdateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlbValidateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnDeleteClient)
-                    .addComponent(btnReturn))
+                    .addComponent(btnReturn)
+                    .addComponent(btnEmptyFields))
                 .addGap(13, 13, 13))
         );
 
@@ -273,13 +302,13 @@ public class FrmSearchClient extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -293,6 +322,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
@@ -308,7 +338,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
 
         String cedula = Integer.toString(client.getCedula());
         String cellphone = Integer.toString(client.getCellphone());
-        
+
         String[] rowClients = {cedula, client.getName(),
             client.getLastName(), cellphone, client.getAddress(),
             client.getEmail()};
@@ -330,7 +360,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
         txtUpdateEmail.setText(client.getEmail());
     }//GEN-LAST:event_btnSearchActionPerformed
 
-
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
         JSONObject jsonObject = new JSONObject();
         Client client = (Client) comboBoxModel.getSelectedItem();
@@ -340,7 +369,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-
             object = jsonParser.parse(FileManager.readRecord(filePathClients));
             jsonArray = (JSONArray) object;
         } catch (Exception ex) {
@@ -356,7 +384,8 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jsonObject.put("email", client.getEmail());
 
         for (int i = 0; i < size; i++) {
-            if (jsonObject.equals(jsonArray.get(i))) {
+            jsonObject = (JSONObject) jsonArray.get(i);
+            if (String.valueOf(client.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
                 try {
                     jsonArray.remove(i);
                     FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
@@ -380,7 +409,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
-        Validation validation = new Validation();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
 
         try {
             object = jsonParser.parse(FileManager.readRecord(filePathClients));
@@ -389,7 +418,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        int size = jsonArray.size();
         jsonObject.put("cedula", client.getCedula());
         jsonObject.put("name", client.getName());
         jsonObject.put("lastName", client.getLastName());
@@ -397,14 +425,16 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jsonObject.put("address", client.getAddress());
         jsonObject.put("email", client.getEmail());
 
+        int size = jsonArray.size();
         String email = txtUpdateEmail.getText();
+
         if (validation.validateEmail(email) == true) {
             for (int i = 0; i < size; i++) {
-                if (jsonObject.equals(jsonArray.get(i))) {
+                jsonObject = (JSONObject) jsonArray.get(i);
+                if (String.valueOf(client.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
                     try {
                         jsonArray.remove(i);
                         FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
-
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                     }
@@ -416,7 +446,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
             }
 
             try {
-                
                 jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error ocurred");
@@ -427,7 +456,6 @@ public class FrmSearchClient extends javax.swing.JFrame {
             jsonObject.put("lastName", txtUpdateLastName.getText());
             jsonObject.put("cellphone", txtUpdateCellphone.getText());
             jsonObject.put("address", txtUpdateAddress.getText());
-
             jsonObject.put("email", txtUpdateEmail.getText());
 
             jsonArray.add(jsonObject);
@@ -440,9 +468,20 @@ public class FrmSearchClient extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Client updated");
         } else {
             jlbValidateEmail.setText("Invalid Email!");
+            JOptionPane.showMessageDialog(null, "Invalid Email!");
         }
 
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.emptyFields(pnl);
+    }//GEN-LAST:event_btnEmptyFieldsActionPerformed
+
+    private void txtUpdateCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUpdateCellphoneKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtUpdateCellphone, jlbOnlyNumbersCellphone);
+    }//GEN-LAST:event_txtUpdateCellphoneKeyPressed
 
     /**
      * @param args the command line arguments
@@ -496,14 +535,15 @@ public class FrmSearchClient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteClient;
+    private javax.swing.JButton btnEmptyFields;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbCedula;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel jlbCedula;
+    private javax.swing.JLabel jlbOnlyNumbersCellphone;
     private javax.swing.JLabel jlbSearchTitle;
     private javax.swing.JLabel jlbUpdateAddress;
     private javax.swing.JLabel jlbUpdateCellphone;
@@ -512,6 +552,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
     private javax.swing.JLabel jlbUpdateLastName;
     private javax.swing.JLabel jlbUpdateName;
     private javax.swing.JLabel jlbValidateEmail;
+    private javax.swing.JPanel pnl;
     private javax.swing.JTextField txtUpdateAddress;
     private javax.swing.JTextField txtUpdateCellphone;
     private javax.swing.JTextField txtUpdateEmail;

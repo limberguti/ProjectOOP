@@ -76,11 +76,6 @@ public class Client {
     
     @Override
     public String toString() {
-        return "Client{" + "cedula=" + cedula + ", name=" + name + ", lastName=" + lastName + ", cellphone=" + cellphone + ", address=" + address + ", email=" + email + '}';
+        return String.valueOf(this.cedula);
     }
-    
-    /*@Override
-    public String toString() {
-        return this.cedula;
-    }*/
 }

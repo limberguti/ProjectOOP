@@ -8,7 +8,7 @@ import javax.swing.JTextField;
  *
  * @author Andrés López
  */
-public class Validation {
+public abstract class Validation {
 
     public boolean validateEmail(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -25,8 +25,8 @@ public class Validation {
             txt.setEditable(true);
         }
     }
-
-    public void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCedula, JLabel jlbOnlyNumbersCellphone, JLabel jlbValidateEmail) {
+    
+    public void emptyFields(JPanel pnl){
         JTextField box;
         for (int i = 0; i < pnl.getComponentCount(); i++) {
             if (pnl.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
@@ -34,13 +34,14 @@ public class Validation {
                 box.setText("");
             }
         }
-        jlbOnlyNumbersCedula.setText("");
-        jlbOnlyNumbersCellphone.setText("");
-        jlbValidateEmail.setText("");
     }
 
+    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCedula, JLabel jlbOnlyNumbersCellphone, JLabel jlbValidateEmail);
+
+    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCellphone);
+
     public boolean validateCedula(String cedula) {
-        
+
         int total = 0;
         int sizeCedula = 10;
         int[] coefficients = {2, 1, 2, 1, 2, 1, 2, 1, 2};

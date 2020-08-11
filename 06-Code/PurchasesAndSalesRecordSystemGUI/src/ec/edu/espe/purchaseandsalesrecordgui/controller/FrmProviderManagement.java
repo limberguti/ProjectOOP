@@ -30,30 +30,28 @@ public class FrmProviderManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSearchClient = new javax.swing.JButton();
-        jlbClientManagement = new javax.swing.JLabel();
+        btnSearchProvider = new javax.swing.JButton();
+        jlbProviderManagement = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnShowClients = new javax.swing.JButton();
+        btnShowProviders = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Purchase and Sales Record");
 
-        btnSearchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClient.png"))); // NOI18N
-        btnSearchClient.setText("Search");
-        btnSearchClient.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchProvider.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchProviderBtn.png"))); // NOI18N
+        btnSearchProvider.setText("Search");
+        btnSearchProvider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchClientActionPerformed(evt);
+                btnSearchProviderActionPerformed(evt);
             }
         });
 
-        jlbClientManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbClientManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/clientInformationTitle.png"))); // NOI18N
-        jlbClientManagement.setText("Provider Management");
+        jlbProviderManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbProviderManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/providerTitle.png"))); // NOI18N
+        jlbProviderManagement.setText("Provider Management");
 
-        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClient.png"))); // NOI18N
+        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/createProviderBtn.png"))); // NOI18N
         btnCreate.setText("Create");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,27 +59,11 @@ public class FrmProviderManagement extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/updateClient.png"))); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnShowProviders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showProveedorBtn.png"))); // NOI18N
+        btnShowProviders.setText("Show Provider Data");
+        btnShowProviders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/deleteClient.png"))); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClients.png"))); // NOI18N
-        btnShowClients.setText("Show Provider Data");
-        btnShowClients.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowClientsActionPerformed(evt);
+                btnShowProvidersActionPerformed(evt);
             }
         });
 
@@ -96,59 +78,54 @@ public class FrmProviderManagement extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbClientManagement, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnUpdate)
-                                .addGap(47, 47, 47))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnCreate)
-                                .addGap(49, 49, 49)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSearchClient)
-                            .addComponent(btnDelete))
-                        .addGap(139, 139, 139))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(btnShowClients)
-                .addGap(0, 197, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(61, 61, 61))
+                .addContainerGap()
+                .addComponent(jlbProviderManagement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(168, 168, 168)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearchProvider)
+                    .addComponent(btnCreate))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(136, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnReturn)
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnShowProviders)
+                        .addGap(131, 131, 131))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jlbClientManagement)
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSearchClient)
-                    .addComponent(btnCreate))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete))
-                .addGap(81, 81, 81)
-                .addComponent(btnShowClients)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReturn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jlbProviderManagement)
+                .addGap(26, 26, 26)
+                .addComponent(btnCreate)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearchProvider)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnShowProviders)
+                        .addContainerGap(100, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReturn)
+                        .addGap(37, 37, 37))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchClientActionPerformed
+    private void btnSearchProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProviderActionPerformed
         FrmSearchProvider frmSearchProvider = new FrmSearchProvider();
         frmSearchProvider.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnSearchClientActionPerformed
+    }//GEN-LAST:event_btnSearchProviderActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         FrmCreateProvider frmCreateProvider = new FrmCreateProvider();
@@ -162,19 +139,7 @@ public class FrmProviderManagement extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        FrmUpdateProvider frmUpdateProvider = new FrmUpdateProvider();
-        frmUpdateProvider.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        FrmDeleteProvider frmDeleteProvider = new FrmDeleteProvider();
-        frmDeleteProvider.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnShowClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowClientsActionPerformed
+    private void btnShowProvidersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowProvidersActionPerformed
         try {
             FrmShowProvider frmShowProvider = new FrmShowProvider();
             frmShowProvider.setVisible(true);
@@ -182,7 +147,7 @@ public class FrmProviderManagement extends javax.swing.JFrame {
         } catch (IOException ex) {
 
         }
-    }//GEN-LAST:event_btnShowClientsActionPerformed
+    }//GEN-LAST:event_btnShowProvidersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -476,11 +441,9 @@ public class FrmProviderManagement extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreate;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnSearchClient;
-    private javax.swing.JButton btnShowClients;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jlbClientManagement;
+    private javax.swing.JButton btnSearchProvider;
+    private javax.swing.JButton btnShowProviders;
+    private javax.swing.JLabel jlbProviderManagement;
     // End of variables declaration//GEN-END:variables
 }
