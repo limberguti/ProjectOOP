@@ -57,7 +57,7 @@ public class FrmShowProvider extends javax.swing.JFrame {
         providers = gson.fromJson(json, providerType);
 
         for (Provider provider : providers) {
-            String[] rowProviders = {provider.getId(), provider.getProvider(), provider.getName(), provider.getPhoneNumber(), provider.getAddress()};
+            String[] rowProviders = {String.valueOf(provider.getIdProvider()), provider.getBrand(), provider.getName(), provider.getPhoneNumber(), provider.getAddress()};
 
             tableModel.addRow(rowProviders);
         }

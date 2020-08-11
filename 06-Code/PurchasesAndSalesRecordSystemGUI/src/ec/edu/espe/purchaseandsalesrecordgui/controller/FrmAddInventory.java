@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Inventory;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.awt.HeadlessException;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -27,12 +27,13 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmAddInventory extends javax.swing.JFrame {
 
-    String filePathInventory = "data/inventory.json";
+    String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathProviders = "data/providers.json";
     String filePathClothing = "data/clothing.json";
-    private DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
-    private DefaultComboBoxModel<String> modelBrand = new DefaultComboBoxModel<>();
-    private DefaultComboBoxModel<String> modelProvider = new DefaultComboBoxModel<>();
+
+    private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
+    private DefaultComboBoxModel<Provider> modelProvider = new DefaultComboBoxModel <>();
+    private DefaultComboBoxModel modelBrand = new DefaultComboBoxModel();
 
     /**
      * Creates new form Aplication
@@ -42,6 +43,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
         completeModelComboBox2();
         initComponents();
         setLocationRelativeTo(null);
+        txtBrand.setEditable(false);
     }
 
     private void completeModelComboBox() {
@@ -49,18 +51,15 @@ public class FrmAddInventory extends javax.swing.JFrame {
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClothing);
+            json = FileManager.read(filePathSizeOfClothing);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
-        //System.out.println(json);
         java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
         clothes = gson.fromJson(json, clothingType);
         for (Clothing clothing : clothes) {
-            model.addElement(clothing.getCategory());
-            modelBrand.addElement(clothing.getBrand());
-
+            modelSize.addElement(clothing.getSize());
         }
 
     }
@@ -74,13 +73,11 @@ public class FrmAddInventory extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
-        //System.out.println(json);
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
         }.getType();
         providers = gson.fromJson(json, providerType);
         for (Provider provider : providers) {
-            modelProvider.addElement(String.valueOf(provider.getId()));
-
+            modelProvider.addElement(provider);
         }
 
     }
@@ -94,6 +91,8 @@ public class FrmAddInventory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,69 +100,112 @@ public class FrmAddInventory extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
+        txtPurchasePrice = new javax.swing.JTextField();
         txtQuantity = new javax.swing.JTextField();
-        cmbClothing = new javax.swing.JComboBox<>();
-        cmbBrand = new javax.swing.JComboBox<>();
-        cmbProvider = new javax.swing.JComboBox<>();
+        cmbIdProvider = new javax.swing.JComboBox<>();
+        txtTypeOfClothing = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtIdClothing = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtSalePrice = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        cmbSize = new javax.swing.JComboBox<>();
+        txtBrand = new javax.swing.JTextField();
         btmSave = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+
+        jLabel8.setText("jLabel8");
+
+        jLabel10.setText("jLabel10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Clothing");
+        jLabel1.setText("Type Of Clothing");
 
         jLabel2.setText("Brand");
 
-        jLabel3.setText("Price by unit");
+        jLabel3.setText("Purchase price per unit");
 
         jLabel4.setText("Quantity");
 
         jLabel5.setText("Provider");
 
-        cmbClothing.setModel(model);
+        cmbIdProvider.setModel(modelProvider);
+        cmbIdProvider.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbIdProviderItemStateChanged(evt);
+            }
+        });
 
-        cmbBrand.setModel(modelBrand);
+        jLabel6.setText("Clothing ID:");
 
-        cmbProvider.setModel(modelProvider);
+        jLabel9.setText("Sale price  price per unit");
+
+        jLabel11.setText("Size");
+
+        cmbSize.setModel(modelSize);
+        cmbSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSizeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbClothing, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbBrand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtQuantity)
-                    .addComponent(txtPrice)
-                    .addComponent(cmbProvider, 0, 139, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTypeOfClothing)
+                            .addComponent(txtIdClothing)
+                            .addComponent(txtSalePrice)
+                            .addComponent(cmbSize, 0, 139, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(txtPurchasePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(cmbIdProvider, 0, 139, Short.MAX_VALUE)
+                            .addComponent(txtBrand))))
+                .addGap(37, 37, 37))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cmbProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(txtIdClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTypeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cmbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cmbIdProvider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cmbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,8 +213,12 @@ public class FrmAddInventory extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(txtPurchasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         btmSave.setText("Save");
@@ -182,8 +228,6 @@ public class FrmAddInventory extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/camiseta (1).png"))); // NOI18N
-
         btnReturn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/espalda.png"))); // NOI18N
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -192,57 +236,52 @@ public class FrmAddInventory extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/controller/ropa_opt.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(347, 347, 347)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btmSave, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(33, 33, 33)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btmSave, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(98, 98, 98))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(172, 172, 172))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btmSave)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jLabel7)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btmSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -254,40 +293,32 @@ public class FrmAddInventory extends javax.swing.JFrame {
         JSONObject jsonOldObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
-
-        ArrayList<Inventory> inventories = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-
         try {
-            json = FileManager.read(filePathInventory);
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInventory));
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
         } catch (IOException | ParseException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
-        }.getType();
-        inventories = gson.fromJson(json, inventoryType);
-
-        jsonNewObject.put("provider", cmbProvider.getSelectedItem());
-        jsonNewObject.put("clothing", cmbClothing.getSelectedItem());
-        jsonNewObject.put("brand", cmbBrand.getSelectedItem());
-
+        jsonNewObject.put("id", txtIdClothing.getText());
+        jsonNewObject.put("typeOfClothing", txtTypeOfClothing.getText());
+        jsonNewObject.put("size", cmbSize.getSelectedItem());
+        jsonNewObject.put("idProvider", String.valueOf(cmbIdProvider.getSelectedItem()));
+        jsonNewObject.put("brand", txtBrand.getText());
+        jsonNewObject.put("purchasePrice", txtPurchasePrice.getText());
+        jsonNewObject.put("salePrice", txtSalePrice.getText());
         jsonNewObject.put("quantity", txtQuantity.getText());
-        jsonNewObject.put("price", txtPrice.getText());
-
+        
         int quantity = Integer.parseInt(txtQuantity.getText());
-
-        float price = Float.parseFloat(txtPrice.getText());
+        float price = Float.parseFloat(txtPurchasePrice.getText());
         float total = quantity * price;
         jsonNewObject.put("total", total);
-
+        
         for (int i = 0; i < jsonArray.size(); i++) {
             jsonOldObject = (JSONObject) jsonArray.get(i);
-            if (jsonOldObject.get("provider").equals(jsonNewObject.get("provider")) && jsonOldObject.get("clothing").equals(jsonNewObject.get("clothing")) && jsonOldObject.get("brand").equals(jsonNewObject.get("brand"))) {
+            if (jsonOldObject.get("id").equals(jsonNewObject.get("id")) && jsonOldObject.get("typeOfClothing").equals(jsonNewObject.get("typeOfClothing")) && jsonOldObject.get("size").equals(jsonNewObject.get("size")) && jsonOldObject.get("idProvider").equals(jsonNewObject.get("idProvider")) &&jsonOldObject.get("brand").equals(jsonNewObject.get("brand"))) {
+                System.out.println("AAAAAAAA");
                 long newQuantity = Long.parseLong(txtQuantity.getText());
-                long currentlyQuantity = (long) (jsonOldObject.get("quantity"));
+                long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
                 long totalQuantity = newQuantity + currentlyQuantity;
                 jsonNewObject.put("quantity", totalQuantity);
                 jsonArray.remove(i);
@@ -299,7 +330,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
         if (saveOption == 0) {
             try {
-                FileManager.writeRecord(filePathInventory, jsonArray.toJSONString());
+                FileManager.writeRecord(filePathClothing, jsonArray.toJSONString());
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
             } catch (HeadlessException | IOException ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
@@ -315,7 +346,20 @@ public class FrmAddInventory extends javax.swing.JFrame {
         FrmInventoryManagement inventoryMangement = new FrmInventoryManagement();
         inventoryMangement.setVisible(true);
         this.dispose();
+
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void cmbSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbSizeActionPerformed
+
+    private void cmbIdProviderItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbIdProviderItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Provider provider = (Provider) cmbIdProvider.getSelectedItem();
+            txtBrand.setText(provider.getBrand());
+        }
+    }//GEN-LAST:event_cmbIdProviderItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -358,18 +402,26 @@ public class FrmAddInventory extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmSave;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JComboBox<String> cmbBrand;
-    private javax.swing.JComboBox<String> cmbClothing;
-    private javax.swing.JComboBox<String> cmbProvider;
+    private javax.swing.JComboBox<Provider> cmbIdProvider;
+    private javax.swing.JComboBox<String> cmbSize;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtPrice;
+    private javax.swing.JTextField txtBrand;
+    private javax.swing.JTextField txtIdClothing;
+    private javax.swing.JTextField txtPurchasePrice;
     private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtSalePrice;
+    private javax.swing.JTextField txtTypeOfClothing;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,7 +8,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Inventory;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowInventory extends javax.swing.JFrame {
 
-    String filePahtInventory = "data/inventory.json";
+    String filePahtClothing = "data/clothing.json";
     DefaultTableModel tableModel = new DefaultTableModel();
     DefaultTableModel tableModel1 = new DefaultTableModel();
 
@@ -30,51 +30,48 @@ public class FrmShowInventory extends javax.swing.JFrame {
      * @throws java.io.IOException
      */
     public FrmShowInventory() throws IOException {
-        loadTableModel1();
         loadTableModel();
         initComponents();
-        fillTable1();
         setLocationRelativeTo(null);
     }
 
     private void loadTableModel() throws IOException {
-        tableModel.addColumn("Provider");
-        tableModel.addColumn("Clothing");
+        tableModel.addColumn("Clothing ID");
+        tableModel.addColumn("Type Of Clothing");
+        tableModel.addColumn("Size");
+        tableModel.addColumn("ID Provider");
         tableModel.addColumn("Brand");
         tableModel.addColumn("Quantity");
-        tableModel.addColumn("Price by unit");
-        tableModel.addColumn("Total");
+        tableModel.addColumn("Purchase price per unit");
+        tableModel.addColumn("Sale price per unit");
+        //tableModel.addColumn("Total ");
         fillTable();
     }
 
     private void fillTable() throws IOException {
-        ArrayList<Inventory> inventories = new ArrayList<>();
+        ArrayList<Clothing> clothes = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read(filePahtInventory);
+            json = FileManager.read(filePahtClothing);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
+        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        inventories = gson.fromJson(json, inventoryType);
+        clothes = gson.fromJson(json, inventoryType);
 
-        for (Inventory inventory : inventories) {
-            String[] rowInventory = {inventory.getProvider(), inventory.getClothing(), inventory.getBrand(), Integer.toString(inventory.getQuantity()), Float.toString(inventory.getPrice()), Float.toString(inventory.getTotal())};
+        for (Clothing clothing : clothes) {
+            String[] rowInventory = {String.valueOf(clothing.getId()), clothing.getTypeOfClothing(), clothing.getSize(), clothing.getIdProvider(), clothing.getBrand(), String.valueOf(clothing.getQuantity()), String.valueOf(clothing.getPurchasePrice()), String.valueOf(clothing.getSalePrice())};
             tableModel.addRow(rowInventory);
         }
     }
 
-    private void loadTableModel1() throws IOException {
-        tableModel1.addColumn("Total");
-
-    }
-
+    /*
     private void fillTable1() throws IOException {
-        ArrayList<Inventory> inventorys = new ArrayList<>();
+        ArrayList<Clothing> clothes = new ArrayList<>();
         float sumatotal = 0;
 
         Gson gson = new Gson();
@@ -86,12 +83,12 @@ public class FrmShowInventory extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
 
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
+        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        inventorys = gson.fromJson(json, inventoryType);
+        clothes = gson.fromJson(json, clothingType);
 
-        for (Inventory inventory : inventorys) {
-            float[] roowInventorys = {inventory.getTotal()};
+        for (Clothing clothing : clothes) {
+            float[] roowInventorys = {clothing.getTotal()};
 
             for (int contador = 0; contador < roowInventorys.length; contador++) {
                 sumatotal += roowInventorys[contador];
@@ -102,7 +99,7 @@ public class FrmShowInventory extends javax.swing.JFrame {
         tableModel1.addRow(totalsuma);
 
     }
-
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,8 +115,6 @@ public class FrmShowInventory extends javax.swing.JFrame {
         jtbClientsInformation = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbTOTAL = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,26 +143,22 @@ public class FrmShowInventory extends javax.swing.JFrame {
             }
         });
 
-        tbTOTAL.setModel(tableModel1);
-        jScrollPane2.setViewportView(tbTOTAL);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(402, 402, 402))))
+                            .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(jLabel1)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,13 +168,11 @@ public class FrmShowInventory extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(59, 59, 59)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(13, 13, 13)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(71, 71, 71)
                 .addComponent(btnReturn)
                 .addGap(18, 18, 18))
         );
@@ -256,8 +245,6 @@ public class FrmShowInventory extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtbClientsInformation;
-    private javax.swing.JTable tbTOTAL;
     // End of variables declaration//GEN-END:variables
 }

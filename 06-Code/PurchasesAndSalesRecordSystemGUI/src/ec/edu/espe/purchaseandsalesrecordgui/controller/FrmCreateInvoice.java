@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
+import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,24 +30,33 @@ import org.json.simple.parser.ParseException;
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
     String filePathClients = "data/clients.json";
-    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<Client>();
+    String filePathInvoices = "data/invoices.json";
+    String filePathClothing = "data/clothing.json";
+    String filePathSizeOfClothing = "data/sizeOfClothing.json";
+    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
+    private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
+    private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
 
     /**
      * Creates new form Aplication
      */
     public FrmCreateInvoice() {
-        completeModelComboBox();
+        completeModelComboBoxClients();
+        completeModelComboBoxClothing();
+
         initComponents();
         setLocationRelativeTo(null);
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/YYYY");
         txtDate.setEditable(false);
         txtDate.setText(simpleDateFormat.format(date));
+        txtQuantity.setText("0");
 
     }
 
-    private void completeModelComboBox() {
+    private void completeModelComboBoxClients() {
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
@@ -64,6 +75,60 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         }
     }
 
+    private void completeModelComboBoxClothing() {
+        ArrayList<Clothing> clothes = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read(filePathClothing);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
+        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
+        }.getType();
+        clothes = gson.fromJson(json, clothingType);
+
+        for (Clothing clothing : clothes) {
+            modelClothing.addElement(clothing);
+        }
+    }
+
+    /*
+    private void completeModelComboBoxSizeOfClothing() {
+        ArrayList<Clothing> clothes = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read(filePathSizeOfClothing);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
+        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
+        }.getType();
+        clothes = gson.fromJson(json, clothingType);
+        for (Clothing clothing : clothes) {
+            modelSize.addElement(clothing.getSize());
+        }
+    }
+
+    private void completeModelComboBoxQuantity() {
+        ArrayList<Clothing> clothes = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = "";
+        try {
+            json = FileManager.read(filePathClients);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
+        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
+        }.getType();
+        clothes = gson.fromJson(json, clothingType);
+
+        for (Clothing clothing : clothes) {
+            modelClothing.addElement(clothing.getQuantity());
+        }
+    }
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,12 +159,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         txtAddress = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        cmbPants = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        cmbShoes = new javax.swing.JComboBox<>();
-        cmbJackets = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         labelID = new javax.swing.JLabel();
@@ -110,6 +169,13 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         txtTotal = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
         txtDate = new javax.swing.JTextField();
+        cmbClothing = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cmbSizeOfClothing = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        btnTotal = new javax.swing.JButton();
+        txtQuantity = new javax.swing.JTextField();
 
         jTextField1.setText("jTextField1");
 
@@ -120,11 +186,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jLabel1.setText("Cedula:");
 
         cmbPersons.setModel(model);
-        cmbPersons.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbPersonsActionPerformed(evt);
-            }
-        });
 
         btnShowData.setText("Show Data");
         btnShowData.addActionListener(new java.awt.event.ActionListener() {
@@ -221,18 +282,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jLabel7.setText("Pants");
-
-        cmbPants.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        jLabel8.setText("Shoes");
-
-        cmbShoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        cmbJackets.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        jLabel9.setText("Jackets");
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setText("Products to buy:");
 
@@ -246,9 +295,25 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel14.setText("Total:");
 
-        txtDate.addActionListener(new java.awt.event.ActionListener() {
+        cmbClothing.setModel(modelClothing);
+        cmbClothing.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbClothingItemStateChanged(evt);
+            }
+        });
+
+        jLabel15.setText("Clothing");
+
+        jLabel7.setText("Size");
+
+        cmbSizeOfClothing.setModel(modelSize);
+
+        jLabel8.setText("Quantity");
+
+        btnTotal.setText("Add to the total");
+        btnTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDateActionPerformed(evt);
+                btnTotalActionPerformed(evt);
             }
         });
 
@@ -281,44 +346,43 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSave)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbPants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReturn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReturn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbShoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbJackets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnTotal)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cmbSizeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(78, 78, 78))))
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(225, 225, 225)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -341,25 +405,29 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addGap(16, 16, 16)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(cmbPants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSizeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(cmbShoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(cmbJackets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(btnTotal)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnReturn))
-                .addGap(56, 56, 56))
+                .addGap(45, 45, 45))
         );
 
         pack();
@@ -370,18 +438,18 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
-        
+
         try {
             json = FileManager.read(filePathClients);
-        } catch (Exception e) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
-        //System.out.println(json);
+
         Client client = (Client) model.getSelectedItem();
-        
+
         String cedula = Integer.toString(client.getCedula());
         String cellphone = Integer.toString(client.getCellphone());
-        
+
         java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
         }.getType();
         clients = gson.fromJson(json, clientType);
@@ -414,7 +482,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
         } catch (IOException | ParseException ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
@@ -426,20 +494,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("address", txtAddress.getText());
         jsonObject.put("email", txtEmail.getText());
-
-        jsonObject.put("pants", cmbPants.getSelectedItem());
-        float pricePants = Integer.parseInt((String) cmbPants.getSelectedItem());
-        jsonObject.put("shoes", cmbShoes.getSelectedItem());
-        float priceShoes = Integer.parseInt((String) cmbShoes.getSelectedItem());
-        jsonObject.put("jackets", cmbJackets.getSelectedItem());
-        float priceJackets = Integer.parseInt((String) cmbJackets.getSelectedItem());
-
-        float tax = Float.parseFloat(txtTax.getText());
-        jsonObject.put("tax", txtTax.getText());
-        float total = (priceJackets + pricePants + priceShoes) * tax;
-        String totalAsString = Float.toString(total);
-        txtTotal.setText(totalAsString);
         jsonObject.put("total", txtTotal.getText());
+
         jsonArray.add(jsonObject);
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
@@ -449,9 +505,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                 id++;
                 String idAsString = Integer.toString(id);
                 txtId.setText(idAsString);
-
-                FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
-
+                FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
@@ -463,14 +517,40 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
-        // TODO add your handling code here:
+    private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
+        double tax;
+        double pricePerUnit;
+        double totalWithoutIva;
+        double totalWithIva=0;
+        double quantity;
 
-    }//GEN-LAST:event_txtDateActionPerformed
+        Clothing clothing = (Clothing) modelClothing.getSelectedItem();
 
-    private void cmbPersonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbPersonsActionPerformed
+        int quantityOfClothing = Integer.valueOf(txtQuantity.getText());
+        if (quantityOfClothing > Integer.valueOf(clothing.getQuantity())) {
+            JOptionPane.showMessageDialog(null, "Exceeds the quantity available.");
+        } else {
+            txtTotal.setText(String.valueOf(totalWithIva));
+            tax = Integer.parseInt(txtTax.getText());
+            pricePerUnit = clothing.getSalePrice();
+            quantity = clothing.getQuantity();
+            totalWithoutIva = (pricePerUnit * quantity);
+            totalWithIva = totalWithoutIva + (totalWithoutIva * (tax / 100));
+            txtTotal.setText(String.valueOf(totalWithIva));
+
+        }
+
+
+    }//GEN-LAST:event_btnTotalActionPerformed
+
+    private void cmbClothingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbClothingItemStateChanged
+        // TODO add your handling code here
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Clothing clothing = (Clothing) modelClothing.getSelectedItem();
+            modelSize.setSelectedItem(clothing.getSize());
+
+        }
+    }//GEN-LAST:event_cmbClothingItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -526,16 +606,17 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnShowData;
-    private javax.swing.JComboBox<String> cmbJackets;
-    private javax.swing.JComboBox<String> cmbPants;
+    private javax.swing.JButton btnTotal;
+    private javax.swing.JComboBox<String> cmbClothing;
     private javax.swing.JComboBox<Client> cmbPersons;
-    private javax.swing.JComboBox<String> cmbShoes;
+    private javax.swing.JComboBox<String> cmbSizeOfClothing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -543,7 +624,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
@@ -558,6 +638,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtQuantity;
     private javax.swing.JTextField txtTax;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables

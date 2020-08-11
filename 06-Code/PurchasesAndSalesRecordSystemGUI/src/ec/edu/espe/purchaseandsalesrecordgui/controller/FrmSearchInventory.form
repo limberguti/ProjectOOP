@@ -42,9 +42,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="164" max="-2" attributes="0"/>
-                  <Component id="btnDeleteClient" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="164" pref="426" max="32767" attributes="0"/>
                   <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
               </Group>
@@ -60,12 +58,12 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jlbCedula" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="cmbCedula" min="-2" pref="162" max="-2" attributes="0"/>
+                          <Component id="cmbClothing" min="-2" pref="162" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                   <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="129" max="32767" attributes="0"/>
+                  <EmptySpace pref="174" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -78,15 +76,12 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlbCedula" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnSearch" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbCedula" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbClothing" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="119" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnDeleteClient" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnReturn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -103,10 +98,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jlbCedula">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Cedula: "/>
+            <Property name="text" type="java.lang.String" value="Clothing"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnReturn">
@@ -117,14 +109,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReturnActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmbCedula">
+        <Component class="javax.swing.JComboBox" name="cmbClothing">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="comboBoxModel" type="code"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbCedulaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbClothingActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -154,14 +146,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="btnDeleteClient">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Delete"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteClientActionPerformed"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

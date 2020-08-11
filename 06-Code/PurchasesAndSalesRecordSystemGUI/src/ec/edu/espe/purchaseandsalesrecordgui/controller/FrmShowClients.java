@@ -20,6 +20,7 @@ public class FrmShowClients extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmShowClients
+     * @throws java.io.IOException
      */
     public FrmShowClients() throws IOException {
         loadTableModel();
@@ -34,7 +35,7 @@ public class FrmShowClients extends javax.swing.JFrame {
         tableModel.addColumn("Cellphone");
         tableModel.addColumn("Address");
         tableModel.addColumn("Email");
-
+        
         fillTable();
     }
 
@@ -45,7 +46,7 @@ public class FrmShowClients extends javax.swing.JFrame {
 
         try {
             json = FileManager.read(filePathClients);
-        } catch (Exception e) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
 
@@ -87,6 +88,8 @@ public class FrmShowClients extends javax.swing.JFrame {
         jlbShowClients.setText("Show Registered Clients");
 
         jtbClientsInformation.setModel(tableModel);
+        jtbClientsInformation.setDragEnabled(true);
+        jtbClientsInformation.setEnabled(false);
         jScrollPane1.setViewportView(jtbClientsInformation);
 
         btnReturn.setText("Return");

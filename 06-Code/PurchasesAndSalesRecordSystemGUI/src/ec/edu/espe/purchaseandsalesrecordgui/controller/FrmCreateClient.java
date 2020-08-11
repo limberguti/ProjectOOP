@@ -127,14 +127,14 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbCedula.setText("Cédula: ");
 
         jlbCreateClientTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClientTitle.png"))); // NOI18N
-        jlbCreateClientTitle.setText("Create Client");
+        jlbCreateClientTitle.setText("Register Client");
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(229, Short.MAX_VALUE)
+                .addContainerGap(232, Short.MAX_VALUE)
                 .addComponent(jlbCreateClientTitle)
                 .addGap(174, 174, 174))
             .addGroup(pnlLayout.createSequentialGroup()

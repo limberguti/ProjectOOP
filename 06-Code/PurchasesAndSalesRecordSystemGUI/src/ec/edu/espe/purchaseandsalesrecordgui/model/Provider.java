@@ -11,31 +11,48 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
  */
 public class Provider {
 
-    private String id;
-    private String provider;
+    private String idProvider;
     private String name;
+    private String lastName;
     private String phoneNumber;
     private String address;
+    private String brand;
 
     public Provider() {
-
     }
 
-    public Provider(String id,String provider, String name, String phoneNumber, String address) {
-        this.id = id;
-        this.provider=provider;
+    public Provider(String idProvider, String name, String lastName, String phoneNumber, String address, String brand) {
+        this.idProvider = idProvider;
         this.name = name;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.brand = brand;
     }
 
-   
+    
+    public String getIdProvider() {
+        return idProvider;
+    }
+
+    public void setIdProvider(String idProvider) {
+        this.idProvider = idProvider;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhoneNumber() {
@@ -54,32 +71,18 @@ public class Provider {
         this.address = address;
     }
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
+    public String getBrand() {
+        return brand;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    /**
-     * @return the provider
-     */
-    public String getProvider() {
-        return provider;
-    }
 
-    /**
-     * @param provider the provider to set
-     */
-    public void setProvider(String provider) {
-        this.provider = provider;
+    @Override
+    public String toString() {
+        return this.idProvider;
     }
 
 }

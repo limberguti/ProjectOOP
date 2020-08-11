@@ -8,17 +8,12 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Inventory;
-import java.io.FileReader;
-import java.io.FileWriter;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -26,7 +21,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class FrmSearchInventory extends javax.swing.JFrame {
 
-    String filePathInventory = "data/inventory.json";
+    String filePathClothing = "data/clothing.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
@@ -41,30 +36,29 @@ public class FrmSearchInventory extends javax.swing.JFrame {
     }
 
     private void loadComboBoxModel() {
-        ArrayList<Inventory> inventorys = new ArrayList<>();
+        ArrayList<Clothing> clothes = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathInventory);
+            json = FileManager.read(filePathClothing);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
+        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        inventorys = gson.fromJson(json, inventoryType);
+        clothes = gson.fromJson(json, clothingType);
 
-        for (Inventory inventory : inventorys) {
-            comboBoxModel.addElement(inventory);
-
+        for (Clothing clothing : clothes) {
+            comboBoxModel.addElement(clothing);
         }
     }
 
     private void loadTableModel() {
-        tableModel.addColumn("Provider");
         tableModel.addColumn("Clothing");
+        tableModel.addColumn("ID Provider");
         tableModel.addColumn("Brand");
+        tableModel.addColumn("Size");
         tableModel.addColumn("Quantity");
-        tableModel.addColumn("Price");
     }
 
     /**
@@ -80,19 +74,17 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         jlbSearchTitle = new javax.swing.JLabel();
         jlbCedula = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
-        cmbCedula = new javax.swing.JComboBox<>();
+        cmbClothing = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnDeleteClient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClientTitle.png"))); // NOI18N
         jlbSearchTitle.setText("Inventory");
 
-        jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
-        jlbCedula.setText("Cedula: ");
+        jlbCedula.setText("Clothing");
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -101,10 +93,10 @@ public class FrmSearchInventory extends javax.swing.JFrame {
             }
         });
 
-        cmbCedula.setModel(comboBoxModel);
-        cmbCedula.addActionListener(new java.awt.event.ActionListener() {
+        cmbClothing.setModel(comboBoxModel);
+        cmbClothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCedulaActionPerformed(evt);
+                cmbClothingActionPerformed(evt);
             }
         });
 
@@ -118,21 +110,12 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         jTable1.setModel(tableModel);
         jScrollPane1.setViewportView(jTable1);
 
-        btnDeleteClient.setText("Delete");
-        btnDeleteClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteClientActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(btnDeleteClient)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(164, 426, Short.MAX_VALUE)
                 .addComponent(btnReturn)
                 .addGap(198, 198, 198))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -146,10 +129,10 @@ public class FrmSearchInventory extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jlbCedula)
                         .addGap(48, 48, 48)
-                        .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(78, 78, 78)
                 .addComponent(btnSearch)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,13 +143,11 @@ public class FrmSearchInventory extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCedula)
                     .addComponent(btnSearch)
-                    .addComponent(cmbCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteClient)
-                    .addComponent(btnReturn))
+                .addComponent(btnReturn)
                 .addGap(35, 35, 35))
         );
 
@@ -193,68 +174,26 @@ public class FrmSearchInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        ArrayList<Inventory> inventorys = new ArrayList<>();
+        ArrayList<Clothing> clothes = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathInventory);
+            json = FileManager.read(filePathClothing);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Inventory>>() {
+        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        inventorys = gson.fromJson(json, inventoryType);
-        Inventory inventory = (Inventory) comboBoxModel.getSelectedItem();
 
-        String[] rowInventory = {inventory.getProvider(), inventory.getClothing(), inventory.getBrand(), Integer.toString(inventory.getQuantity()), Float.toString(inventory.getPrice())};
-
+        clothes = gson.fromJson(json, inventoryType);
+        Clothing clothing = (Clothing) comboBoxModel.getSelectedItem();
+        String[] rowInventory = {clothing.getTypeOfClothing(),clothing.getIdProvider(), clothing.getBrand(), clothing.getSize(), String.valueOf(clothing.getQuantity())};
         tableModel.addRow(rowInventory);
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
-        JSONObject jsonObject = new JSONObject();
-        Inventory inventory = (Inventory) comboBoxModel.getSelectedItem();
-
-        JSONArray jsonArray = new JSONArray();
-        Object object = null;
-        JSONParser jsonParser = new JSONParser();
-
-        try {
-            object = jsonParser.parse(FileManager.readRecord(filePathInventory));
-            jsonArray = (JSONArray) object;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
-
-        int size = jsonArray.size();
-        jsonObject.put("provider", inventory.getProvider());
-        jsonObject.put("clothing", inventory.getClothing());
-        jsonObject.put("brand", inventory.getBrand());
-        jsonObject.put("quantity", inventory.getQuantity());
-        jsonObject.put("price", inventory.getPrice());
-
-        for (int i = 0; i < size; i++) {
-            if (jsonObject.equals(jsonArray.get(i))) {
-                try {
-                    jsonArray.remove(i);
-                    FileManager.writeRecord(filePathInventory, jsonArray.toJSONString());
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-                }
-                JOptionPane.showMessageDialog(null, "Record Removed");
-                tableModel.removeRow(0);
-                comboBoxModel.removeElement(inventory);
-                break;
-            } else if (i == size - 1) {
-                JOptionPane.showMessageDialog(null, "Record was not found!");
-            }
-        }
-    }//GEN-LAST:event_btnDeleteClientActionPerformed
-
-    private void cmbCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCedulaActionPerformed
+    private void cmbClothingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClothingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCedulaActionPerformed
+    }//GEN-LAST:event_cmbClothingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,10 +294,9 @@ public class FrmSearchInventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteClient;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> cmbCedula;
+    private javax.swing.JComboBox<String> cmbClothing;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
