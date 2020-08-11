@@ -460,7 +460,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jsonObject.put("address", txtAddress.getText());
         jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("email", txtEmail.getText());
-        jsonObject.put("clothing", cmbClothing.getSelectedItem());
+        jsonObject.put("clothing",String.valueOf(cmbClothing.getSelectedItem()) );
         jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
         jsonObject.put("quantity", txtQuantity.getText());
         jsonObject.put("tax", txtTax.getText());

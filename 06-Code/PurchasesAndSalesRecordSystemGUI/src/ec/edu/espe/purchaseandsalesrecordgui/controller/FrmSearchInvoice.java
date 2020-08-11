@@ -10,9 +10,9 @@ import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -153,14 +153,14 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeacrhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacrhActionPerformed
-        // TODO add your handling code here:
-        Invoice invoice =  (Invoice) modelInvoicesbyId.getSelectedItem();
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String dateAsString = simpleDateFormat.format(date);
 
-        String[] rowInvoices = {Integer.toString(invoice.getId()), dateAsString,
-            invoice.getCedula(), Double.toString(invoice.getTax()), Double.toString(invoice.getTotal())};
+        Invoice invoice =  (Invoice) modelInvoicesbyId.getSelectedItem();
+//        Date date = new Date();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//        String dateAsString = simpleDateFormat.format(date);
+
+        String[] rowInvoices = {invoice.getIdInvoice(), "",
+            invoice.getCedula(), invoice.getTax(), invoice.getTotal()};
 
         modelTable.addRow(rowInvoices);
     }//GEN-LAST:event_btnSeacrhActionPerformed
