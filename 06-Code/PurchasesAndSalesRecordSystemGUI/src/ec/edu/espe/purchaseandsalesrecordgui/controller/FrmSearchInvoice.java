@@ -10,8 +10,10 @@ import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -48,7 +50,7 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
-        //System.out.println(json);
+
         java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Invoice>>() {
         }.getType();
         invoices = gson.fromJson(json, invoiceType);
@@ -155,11 +157,11 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
     private void btnSeacrhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacrhActionPerformed
 
         Invoice invoice =  (Invoice) modelInvoicesbyId.getSelectedItem();
-//        Date date = new Date();
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-//        String dateAsString = simpleDateFormat.format(date);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dateAsString = simpleDateFormat.format(date);
 
-        String[] rowInvoices = {invoice.getIdInvoice(), "",
+        String[] rowInvoices = {invoice.getIdInvoice(), dateAsString,
             invoice.getCedula(), invoice.getTax(), invoice.getTotal()};
 
         modelTable.addRow(rowInvoices);
