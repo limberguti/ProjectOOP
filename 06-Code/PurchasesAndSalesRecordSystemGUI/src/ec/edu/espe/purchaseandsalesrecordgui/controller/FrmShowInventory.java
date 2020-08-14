@@ -69,37 +69,7 @@ public class FrmShowInventory extends javax.swing.JFrame {
         }
     }
 
-    /*
-    private void fillTable1() throws IOException {
-        ArrayList<Clothing> clothes = new ArrayList<>();
-        float sumatotal = 0;
-
-        Gson gson = new Gson();
-        String json = "";
-
-        try {
-            json = FileManager.read(filePahtInventory);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
-        }.getType();
-        clothes = gson.fromJson(json, clothingType);
-
-        for (Clothing clothing : clothes) {
-            float[] roowInventorys = {clothing.getTotal()};
-
-            for (int contador = 0; contador < roowInventorys.length; contador++) {
-                sumatotal += roowInventorys[contador];
-            }
-        }
-
-        String[] totalsuma = {Float.toString(sumatotal)};
-        tableModel1.addRow(totalsuma);
-
-    }
-     */
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,6 +87,7 @@ public class FrmShowInventory extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle(" View Inventory ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

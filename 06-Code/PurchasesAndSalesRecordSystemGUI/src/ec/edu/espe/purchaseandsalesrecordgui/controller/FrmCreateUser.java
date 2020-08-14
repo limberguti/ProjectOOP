@@ -44,6 +44,7 @@ public class FrmCreateUser extends javax.swing.JFrame {
         pswPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Create User");
 
         jlbCreateUserTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/createUserTitle.png"))); // NOI18N
         jlbCreateUserTitle.setText("Create User");

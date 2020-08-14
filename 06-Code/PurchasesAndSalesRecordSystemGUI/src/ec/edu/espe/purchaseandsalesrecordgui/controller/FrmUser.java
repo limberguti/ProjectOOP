@@ -34,6 +34,7 @@ public class FrmUser extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Users");
 
         jlbUserTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/usuario_opt.png"))); // NOI18N
         jlbUserTitle.setText("Users");

@@ -47,6 +47,7 @@ public class FrmUpdateProvider extends javax.swing.JFrame {
         btnEmptyFields = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Update Client");
 
         jlbUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/updateClientTitle.png"))); // NOI18N
         jlbUpdate.setText("Update Client");

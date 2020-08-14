@@ -105,6 +105,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         jlbOnlyNumbersCellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Search Client");
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClientTitle.png"))); // NOI18N
         jlbSearchTitle.setText("Search Client");

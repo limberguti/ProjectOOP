@@ -44,6 +44,7 @@ public class FrmDeleteUser extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delete User");
 
         jlbDeleteUserTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/deleteUserTitle.png"))); // NOI18N
         jlbDeleteUserTitle.setText("Delete User");

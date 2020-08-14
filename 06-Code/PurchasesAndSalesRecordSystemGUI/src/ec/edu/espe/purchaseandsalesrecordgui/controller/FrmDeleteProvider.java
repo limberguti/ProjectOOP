@@ -38,6 +38,7 @@ public class FrmDeleteProvider extends javax.swing.JFrame {
         txtProvider = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Delete Client");
 
         jPanel1.setToolTipText("");
 
@@ -76,7 +77,7 @@ public class FrmDeleteProvider extends javax.swing.JFrame {
                     .addComponent(jlbCedula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addComponent(txtId)
                     .addComponent(jlbDeleteClient)
                     .addComponent(txtProvider))
                 .addGap(141, 141, 141))

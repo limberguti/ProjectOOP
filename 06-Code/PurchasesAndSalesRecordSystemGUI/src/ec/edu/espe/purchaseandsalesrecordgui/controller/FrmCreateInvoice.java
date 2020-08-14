@@ -34,6 +34,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
+    String filePathAccounting = "data/accounting.json";
     private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
@@ -445,6 +446,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObjectAccounting = new JSONObject();
+        JSONArray jsonArrayAccounting = new JSONArray();
+        JSONParser jsonParserAccounting = new JSONParser();
 
         try {
             jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
@@ -460,12 +464,11 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jsonObject.put("address", txtAddress.getText());
         jsonObject.put("cellphone", txtCellphone.getText());
         jsonObject.put("email", txtEmail.getText());
-        jsonObject.put("clothing",String.valueOf(cmbClothing.getSelectedItem()) );
+        jsonObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
         jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
         jsonObject.put("quantity", txtQuantity.getText());
         jsonObject.put("tax", txtTax.getText());
         jsonObject.put("total", txtTotal.getText());
-
         jsonArray.add(jsonObject);
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
@@ -483,13 +486,32 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-            
+
+        }
+
+        try {
+            jsonArrayAccounting = (JSONArray) jsonParserAccounting.parse(FileManager.readRecord(filePathAccounting));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
+
+       
+        jsonObjectAccounting.put("date", txtDate.getText());
+        jsonObjectAccounting.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+        jsonObjectAccounting.put("income", txtTotal.getText());
+        jsonObjectAccounting.put("descrption", cmbSizeOfClothing.getSelectedItem());
+
+        jsonArrayAccounting.add(jsonObjectAccounting);
+
+        try {
+            FileManager.writeRecord(filePathAccounting, jsonArrayAccounting.toJSONString());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
 
-        JSONObject jsonNewObject = new JSONObject();
         JSONObject jsonOldObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
@@ -516,17 +538,17 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         } else {
             tax = Integer.parseInt(txtTax.getText());
             pricePerUnit = clothing.getSalePrice();
-            quantity = clothing.getQuantity();
+            quantity = Double.parseDouble(txtQuantity.getText());
             totalWithoutIva = (pricePerUnit * quantity);
-            totalWithIva += totalWithoutIva + (totalWithoutIva * (tax / 100));
+            totalWithIva = totalWithoutIva + (totalWithoutIva * (tax / 100));
             txtTotal.setText(String.valueOf(totalWithIva));
 
             long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
             currentlyQuantity -= totalQuantity;
             jsonOldObject.put("quantity", currentlyQuantity);
             jsonArray.remove(cmbClothing.getSelectedIndex());
-            
-            jsonArray.add(cmbClothing.getSelectedIndex(),jsonOldObject);
+
+            jsonArray.add(cmbClothing.getSelectedIndex(), jsonOldObject);
             try {
                 FileManager.writeRecord(filePathClothing, jsonArray.toJSONString());
             } catch (HeadlessException | IOException ex) {

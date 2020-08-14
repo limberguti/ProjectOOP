@@ -120,6 +120,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
         jLabel10.setText("jLabel10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add To Inventory");
 
         jLabel1.setText("Type Of Clothing");
 

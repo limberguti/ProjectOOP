@@ -60,7 +60,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbValidateEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Purchase and Sales Record");
+        setTitle("Create Client");
 
         pnl.setPreferredSize(new java.awt.Dimension(705, 465));
 

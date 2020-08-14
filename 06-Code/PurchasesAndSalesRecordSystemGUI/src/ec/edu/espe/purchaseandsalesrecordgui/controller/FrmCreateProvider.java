@@ -58,7 +58,7 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbOnlyNumbersPhoneNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Purchase and Sales Record");
+        setTitle("Register Provider");
 
         pnl.setPreferredSize(new java.awt.Dimension(705, 465));
 

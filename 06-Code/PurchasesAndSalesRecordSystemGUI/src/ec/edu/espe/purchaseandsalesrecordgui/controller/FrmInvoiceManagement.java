@@ -5,6 +5,10 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jhonatan Lituma
@@ -32,6 +36,7 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
         searchButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Invoice Managment");
@@ -63,6 +68,14 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         jLabel1.setText("Invoice Management");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/factura_opt.png"))); // NOI18N
+        jButton1.setText("Show");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,9 +85,11 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchButton)
-                            .addComponent(createButton)))
+                            .addComponent(createButton)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exitButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(jLabel1)))
@@ -89,9 +104,11 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
                 .addComponent(createButton)
                 .addGap(18, 18, 18)
                 .addComponent(searchButton)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(exitButton)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -117,6 +134,19 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
         frmSearchInvoice.setVisible(true);
         dispose();        
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+        try {
+            // TODO add your handling code here:
+            FrmShowInvoice frmShowInvoice= new FrmShowInvoice();
+            frmShowInvoice.setVisible(true);        
+            dispose();
+        } catch (IOException ex) {
+           
+        }
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +193,7 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton createButton;
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables

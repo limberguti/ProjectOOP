@@ -80,6 +80,7 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inventory");
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClientTitle.png"))); // NOI18N
         jlbSearchTitle.setText("Inventory");

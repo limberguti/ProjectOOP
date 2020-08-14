@@ -37,7 +37,7 @@ public class FrmProviderManagement extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Purchase and Sales Record");
+        setTitle("Provider Management");
 
         btnSearchProvider.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchProviderBtn.png"))); // NOI18N
         btnSearchProvider.setText("Search");

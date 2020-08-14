@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -16,55 +11,57 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Christopher Loachamin
+ * @author Andrés López
  */
-public class FrmShowProvider extends javax.swing.JFrame {
+public class FrmShowClient extends javax.swing.JFrame {
 
-    String filePathProviders = "data/providers.json";
+    String filePathClients = "data/clients.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
      */
-    public FrmShowProvider() throws IOException {
+    public FrmShowClient() throws IOException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
     private void loadTableModel() throws IOException {
-        tableModel.addColumn("Provider ID");
+        tableModel.addColumn("Cedula");
         tableModel.addColumn("Name");
         tableModel.addColumn("Last Name");
-        tableModel.addColumn("Brand");
-        tableModel.addColumn("Phone Number");
+        tableModel.addColumn("Cellphone");
         tableModel.addColumn("Address");
+        tableModel.addColumn("Email");
 
         fillTable();
     }
 
     private void fillTable() throws IOException {
-        ArrayList<Provider> providers = new ArrayList<>();
+        ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read(filePathProviders);
+            json = FileManager.read(filePathClients);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
 
-        java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
         }.getType();
-        providers = gson.fromJson(json, providerType);
+        clients = gson.fromJson(json, clientType);
 
-        for (Provider provider : providers) {
+        for (Client client : clients) {
 
-            String[] rowProviders = {provider.getIdProvider(), provider.getName(),
-                provider.getLastName(),provider.getBrand(), provider.getPhoneNumber(),
-                provider.getAddress()};
+            String cedula = Integer.toString(client.getCedula());
+            String cellphone = Integer.toString(client.getCellphone());
 
-            tableModel.addRow(rowProviders);
+            String[] rowClients = {cedula, client.getName(),
+                client.getLastName(), cellphone, client.getAddress(),client.getEmail()};
+
+            tableModel.addRow(rowClients);
         }
     }
 
@@ -84,10 +81,10 @@ public class FrmShowProvider extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Show Registered Provider");
+        setTitle("Show Registered Clients");
 
-        jlbShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showProveedorTitle.png"))); // NOI18N
-        jlbShowClients.setText("Show Registered Provider");
+        jlbShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClientsTitle.png"))); // NOI18N
+        jlbShowClients.setText("Show Registered Clients");
 
         jtbClientsInformation.setModel(tableModel);
         jScrollPane1.setViewportView(jtbClientsInformation);
@@ -106,22 +103,23 @@ public class FrmShowProvider extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnReturn)
-                .addGap(24, 24, 24))
+                .addGap(44, 44, 44))
             .addGroup(pnlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbShowClients)
-                .addGap(258, 258, 258))
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(jlbShowClients)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(37, 37, 37)
                 .addComponent(jlbShowClients)
-                .addGap(56, 56, 56)
+                .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReturn)
@@ -149,8 +147,8 @@ public class FrmShowProvider extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FrmProviderManagement frmProviderMenu = new FrmProviderManagement();
-        frmProviderMenu.setVisible(true);
+        FrmClientManagement frmClientMenu = new FrmClientManagement();
+        frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
@@ -171,30 +169,14 @@ public class FrmShowProvider extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmShowProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -216,7 +198,7 @@ public class FrmShowProvider extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FrmShowProvider().setVisible(true);
+                    new FrmShowClient().setVisible(true);
                 } catch (IOException ex) {
 
                 }

@@ -32,7 +32,7 @@ public class FrmClientManagement extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Purchase and Sales Record");
+        setTitle("Client Management");
 
         btnSearchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClient.png"))); // NOI18N
         btnSearchClient.setText("Search");
@@ -131,7 +131,7 @@ public class FrmClientManagement extends javax.swing.JFrame {
 
     private void btnShowClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowClientsActionPerformed
         try {
-            FrmShowClients frmShowClients = new FrmShowClients();
+            FrmShowClient frmShowClients = new FrmShowClient();
             frmShowClients.setVisible(true);
             dispose();
         } catch (IOException ex) {

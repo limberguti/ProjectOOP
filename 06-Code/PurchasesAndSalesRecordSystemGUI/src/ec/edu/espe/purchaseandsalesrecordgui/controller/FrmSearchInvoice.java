@@ -25,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmSearchInvoice extends javax.swing.JFrame {
     String filePathInvoices = "data/invoices.json";
-    private DefaultComboBoxModel modelInvoicesbyCedula = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelInvoicesbyId = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
 
@@ -87,6 +86,7 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Search Invoice");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
