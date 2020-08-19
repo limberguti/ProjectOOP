@@ -25,8 +25,8 @@ public abstract class Validation {
             txt.setEditable(true);
         }
     }
-    
-    public void emptyFields(JPanel pnl){
+
+    public void emptyFields(JPanel pnl) {
         JTextField box;
         for (int i = 0; i < pnl.getComponentCount(); i++) {
             if (pnl.getComponent(i).getClass().getName().equals("javax.swing.JTextField")) {
@@ -35,10 +35,6 @@ public abstract class Validation {
             }
         }
     }
-
-    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCedula, JLabel jlbOnlyNumbersCellphone, JLabel jlbValidateEmail);
-
-    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCellphone);
 
     public boolean validateCedula(String cedula) {
 
@@ -69,5 +65,9 @@ public abstract class Validation {
         }
         return false;
     }
+
+    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCedula, JLabel jlbOnlyNumbersCellphone, JLabel jlbValidateEmail);
+
+    public abstract void emptyFields(java.awt.event.ActionEvent evt, JPanel pnl, JLabel jlbOnlyNumbersCellphone);
 
 }

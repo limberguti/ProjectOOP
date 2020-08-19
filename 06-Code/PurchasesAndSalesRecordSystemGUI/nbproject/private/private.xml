@@ -3,37 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmAddInventory.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCustomerManagement.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Customer.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmInventoryManagement.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmUpdateProvider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmSearchInvoice.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmProviderManagement.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmShowInventory.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateUser.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/utils/Validation.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmSearchCustomer.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmShowCustomer.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Invoice.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmSearchInventory.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Clothing.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmShowInvoice.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateInvoice.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmInvoiceManagement.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmUser.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateCustomer.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmDeleteProvider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Admin.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmSearchProvider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Person.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateProvider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmMenuOption.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/model/Provider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmDeleteUser.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/utils/ValidationEmptyFields.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmShowProvider.java</file>
-            <file>file:/C:/Users/Christopher%20Loachami/Desktop/Nueva%20carpeta%20(6)/PurchasesAndSalesRecordSystemGUI/src/ec/edu/espe/purchaseandsalesrecordgui/view/PurchaseAndSalesRecordSystem.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/PurchasesAndSalesRecordSystemGUI25ClientDelete/src/ec/edu/espe/purchaseandsalesrecordgui/utils/Validation.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/PurchasesAndSalesRecordSystemGUI25ClientDelete/src/ec/edu/espe/purchaseandsalesrecordgui/utils/ValidationEmptyFields.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/PurchasesAndSalesRecordSystemGUI25ClientDelete/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateCustomer.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/PurchasesAndSalesRecordSystemGUI25ClientDelete/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateInvoice.java</file>
         </group>
     </open-files>
 </project-private>

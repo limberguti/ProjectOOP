@@ -295,7 +295,6 @@ public class FrmCreateCustomer extends javax.swing.JFrame {
             jlbOnlyNumbersCedula.setText("Invalid Cedula!");
             JOptionPane.showMessageDialog(null, "Invalid Cedula!");
         }
-
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
