@@ -36,11 +36,11 @@ public class FrmMenuOption extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
+        jmCustomer = new javax.swing.JMenu();
+        jmProvider = new javax.swing.JMenu();
+        jmInventory = new javax.swing.JMenu();
+        jmInvoices = new javax.swing.JMenu();
+        jmUsers = new javax.swing.JMenu();
 
         jMenu3.setText("jMenu3");
 
@@ -62,50 +62,50 @@ public class FrmMenuOption extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/clientInformation.png"))); // NOI18N
-        jMenu1.setText("Client");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/clientInformation.png"))); // NOI18N
+        jmCustomer.setText("Customer");
+        jmCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jmCustomerMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmCustomer);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/proveedor_opt_opt.png"))); // NOI18N
-        jMenu4.setText("Providers");
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmProvider.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/proveedor_opt_opt.png"))); // NOI18N
+        jmProvider.setText("Providers");
+        jmProvider.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
+                jmProviderMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jmProvider);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/inventario_opt_opt.png"))); // NOI18N
-        jMenu2.setText("Inventory");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmInventory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/inventario_opt_opt.png"))); // NOI18N
+        jmInventory.setText("Inventory");
+        jmInventory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
+                jmInventoryMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jmInventory);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/factura_opt_opt.png"))); // NOI18N
-        jMenu6.setText("Invoices");
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmInvoices.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/factura_opt_opt.png"))); // NOI18N
+        jmInvoices.setText("Invoices");
+        jmInvoices.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu6MouseClicked(evt);
+                jmInvoicesMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(jmInvoices);
 
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/usuario_opt_menuBar.png"))); // NOI18N
-        jMenu7.setText("Users");
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmUsers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/usuario_opt_menuBar.png"))); // NOI18N
+        jmUsers.setText("Users");
+        jmUsers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
+                jmUsersMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu7);
+        jMenuBar1.add(jmUsers);
 
         setJMenuBar(jMenuBar1);
 
@@ -142,17 +142,17 @@ public class FrmMenuOption extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+    private void jmInvoicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmInvoicesMouseClicked
         // TODO add your handling code here:
         FrmInvoiceManagement frmInvoiceManagement = new FrmInvoiceManagement();
         frmInvoiceManagement.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jMenu6MouseClicked
+    }//GEN-LAST:event_jmInvoicesMouseClicked
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void jmCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCustomerMouseClicked
         this.setVisible(false);
-        new FrmClientManagement().setVisible(true);
-    }//GEN-LAST:event_jMenu1MouseClicked
+        new FrmCustomerManagement().setVisible(true);
+    }//GEN-LAST:event_jmCustomerMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         PurchaseAndSalesRecordSystem frmSystem = new PurchaseAndSalesRecordSystem();
@@ -160,21 +160,21 @@ public class FrmMenuOption extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+    private void jmProviderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmProviderMouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
         new FrmProviderManagement().setVisible(true);
-    }//GEN-LAST:event_jMenu4MouseClicked
+    }//GEN-LAST:event_jmProviderMouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+    private void jmInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmInventoryMouseClicked
         this.setVisible(false);
         new FrmInventoryManagement().setVisible(true);
-    }//GEN-LAST:event_jMenu2MouseClicked
+    }//GEN-LAST:event_jmInventoryMouseClicked
 
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+    private void jmUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmUsersMouseClicked
         this.setVisible(false);
         new FrmUser().setVisible(true);
-    }//GEN-LAST:event_jMenu7MouseClicked
+    }//GEN-LAST:event_jmUsersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -216,13 +216,13 @@ public class FrmMenuOption extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jmCustomer;
+    private javax.swing.JMenu jmInventory;
+    private javax.swing.JMenu jmInvoices;
+    private javax.swing.JMenu jmProvider;
+    private javax.swing.JMenu jmUsers;
     // End of variables declaration//GEN-END:variables
 }

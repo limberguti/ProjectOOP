@@ -8,7 +8,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
@@ -30,12 +30,12 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
-    String filePathClients = "data/clients.json";
+    String filePathCustomers = "data/customer.json";
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathAccounting = "data/accounting.json";
-    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
@@ -59,21 +59,21 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }
 
     private void completeModelComboBoxClients() {
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Client client : clients) {
-            model.addElement(client);
+        for (Customer customer : customers) {
+            model.addElement(customer);
         }
     }
 
@@ -401,35 +401,35 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDataActionPerformed
         // TODO add your handling code here:
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        Client client = (Client) model.getSelectedItem();
+        Customer customer = (Customer) model.getSelectedItem();
 
-        String cedula = Integer.toString(client.getCedula());
-        String cellphone = Integer.toString(client.getCellphone());
+        String cedula = Integer.toString(customer.getCedula());
+        String cellphone = Integer.toString(customer.getCellphone());
 
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
-        txtName.setText(client.getName());
+        clients = gson.fromJson(json,customerType);
+        txtName.setText(customer.getName());
         txtName.setEditable(false);
-        txtLastName.setText(client.getLastName());
+        txtLastName.setText(customer.getLastName());
         txtLastName.setEditable(false);
         txtCedula.setText(cedula);
         txtCedula.setEditable(false);
         txtCellphone.setText(cellphone);
         txtCellphone.setEditable(false);
-        txtAddress.setText(client.getAddress());
+        txtAddress.setText(customer.getAddress());
         txtAddress.setEditable(false);
-        txtEmail.setText(client.getEmail());
+        txtEmail.setText(customer.getEmail());
         txtEmail.setEditable(false);
 
     }//GEN-LAST:event_btnShowDataActionPerformed
@@ -624,7 +624,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnShowData;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbClothing;
-    private javax.swing.JComboBox<Client> cmbPersons;
+    private javax.swing.JComboBox<Customer> cmbPersons;
     private javax.swing.JComboBox<String> cmbSizeOfClothing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

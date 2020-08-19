@@ -107,7 +107,7 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         setTitle("Search Client");
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchProviderTitle.png"))); // NOI18N
-        jlbSearchTitle.setText("Search Client");
+        jlbSearchTitle.setText("Search Provider");
 
         jtbProviderInformation.setModel(tableModel);
         jScrollPane1.setViewportView(jtbProviderInformation);
