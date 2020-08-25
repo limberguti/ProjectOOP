@@ -12,9 +12,13 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
+<<<<<<< HEAD
 import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
+=======
+import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
+>>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
@@ -38,15 +42,19 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
+<<<<<<< HEAD
     DB db;
     DBCollection invoices;
 
     String filePathClients = "data/clients.json";
+=======
+    String filePathCustomers = "data/customer.json";
+>>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathAccounting = "data/accounting.json";
-    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
@@ -79,21 +87,21 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }
 
     private void completeModelComboBoxClients() {
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Client client : clients) {
-            model.addElement(client);
+        for (Customer customer : customers) {
+            model.addElement(customer);
         }
     }
 
@@ -162,6 +170,12 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnTotal = new javax.swing.JButton();
         txtQuantity = new javax.swing.JTextField();
+        jlbOnlyNumbersCedula = new javax.swing.JLabel();
+        jlbOnlyNumbersCellphone = new javax.swing.JLabel();
+        jlbValidateEmail = new javax.swing.JLabel();
+        jlbOnlyNumbersTax = new javax.swing.JLabel();
+        jlbOnlyNumbersQuantity = new javax.swing.JLabel();
+        jlbOnlyNumbersId = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -180,7 +194,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             }
         });
 
-        btnSave.setText("Print");
+        btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -198,7 +212,19 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel5.setText("Cedula:");
 
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyPressed(evt);
+            }
+        });
+
         jLabel6.setText("Cellphone: ");
+
+        txtCellphone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCellphoneKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Date of the Invoice:");
@@ -241,7 +267,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                                     .addComponent(txtCedula))))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +305,19 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         jLabel13.setText("Tax:");
 
+        txtTax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTaxKeyPressed(evt);
+            }
+        });
+
         jLabel14.setText("Total:");
+
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtIdKeyPressed(evt);
+            }
+        });
 
         cmbClothing.setModel(modelClothing);
         cmbClothing.addItemListener(new java.awt.event.ItemListener() {
@@ -303,6 +341,24 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             }
         });
 
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyPressed(evt);
+            }
+        });
+
+        jlbOnlyNumbersCedula.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumbersCellphone.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbValidateEmail.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumbersTax.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumbersQuantity.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumbersId.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -319,6 +375,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                         .addComponent(labelID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbOnlyNumbersId, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,49 +385,62 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDate)))
                         .addGap(48, 48, 48)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 122, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSave)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReturn))
+                            .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlbValidateEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnTotal)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbSizeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(225, 225, 225)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jlbOnlyNumbersTax, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnSave)
+                                        .addGap(130, 130, 130)))
+                                .addComponent(btnReturn)
+                                .addGap(93, 93, 93))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(112, 338, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbSizeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnTotal)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlbOnlyNumbersQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(261, 261, 261)))
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,14 +450,24 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                     .addComponent(labelID)
                     .addComponent(labelDate)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbOnlyNumbersId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbPersons, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jlbValidateEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -398,21 +479,22 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(cmbSizeOfClothing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbOnlyNumbersQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(btnTotal)
-                .addGap(18, 18, 18)
+                    .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbOnlyNumbersTax, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(btnReturn))
+                    .addComponent(btnReturn)
+                    .addComponent(btnTotal))
                 .addGap(45, 45, 45))
         );
 
@@ -421,35 +503,40 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDataActionPerformed
         // TODO add your handling code here:
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
+<<<<<<< HEAD
             json = FileManager.read(filePathClients);
        } catch (IOException e) {
+=======
+            json = FileManager.read(filePathCustomers);
+        } catch (IOException e) {
+>>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        Client client = (Client) model.getSelectedItem();
+        Customer customer = (Customer) model.getSelectedItem();
 
-        String cedula = Integer.toString(client.getCedula());
-        String cellphone = Integer.toString(client.getCellphone());
+        String cedula = Integer.toString(customer.getCedula());
+        String cellphone = Integer.toString(customer.getCellphone());
 
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
-        txtName.setText(client.getName());
+        clients = gson.fromJson(json, customerType);
+        txtName.setText(customer.getName());
         txtName.setEditable(false);
-        txtLastName.setText(client.getLastName());
+        txtLastName.setText(customer.getLastName());
         txtLastName.setEditable(false);
         txtCedula.setText(cedula);
         txtCedula.setEditable(false);
         txtCellphone.setText(cellphone);
         txtCellphone.setEditable(false);
-        txtAddress.setText(client.getAddress());
+        txtAddress.setText(customer.getAddress());
         txtAddress.setEditable(false);
-        txtEmail.setText(client.getEmail());
+        txtEmail.setText(customer.getEmail());
         txtEmail.setEditable(false);
 
     }//GEN-LAST:event_btnShowDataActionPerformed
@@ -463,6 +550,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         BasicDBObject basicDBObject = new BasicDBObject();       
         
         basicDBObject.put("idInvoice", txtId.getText());
@@ -485,6 +573,91 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+=======
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObjectAccounting = new JSONObject();
+        JSONArray jsonArrayAccounting = new JSONArray();
+        JSONParser jsonParserAccounting = new JSONParser();
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+
+        try {
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
+        } catch (IOException | ParseException ex) {
+            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+        }
+
+        jsonObject.put("idInvoice", txtId.getText());
+        jsonObject.put("date", txtDate.getText());
+        jsonObject.put("cedula", txtCedula.getText());
+        jsonObject.put("name", txtName.getText());
+        jsonObject.put("lastName", txtLastName.getText());
+        jsonObject.put("address", txtAddress.getText());
+        jsonObject.put("cellphone", txtCellphone.getText());
+        jsonObject.put("email", txtEmail.getText());
+        jsonObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+        jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
+        jsonObject.put("quantity", txtQuantity.getText());
+        jsonObject.put("tax", txtTax.getText());
+        jsonObject.put("total", txtTotal.getText());
+        jsonArray.add(jsonObject);
+
+        String cedula = txtCedula.getText();
+        String email = txtEmail.getText();
+
+        if (validation.validateCedula(cedula) == true) {
+            if (validation.validateEmail(email) == true) {
+
+                int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+                if (saveOption == 0) {
+                    try {
+                        int id = Integer.parseInt(txtId.getText());
+                        id++;
+                        String idAsString = Integer.toString(id);
+                        txtId.setText(idAsString);
+                        FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
+                        JOptionPane.showMessageDialog(rootPane, "Saved!");
+                        jlbOnlyNumbersCedula.setText("");
+                        jlbOnlyNumbersCellphone.setText("");
+                        jlbValidateEmail.setText("");
+                        jlbOnlyNumbersTax.setText("");
+                        jlbOnlyNumbersQuantity.setText("");
+                        jlbOnlyNumbersId.setText("");
+                    } catch (HeadlessException | IOException | NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+                    }
+
+                } else if (saveOption == 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+                }
+            } else {
+                jlbValidateEmail.setText("Invalid Email!");
+                JOptionPane.showMessageDialog(null, "Invalid Email!");
+            }
+        } else {
+            jlbOnlyNumbersCedula.setText("Invalid Cedula!");
+            JOptionPane.showMessageDialog(null, "Invalid Cedula!");
+        }
+
+        try {
+            jsonArrayAccounting = (JSONArray) jsonParserAccounting.parse(FileManager.readRecord(filePathAccounting));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        }
+
+        jsonObjectAccounting.put("date", txtDate.getText());
+        jsonObjectAccounting.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+        jsonObjectAccounting.put("income", txtTotal.getText());
+        jsonObjectAccounting.put("descrption", cmbSizeOfClothing.getSelectedItem());
+
+        jsonArrayAccounting.add(jsonObjectAccounting);
+
+        try {
+            FileManager.writeRecord(filePathAccounting, jsonArrayAccounting.toJSONString());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+>>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
         }
         
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -550,6 +723,31 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbClothingItemStateChanged
 
+    private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtCedula, jlbOnlyNumbersCedula);
+    }//GEN-LAST:event_txtCedulaKeyPressed
+
+    private void txtCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCellphoneKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtCellphone, jlbOnlyNumbersCellphone);
+    }//GEN-LAST:event_txtCellphoneKeyPressed
+
+    private void txtTaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTaxKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtTax, jlbOnlyNumbersTax);
+    }//GEN-LAST:event_txtTaxKeyPressed
+
+    private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtQuantity, jlbOnlyNumbersQuantity);
+    }//GEN-LAST:event_txtQuantityKeyPressed
+
+    private void txtIdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtId, jlbOnlyNumbersId);
+    }//GEN-LAST:event_txtIdKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -612,7 +810,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnShowData;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbClothing;
-    private javax.swing.JComboBox<Client> cmbPersons;
+    private javax.swing.JComboBox<ec.edu.espe.purchaseandsalesrecordgui.model.Customer> cmbPersons;
     private javax.swing.JComboBox<String> cmbSizeOfClothing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -631,6 +829,12 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jlbOnlyNumbersCedula;
+    private javax.swing.JLabel jlbOnlyNumbersCellphone;
+    private javax.swing.JLabel jlbOnlyNumbersId;
+    private javax.swing.JLabel jlbOnlyNumbersQuantity;
+    private javax.swing.JLabel jlbOnlyNumbersTax;
+    private javax.swing.JLabel jlbValidateEmail;
     private javax.swing.JLabel labelDate;
     private javax.swing.JLabel labelID;
     private javax.swing.JPanel panel;

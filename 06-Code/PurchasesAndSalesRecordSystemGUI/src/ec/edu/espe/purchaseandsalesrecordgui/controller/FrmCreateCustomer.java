@@ -17,14 +17,14 @@ import org.json.simple.parser.JSONParser;
  *
  * @author Andrés López
  */
-public class FrmCreateClient extends javax.swing.JFrame {
+public class FrmCreateCustomer extends javax.swing.JFrame {
 
-    String filePathClients = "data/clients.json";
+    String filePathCustomers = "data/customer.json";
 
     /**
      * Creates new form FrmClient
      */
-    public FrmCreateClient() {
+    public FrmCreateCustomer() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -126,16 +126,12 @@ public class FrmCreateClient extends javax.swing.JFrame {
         jlbCedula.setText("Cédula: ");
 
         jlbCreateClientTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClientTitle.png"))); // NOI18N
-        jlbCreateClientTitle.setText("Create Client");
+        jlbCreateClientTitle.setText("Create Customer");
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(229, Short.MAX_VALUE)
-                .addComponent(jlbCreateClientTitle)
-                .addGap(174, 174, 174))
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -159,18 +155,22 @@ public class FrmCreateClient extends javax.swing.JFrame {
                             .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
                         .addContainerGap())
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(btnEmptyFields)
                         .addGap(100, 100, 100)
                         .addComponent(btnReturn)
                         .addGap(34, 34, 34))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbCreateClientTitle)
+                .addGap(125, 125, 125))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jlbCreateClientTitle)
                 .addGap(39, 39, 39)
+                .addComponent(jlbCreateClientTitle)
+                .addGap(35, 35, 35)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCedula))
@@ -238,7 +238,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FrmClientManagement frmClientMenu = new FrmClientManagement();
+        FrmCustomerManagement frmClientMenu = new FrmCustomerManagement();
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
@@ -256,7 +256,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
         ValidationEmptyFields validation = new ValidationEmptyFields();
 
         try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathCustomers));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
@@ -278,7 +278,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
                 jsonArray.add(jsonObject);
 
                 try {
-                    FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+                    FileManager.writeRecord(filePathCustomers, jsonArray.toJSONString());
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
                 }
@@ -295,7 +295,6 @@ public class FrmCreateClient extends javax.swing.JFrame {
             jlbOnlyNumbersCedula.setText("Invalid Cedula!");
             JOptionPane.showMessageDialog(null, "Invalid Cedula!");
         }
-
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
@@ -325,14 +324,30 @@ public class FrmCreateClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -353,7 +368,7 @@ public class FrmCreateClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCreateClient().setVisible(true);
+                new FrmCreateCustomer().setVisible(true);
             }
         });
     }

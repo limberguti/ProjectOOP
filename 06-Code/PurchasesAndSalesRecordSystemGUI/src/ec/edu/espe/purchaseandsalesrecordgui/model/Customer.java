@@ -4,7 +4,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.model;
  *
  * @author Andrés López
  */
-public class Client {
+public class Customer {
 
     private int cedula;
     private String name;
@@ -13,11 +13,11 @@ public class Client {
     private String address;
     private String email;
 
-    public Client() {
+    public Customer() {
         
     }
 
-    public Client(int cedula, String name, String lastName, int cellphone, String address, String email) {
+    public Customer(int cedula, String name, String lastName, int cellphone, String address, String email) {
         this.cedula = cedula;
         this.name = name;
         this.lastName = lastName;

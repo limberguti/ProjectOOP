@@ -6,12 +6,12 @@ import java.io.IOException;
  *
  * @author Andrés López
  */
-public class FrmClientManagement extends javax.swing.JFrame {
+public class FrmCustomerManagement extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmClientMenu
      */
-    public FrmClientManagement() {
+    public FrmCustomerManagement() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -25,40 +25,40 @@ public class FrmClientManagement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSearchClient = new javax.swing.JButton();
+        btnSearchCustomer = new javax.swing.JButton();
         jlbClientManagement = new javax.swing.JLabel();
-        btnCreate = new javax.swing.JButton();
-        btnShowClients = new javax.swing.JButton();
+        btnCreateCustomer = new javax.swing.JButton();
+        btnShowCustomer = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client Management");
 
-        btnSearchClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClient.png"))); // NOI18N
-        btnSearchClient.setText("Search");
-        btnSearchClient.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClient.png"))); // NOI18N
+        btnSearchCustomer.setText("Search");
+        btnSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchClientActionPerformed(evt);
+                btnSearchCustomerActionPerformed(evt);
             }
         });
 
         jlbClientManagement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbClientManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/clientInformationTitle.png"))); // NOI18N
-        jlbClientManagement.setText("Client Management");
+        jlbClientManagement.setText("Customer Management");
 
-        btnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClient.png"))); // NOI18N
-        btnCreate.setText("Create");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClient.png"))); // NOI18N
+        btnCreateCustomer.setText("Create");
+        btnCreateCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
+                btnCreateCustomerActionPerformed(evt);
             }
         });
 
-        btnShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClients.png"))); // NOI18N
-        btnShowClients.setText("Show Register Clients");
-        btnShowClients.addActionListener(new java.awt.event.ActionListener() {
+        btnShowCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClients.png"))); // NOI18N
+        btnShowCustomer.setText("Show Register Customer");
+        btnShowCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnShowClientsActionPerformed(evt);
+                btnShowCustomerActionPerformed(evt);
             }
         });
 
@@ -77,15 +77,15 @@ public class FrmClientManagement extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnShowClients)
+                        .addComponent(btnShowCustomer)
                         .addGap(108, 108, 108))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnReturn)
                         .addGap(66, 66, 66))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSearchClient)
-                            .addComponent(btnCreate))
+                            .addComponent(btnSearchCustomer)
+                            .addComponent(btnCreateCustomer))
                         .addGap(150, 150, 150))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
@@ -98,11 +98,11 @@ public class FrmClientManagement extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jlbClientManagement)
                 .addGap(24, 24, 24)
-                .addComponent(btnCreate)
+                .addComponent(btnCreateCustomer)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearchClient)
+                .addComponent(btnSearchCustomer)
                 .addGap(12, 12, 12)
-                .addComponent(btnShowClients)
+                .addComponent(btnShowCustomer)
                 .addGap(27, 27, 27)
                 .addComponent(btnReturn)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -111,17 +111,17 @@ public class FrmClientManagement extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchClientActionPerformed
-        FrmSearchClient frmSearchClient = new FrmSearchClient();
-        frmSearchClient.setVisible(true);
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        FrmSearchCustomer frmSearchCustomer = new FrmSearchCustomer();
+        frmSearchCustomer.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnSearchClientActionPerformed
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
 
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        FrmCreateClient frmCreateClient = new FrmCreateClient();
-        frmCreateClient.setVisible(true);
+    private void btnCreateCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCustomerActionPerformed
+        FrmCreateCustomer frmSearchCustomer = new FrmCreateCustomer();
+        frmSearchCustomer.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnCreateActionPerformed
+    }//GEN-LAST:event_btnCreateCustomerActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         FrmMenuOption frmMenuOption = new FrmMenuOption();
@@ -129,15 +129,15 @@ public class FrmClientManagement extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void btnShowClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowClientsActionPerformed
+    private void btnShowCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowCustomerActionPerformed
         try {
-            FrmShowClient frmShowClients = new FrmShowClient();
-            frmShowClients.setVisible(true);
+            FrmShowCustomer frmSearchCustomer = new FrmShowCustomer();
+            frmSearchCustomer.setVisible(true);
             dispose();
         } catch (IOException ex) {
 
         }
-    }//GEN-LAST:event_btnShowClientsActionPerformed
+    }//GEN-LAST:event_btnShowCustomerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,14 +156,46 @@ public class FrmClientManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmClientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCustomerManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -200,16 +232,16 @@ public class FrmClientManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmClientManagement().setVisible(true);
+                new FrmCustomerManagement().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreate;
+    private javax.swing.JButton btnCreateCustomer;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnSearchClient;
-    private javax.swing.JButton btnShowClients;
+    private javax.swing.JButton btnSearchCustomer;
+    private javax.swing.JButton btnShowCustomer;
     private javax.swing.JLabel jlbClientManagement;
     // End of variables declaration//GEN-END:variables
 }

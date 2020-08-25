@@ -12,7 +12,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 public class FrmDeleteProvider extends javax.swing.JFrame {
 
     /**
-     * Creates new form DeleteClient
+     * Creates new form DeleteProvider
      */
     public FrmDeleteProvider() {
         initComponents();
@@ -43,7 +43,7 @@ public class FrmDeleteProvider extends javax.swing.JFrame {
         jPanel1.setToolTipText("");
 
         jlbDeleteClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/deleteClientTitle.png"))); // NOI18N
-        jlbDeleteClient.setText("Delete Client");
+        jlbDeleteClient.setText("Delete Provider");
 
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
         jlbCedula.setText("Id:");
@@ -67,7 +67,7 @@ public class FrmDeleteProvider extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnReturn)
                 .addGap(101, 101, 101))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()

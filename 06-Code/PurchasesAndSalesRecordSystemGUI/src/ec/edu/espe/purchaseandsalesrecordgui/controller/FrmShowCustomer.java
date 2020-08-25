@@ -3,7 +3,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -13,15 +13,15 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Andrés López
  */
-public class FrmShowClients extends javax.swing.JFrame {
+public class FrmShowCustomer extends javax.swing.JFrame {
 
-    String filePathClients = "data/clients.json";
+    String filePathCustomers= "data/customer.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
      */
-    public FrmShowClients() throws IOException {
+    public FrmShowCustomer() throws IOException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
@@ -39,29 +39,29 @@ public class FrmShowClients extends javax.swing.JFrame {
     }
 
     private void fillTable() throws IOException {
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
 
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Client client : clients) {
+        for (Customer customer: customers) {
 
-            String cedula = Integer.toString(client.getCedula());
-            String cellphone = Integer.toString(client.getCellphone());
+            String cedula = Integer.toString(customer.getCedula());
+            String cellphone = Integer.toString(customer.getCellphone());
 
-            String[] rowClients = {cedula, client.getName(),
-                client.getLastName(), cellphone, client.getAddress(),client.getEmail()};
+            String[] rowCustomer = {cedula, customer.getName(),
+                customer.getLastName(), cellphone, customer.getAddress(),customer.getEmail()};
 
-            tableModel.addRow(rowClients);
+            tableModel.addRow(rowCustomer);
         }
     }
 
@@ -75,18 +75,19 @@ public class FrmShowClients extends javax.swing.JFrame {
     private void initComponents() {
 
         pnl = new javax.swing.JPanel();
-        jlbShowClients = new javax.swing.JLabel();
+        jlbShowCustomer = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtbClientsInformation = new javax.swing.JTable();
+        jtbCustomersInformation = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Show Registered Clients");
 
-        jlbShowClients.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClientsTitle.png"))); // NOI18N
-        jlbShowClients.setText("Show Registered Clients");
+        jlbShowCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/showClientsTitle.png"))); // NOI18N
+        jlbShowCustomer.setText("Show Registered Customer");
 
-        jtbClientsInformation.setModel(tableModel);
-        jScrollPane1.setViewportView(jtbClientsInformation);
+        jtbCustomersInformation.setModel(tableModel);
+        jScrollPane1.setViewportView(jtbCustomersInformation);
 
         btnReturn.setText("Return");
         btnReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -110,14 +111,14 @@ public class FrmShowClients extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlLayout.createSequentialGroup()
                         .addGap(358, 358, 358)
-                        .addComponent(jlbShowClients)))
+                        .addComponent(jlbShowCustomer)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jlbShowClients)
+                .addComponent(jlbShowCustomer)
                 .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -146,8 +147,8 @@ public class FrmShowClients extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FrmClientManagement frmClientMenu = new FrmClientManagement();
-        frmClientMenu.setVisible(true);
+        FrmCustomerManagement frmCustomerMenu = new FrmCustomerManagement();
+        frmCustomerMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
@@ -168,14 +169,38 @@ public class FrmShowClients extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmShowClients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmShowClients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmShowClients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmShowClients.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmShowCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -189,7 +214,7 @@ public class FrmShowClients extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FrmShowClients().setVisible(true);
+                    new FrmShowCustomer().setVisible(true);
                 } catch (IOException ex) {
 
                 }
@@ -200,8 +225,8 @@ public class FrmShowClients extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReturn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel jlbShowClients;
-    private javax.swing.JTable jtbClientsInformation;
+    private javax.swing.JLabel jlbShowCustomer;
+    private javax.swing.JTable jtbCustomersInformation;
     private javax.swing.JPanel pnl;
     // End of variables declaration//GEN-END:variables
 }

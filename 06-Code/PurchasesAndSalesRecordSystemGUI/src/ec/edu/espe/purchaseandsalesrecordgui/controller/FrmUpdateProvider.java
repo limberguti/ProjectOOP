@@ -50,7 +50,7 @@ public class FrmUpdateProvider extends javax.swing.JFrame {
         setTitle("Update Client");
 
         jlbUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/updateClientTitle.png"))); // NOI18N
-        jlbUpdate.setText("Update Client");
+        jlbUpdate.setText("Update Provider");
 
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
         jlbCedula.setText("Id:");
@@ -93,10 +93,6 @@ public class FrmUpdateProvider extends javax.swing.JFrame {
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbUpdate)
-                .addGap(222, 222, 222))
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLayout.createSequentialGroup()
@@ -128,6 +124,10 @@ public class FrmUpdateProvider extends javax.swing.JFrame {
                         .addGap(53, 53, 53)
                         .addComponent(btnReturn)))
                 .addContainerGap(96, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jlbUpdate)
+                .addGap(188, 188, 188))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

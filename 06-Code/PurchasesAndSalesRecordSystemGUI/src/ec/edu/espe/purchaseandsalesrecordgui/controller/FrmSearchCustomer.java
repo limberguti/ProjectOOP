@@ -8,11 +8,8 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -27,16 +24,16 @@ import org.json.simple.parser.ParseException;
  *
  * @author Andrés López
  */
-public class FrmSearchClient extends javax.swing.JFrame {
+public class FrmSearchCustomer extends javax.swing.JFrame {
 
-    String filePathClients = "data/clients.json";
+    String filePathCustomers = "data/customer.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmSearch
      */
-    public FrmSearchClient() {
+    public FrmSearchCustomer() {
         loadComboBoxModel();
         loadTableModel();
         initComponents();
@@ -44,20 +41,20 @@ public class FrmSearchClient extends javax.swing.JFrame {
     }
 
     private void loadComboBoxModel() {
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Client client : clients) {
-            comboBoxModel.addElement(client);
+        for (Customer customer : customers) {
+            comboBoxModel.addElement(customer);
         }
     }
 
@@ -108,7 +105,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         setTitle("Search Client");
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClientTitle.png"))); // NOI18N
-        jlbSearchTitle.setText("Search Client");
+        jlbSearchTitle.setText("Search Customer");
 
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
         jlbCedula.setText("Cedula: ");
@@ -317,85 +314,85 @@ public class FrmSearchClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FrmClientManagement frmClientMenu = new FrmClientManagement();
+        FrmCustomerManagement frmClientMenu = new FrmCustomerManagement();
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
-        Client client = (Client) comboBoxModel.getSelectedItem();
+        customers = gson.fromJson(json, customerType);
+        Customer customer = (Customer) comboBoxModel.getSelectedItem();
 
-        String cedula = Integer.toString(client.getCedula());
-        String cellphone = Integer.toString(client.getCellphone());
+        String cedula = Integer.toString(customer.getCedula());
+        String cellphone = Integer.toString(customer.getCellphone());
 
-        String[] rowClients = {cedula, client.getName(),
-            client.getLastName(), cellphone, client.getAddress(),
-            client.getEmail()};
+        String[] rowClients = {cedula, customer.getName(),
+            customer.getLastName(), cellphone, customer.getAddress(),
+            customer.getEmail()};
 
         tableModel.addRow(rowClients);
 
         try {
-            json = FileManager.read(filePathClients);
+            json = FileManager.read(filePathCustomers);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
         }
 
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        txtUpdateName.setText(client.getName());
-        txtUpdateLastName.setText(client.getLastName());
+        txtUpdateName.setText(customer.getName());
+        txtUpdateLastName.setText(customer.getLastName());
         txtUpdateCellphone.setText(cellphone);
-        txtUpdateAddress.setText(client.getAddress());
-        txtUpdateEmail.setText(client.getEmail());
+        txtUpdateAddress.setText(customer.getAddress());
+        txtUpdateEmail.setText(customer.getEmail());
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
         JSONObject jsonObject = new JSONObject();
-        Client client = (Client) comboBoxModel.getSelectedItem();
+        Customer customer = (Customer) comboBoxModel.getSelectedItem();
 
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
 
         try {
-            object = jsonParser.parse(FileManager.readRecord(filePathClients));
+            object = jsonParser.parse(FileManager.readRecord(filePathCustomers));
             jsonArray = (JSONArray) object;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
         int size = jsonArray.size();
-        jsonObject.put("cedula", client.getCedula());
-        jsonObject.put("name", client.getName());
-        jsonObject.put("lastName", client.getLastName());
-        jsonObject.put("cellphone", client.getCellphone());
-        jsonObject.put("address", client.getAddress());
-        jsonObject.put("email", client.getEmail());
+        jsonObject.put("cedula", customer.getCedula());
+        jsonObject.put("name", customer.getName());
+        jsonObject.put("lastName", customer.getLastName());
+        jsonObject.put("cellphone", customer.getCellphone());
+        jsonObject.put("address", customer.getAddress());
+        jsonObject.put("email", customer.getEmail());
 
         for (int i = 0; i < size; i++) {
             jsonObject = (JSONObject) jsonArray.get(i);
-            if (String.valueOf(client.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
+            if (String.valueOf(customer.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
                 try {
                     jsonArray.remove(i);
-                    FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+                    FileManager.writeRecord(filePathCustomers, jsonArray.toJSONString());
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                 }
                 JOptionPane.showMessageDialog(null, "Client Removed");
                 tableModel.removeRow(0);
-                comboBoxModel.removeElement(client);
+                comboBoxModel.removeElement(customer);
                 break;
             } else if (i == size - 1) {
                 JOptionPane.showMessageDialog(null, "Cedula was not found!");
@@ -406,25 +403,25 @@ public class FrmSearchClient extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
         JSONObject jsonObject = new JSONObject();
-        Client client = (Client) comboBoxModel.getSelectedItem();
+        Customer customer = (Customer) comboBoxModel.getSelectedItem();
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
         ValidationEmptyFields validation = new ValidationEmptyFields();
 
         try {
-            object = jsonParser.parse(FileManager.readRecord(filePathClients));
+            object = jsonParser.parse(FileManager.readRecord(filePathCustomers));
             jsonArray = (JSONArray) object;
         } catch (IOException | ParseException ex) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        jsonObject.put("cedula", client.getCedula());
-        jsonObject.put("name", client.getName());
-        jsonObject.put("lastName", client.getLastName());
-        jsonObject.put("cellphone", client.getCellphone());
-        jsonObject.put("address", client.getAddress());
-        jsonObject.put("email", client.getEmail());
+        jsonObject.put("cedula", customer.getCedula());
+        jsonObject.put("name", customer.getName());
+        jsonObject.put("lastName", customer.getLastName());
+        jsonObject.put("cellphone", customer.getCellphone());
+        jsonObject.put("address", customer.getAddress());
+        jsonObject.put("email", customer.getEmail());
 
         int size = jsonArray.size();
         String email = txtUpdateEmail.getText();
@@ -432,10 +429,10 @@ public class FrmSearchClient extends javax.swing.JFrame {
         if (validation.validateEmail(email) == true) {
             for (int i = 0; i < size; i++) {
                 jsonObject = (JSONObject) jsonArray.get(i);
-                if (String.valueOf(client.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
+                if (String.valueOf(customer.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
                     try {
                         jsonArray.remove(i);
-                        FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+                        FileManager.writeRecord(filePathCustomers, jsonArray.toJSONString());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
                     }
@@ -447,12 +444,12 @@ public class FrmSearchClient extends javax.swing.JFrame {
             }
 
             try {
-                jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClients));
+                jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathCustomers));
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error ocurred");
             }
 
-            jsonObject.put("cedula", client.getCedula());
+            jsonObject.put("cedula", customer.getCedula());
             jsonObject.put("name", txtUpdateName.getText());
             jsonObject.put("lastName", txtUpdateLastName.getText());
             jsonObject.put("cellphone", txtUpdateCellphone.getText());
@@ -462,11 +459,11 @@ public class FrmSearchClient extends javax.swing.JFrame {
             jsonArray.add(jsonObject);
 
             try {
-                FileManager.writeRecord(filePathClients, jsonArray.toJSONString());
+                FileManager.writeRecord(filePathCustomers, jsonArray.toJSONString());
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error ocurred!");
             }
-            JOptionPane.showMessageDialog(null, "Client updated");
+            JOptionPane.showMessageDialog(null, "Customer updated");
         } else {
             jlbValidateEmail.setText("Invalid Email!");
             JOptionPane.showMessageDialog(null, "Invalid Email!");
@@ -501,14 +498,30 @@ public class FrmSearchClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearchCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -529,7 +542,7 @@ public class FrmSearchClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSearchClient().setVisible(true);
+                new FrmSearchCustomer().setVisible(true);
             }
         });
     }
