@@ -7,13 +7,20 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
@@ -27,18 +34,28 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmAddInventory extends javax.swing.JFrame {
 
+    DB db;
+    DBCollection inventory;
+
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathProviders = "data/providers.json";
     String filePathClothing = "data/clothing.json";
 
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
-    private DefaultComboBoxModel<Provider> modelProvider = new DefaultComboBoxModel <>();
+    private DefaultComboBoxModel<Provider> modelProvider = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelBrand = new DefaultComboBoxModel();
 
     /**
      * Creates new form Aplication
      */
     public FrmAddInventory() {
+        try {
+            Mongo mongoDb = new Mongo("localhost", 27017);
+            db = mongoDb.getDB("DataBaseStore");//Base de datos
+            inventory = db.getCollection("Inventory");//Coleccion
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(FrmCreateInvoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
         completeModelComboBox();
         completeModelComboBox2();
         initComponents();
@@ -289,6 +306,43 @@ public class FrmAddInventory extends javax.swing.JFrame {
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
         // TODO add your handling code here:
+
+        BasicDBObject basicDBObject = new BasicDBObject();
+        BasicDBObject basicOldObject = new BasicDBObject();
+        basicDBObject.put("id", txtIdClothing.getText());
+        basicDBObject.put("typeOfClothing", txtTypeOfClothing.getText());
+        basicDBObject.put("size", cmbSize.getSelectedItem());
+        basicDBObject.put("idProvider", String.valueOf(cmbIdProvider.getSelectedItem()));
+        basicDBObject.put("brand", txtBrand.getText());
+        basicDBObject.put("purchasePrice", txtPurchasePrice.getText());
+        basicDBObject.put("salePrice", txtSalePrice.getText());
+        basicDBObject.put("quantity", txtQuantity.getText());
+
+        int quantity = Integer.parseInt(txtQuantity.getText());
+        float price = Float.parseFloat(txtPurchasePrice.getText());
+        float total = quantity * price;
+        basicDBObject.put("total", total);
+
+        if (inventory.getCollection("id").equals(basicDBObject.get("id")) && inventory.getCollection("typeOfClothing").equals(basicDBObject.get("typeOfClothing")) && inventory.getCollection("size").equals(basicDBObject.get("size")) && inventory.getCollection("idProvider").equals(basicDBObject.get("idProvider")) && inventory.getCollection("brand").equals(basicDBObject.get("brand"))) {
+
+            int newQuantity = Integer.parseInt(txtQuantity.getText());
+            int currentlyQuantity = Integer.parseInt((String.valueOf(inventory.getCollection("quantity"))));
+            int totalQuantity = newQuantity + currentlyQuantity;
+            basicDBObject.put("quantity", totalQuantity);
+            inventory.update(basicDBObject, basicDBObject);
+        }
+        
+
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
+        if (saveOption == 0) {
+            inventory.insert(basicDBObject);
+            JOptionPane.showMessageDialog(rootPane, "Saved!");
+        } else if (saveOption == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+            //TODO Actions taken when the users selects NO
+        } 
+        
+                /*
         JSONObject jsonNewObject = new JSONObject();
         JSONObject jsonOldObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -339,7 +393,8 @@ public class FrmAddInventory extends javax.swing.JFrame {
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
             //TODO Actions taken when the users selects NO
-        }
+        }*/
+
     }//GEN-LAST:event_btmSaveActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed

@@ -7,15 +7,23 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +38,9 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
+    DB db;
+    DBCollection invoices;
+
     String filePathClients = "data/clients.json";
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
@@ -43,8 +54,17 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     /**
      * Creates new form Aplication
+     * @throws java.net.UnknownHostException
      */
-    public FrmCreateInvoice() {
+    public FrmCreateInvoice() throws UnknownHostException {
+        try {
+            Mongo mongoDb = new Mongo("localhost", 27017);
+            db = mongoDb.getDB("DataBaseStore");//Base de datos
+            invoices = db.getCollection("Invoices");//Coleccion
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(FrmCreateInvoice.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         completeModelComboBoxClients();
         completeModelComboBoxClothing();
 
@@ -407,7 +427,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         try {
             json = FileManager.read(filePathClients);
-        } catch (IOException e) {
+       } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
@@ -436,78 +456,37 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         // TODO add your handling code here:
-        FrmInvoiceManagement invoices = new FrmInvoiceManagement();
-        invoices.setVisible(true);
+        FrmInvoiceManagement frmInvoices = new FrmInvoiceManagement();
+        frmInvoices.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObjectAccounting = new JSONObject();
-        JSONArray jsonArrayAccounting = new JSONArray();
-        JSONParser jsonParserAccounting = new JSONParser();
-
-        try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
-        } catch (IOException | ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
-
-        jsonObject.put("idInvoice", txtId.getText());
-        jsonObject.put("date", txtDate.getText());
-        jsonObject.put("cedula", txtCedula.getText());
-        jsonObject.put("name", txtName.getText());
-        jsonObject.put("lastName", txtLastName.getText());
-        jsonObject.put("address", txtAddress.getText());
-        jsonObject.put("cellphone", txtCellphone.getText());
-        jsonObject.put("email", txtEmail.getText());
-        jsonObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
-        jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
-        jsonObject.put("quantity", txtQuantity.getText());
-        jsonObject.put("tax", txtTax.getText());
-        jsonObject.put("total", txtTotal.getText());
-        jsonArray.add(jsonObject);
-
+        BasicDBObject basicDBObject = new BasicDBObject();       
+        
+        basicDBObject.put("idInvoice", txtId.getText());
+        basicDBObject.put("date", txtDate.getText());
+        basicDBObject.put("cedula", txtCedula.getText());
+        basicDBObject.put("name", txtName.getText());
+        basicDBObject.put("lastName", txtLastName.getText());
+        basicDBObject.put("address", txtAddress.getText());
+        basicDBObject.put("cellphone", txtCellphone.getText());
+        basicDBObject.put("email", txtEmail.getText());
+        basicDBObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+        basicDBObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
+        basicDBObject.put("quantity", txtQuantity.getText());
+        basicDBObject.put("tax", txtTax.getText());
+        basicDBObject.put("total", txtTotal.getText());
+        
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
         if (saveOption == 0) {
-            try {
-                int id = Integer.parseInt(txtId.getText());
-                id++;
-                String idAsString = Integer.toString(id);
-                txtId.setText(idAsString);
-                FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
-                JOptionPane.showMessageDialog(rootPane, "Saved!");
-            } catch (HeadlessException | IOException | NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-            }
-
+            invoices.insert(basicDBObject);
+            JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-
         }
-
-        try {
-            jsonArrayAccounting = (JSONArray) jsonParserAccounting.parse(FileManager.readRecord(filePathAccounting));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-       
-        jsonObjectAccounting.put("date", txtDate.getText());
-        jsonObjectAccounting.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
-        jsonObjectAccounting.put("income", txtTotal.getText());
-        jsonObjectAccounting.put("descrption", cmbSizeOfClothing.getSelectedItem());
-
-        jsonArrayAccounting.add(jsonObjectAccounting);
-
-        try {
-            FileManager.writeRecord(filePathAccounting, jsonArrayAccounting.toJSONString());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
@@ -521,7 +500,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         double totalWithIva = Double.parseDouble(txtTotal.getText());
         double quantity;
         long totalQuantity = Long.parseLong(txtQuantity.getText());
-
+        Calculation calculation = new Calculation();
+                
         try {
             jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
         } catch (IOException | ParseException e) {
@@ -539,8 +519,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             tax = Integer.parseInt(txtTax.getText());
             pricePerUnit = clothing.getSalePrice();
             quantity = Double.parseDouble(txtQuantity.getText());
-            totalWithoutIva = (pricePerUnit * quantity);
-            totalWithIva = totalWithoutIva + (totalWithoutIva * (tax / 100));
+            
+            totalWithoutIva = calculation.PriceWithOutIva(quantity, pricePerUnit);
+            totalWithIva = calculation.PriceWithIva(tax, totalWithoutIva);
+            
             txtTotal.setText(String.valueOf(totalWithIva));
 
             long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
@@ -613,7 +595,13 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCreateInvoice().setVisible(true);
+
+                try {
+                    new FrmCreateInvoice().setVisible(true);
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(FrmCreateInvoice.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
     }

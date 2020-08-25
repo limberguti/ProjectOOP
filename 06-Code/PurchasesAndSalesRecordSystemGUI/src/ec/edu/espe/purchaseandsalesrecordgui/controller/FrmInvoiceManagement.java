@@ -6,6 +6,7 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,8 +117,14 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
-        FrmCreateInvoice createInvoice = new FrmCreateInvoice();
-        createInvoice.setVisible(true);
+        FrmCreateInvoice createInvoice;
+        try {
+            createInvoice = new FrmCreateInvoice();
+            createInvoice.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(FrmInvoiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dispose();
     }//GEN-LAST:event_createButtonActionPerformed
 

@@ -5,7 +5,11 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,10 +19,10 @@ import java.util.logging.Logger;
  */
 public class FrmInventoryManagement extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FRMInventoryManagement
-     */
+    
+    
     public FrmInventoryManagement() {
+        
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -118,7 +122,7 @@ public class FrmInventoryManagement extends javax.swing.JFrame {
 
     private void btnViewInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewInventoryActionPerformed
 
-       this.setVisible(false);
+        this.setVisible(false);
         try {
             new FrmShowInventory().setVisible(true);
         } catch (IOException ex) {
@@ -140,7 +144,7 @@ public class FrmInventoryManagement extends javax.swing.JFrame {
 
     private void btnSeacrhInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacrhInventoryActionPerformed
         FrmSearchInventory searchInventory = new FrmSearchInventory();
-        searchInventory .setVisible(true);
+        searchInventory.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSeacrhInventoryActionPerformed
 

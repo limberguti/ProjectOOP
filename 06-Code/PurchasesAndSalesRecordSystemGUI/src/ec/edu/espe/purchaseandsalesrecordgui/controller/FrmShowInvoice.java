@@ -11,8 +11,10 @@ import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,16 +35,17 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         loadTableModel1();
         initComponents();
         fillTable1();
-        
 
         setLocationRelativeTo(null);
     }
 
     private void loadTableModel() throws IOException {
+        tableModel.addColumn("ID");
         tableModel.addColumn("Date");
         tableModel.addColumn("Clothing");
         tableModel.addColumn("Descrption");
         tableModel.addColumn("Quantity");
+        tableModel.addColumn("Tax");
         tableModel.addColumn("Total");
         fillTable();
     }
@@ -66,8 +69,8 @@ public class FrmShowInvoice extends javax.swing.JFrame {
 
         for (Invoice invoice : invoices) {
 
-            String[] rowInvoice = {invoice.getDate(), invoice.getClothing(),
-                invoice.getDescrption(), invoice.getQuantity(), invoice.getTotal(),};
+            String[] rowInvoice = {invoice.getIdInvoice(),invoice.getDate(), invoice.getClothing(),
+                invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(),invoice.getTotal(),};
             tableModel.addRow(rowInvoice);
 
         }
@@ -75,9 +78,7 @@ public class FrmShowInvoice extends javax.swing.JFrame {
     }
 
     private void loadTableModel1() throws IOException {
-
         tableModel1.addColumn("Total Incomes");
-       
     }
 
     private void fillTable1() throws IOException {
@@ -104,8 +105,8 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                 sumatotal += roowTotal[contador];
             }
         }
-         String[] totalsuma = {Float.toString(sumatotal)};
-            tableModel1.addRow(totalsuma);
+        String[] totalsuma = {Float.toString(sumatotal)};
+        tableModel1.addRow(totalsuma);
     }
 
     /**
@@ -124,6 +125,7 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         total = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Show Invoices  ");
@@ -144,6 +146,13 @@ public class FrmShowInvoice extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,6 +164,8 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
                                 .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(149, 149, 149)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -176,7 +187,9 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))))
                 .addGap(32, 32, 32))
         );
 
@@ -202,6 +215,18 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         invoices.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat(" Page(0,number,interger)");
+        MessageFormat footer = new MessageFormat(" Provider Print");
+
+        try {
+            jtbClientsInformation.print(JTable.PrintMode.NORMAL, footer, footer);
+        } catch (java.awt.print.PrinterException e) {
+            System.err.format("Cannot print %s%n", e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,6 +269,7 @@ public class FrmShowInvoice extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReturn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
