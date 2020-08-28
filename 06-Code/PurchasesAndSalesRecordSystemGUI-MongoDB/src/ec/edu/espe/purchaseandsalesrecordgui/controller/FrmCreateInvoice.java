@@ -9,10 +9,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Client;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Validation;
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
@@ -38,12 +37,12 @@ import org.json.simple.parser.ParseException;
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
     MongoDB mongoDbManager = new MongoDB();
-    String filePathClients = "data/clients.json";
+    String filePathClients = "data/customers.json";
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathAccounting = "data/accounting.json";
-    private DefaultComboBoxModel<Client> model = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
@@ -55,7 +54,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
      * @throws java.net.UnknownHostException
      */
     public FrmCreateInvoice() throws UnknownHostException {
-        completeModelComboBoxClients();
+        completeModelComboBoxCustomer();
         completeModelComboBoxClothing();
         System.out.println(mongoDbManager.findCollection("Invoices", "idInvoices"));
         initComponents();
@@ -68,9 +67,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         txtTotal.setText("0.0");
     }
 
-    private void completeModelComboBoxClients() {
-        /*
-        ArrayList<Client> clients = new ArrayList<>();
+    private void completeModelComboBoxCustomer() {
+
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
@@ -79,16 +78,15 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
         //System.out.println(json);
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Client client : clients) {
-            model.addElement(client);
-        }*/
-        
+        for (Customer customer : customers) {
+            model.addElement(customer);
+        }
+
         //mongoDbManager.find(filePathClients, panel, filePathClients)
-        
     }
 
     private void completeModelComboBoxClothing() {
@@ -415,7 +413,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDataActionPerformed
         // TODO add your handling code here:
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
 
@@ -425,14 +423,14 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        Client client = (Client) model.getSelectedItem();
+        Customer client = (Customer) model.getSelectedItem();
 
         String cedula = Integer.toString(client.getCedula());
         String cellphone = Integer.toString(client.getCellphone());
 
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, clientType);
         txtName.setText(client.getName());
         txtName.setEditable(false);
         txtLastName.setText(client.getLastName());
@@ -606,7 +604,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnShowData;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbClothing;
-    private javax.swing.JComboBox<Client> cmbPersons;
+    private javax.swing.JComboBox<Customer> cmbPersons;
     private javax.swing.JComboBox<String> cmbSizeOfClothing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

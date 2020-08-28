@@ -7,7 +7,9 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -26,6 +29,7 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmSearchProvider extends javax.swing.JFrame {
 
+    MongoDB mongoDbManager = new MongoDB();
     String filePathProviders = "data/providers.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -433,7 +437,10 @@ public class FrmSearchProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        JSONObject jsonObject = new JSONObject();
+        
+        Provider provider = (Provider) comboBoxModel.getSelectedItem();
+        mongoDbManager.delete("idProvider", provider.getIdProvider(), "Providers");
+        /*JSONObject jsonObject = new JSONObject();
         Provider provider = (Provider) comboBoxModel.getSelectedItem();
 
         JSONArray jsonArray = new JSONArray();
@@ -472,7 +479,7 @@ public class FrmSearchProvider extends javax.swing.JFrame {
             } else if (i == size - 1) {
                 JOptionPane.showMessageDialog(null, "Provider was not found!");
             }
-        }
+        }*/
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 

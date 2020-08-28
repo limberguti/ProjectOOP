@@ -151,7 +151,7 @@ public class FrmMenuOption extends javax.swing.JFrame {
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         this.setVisible(false);
-        new FrmClientManagement().setVisible(true);
+        new FrmCustomerManagement().setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

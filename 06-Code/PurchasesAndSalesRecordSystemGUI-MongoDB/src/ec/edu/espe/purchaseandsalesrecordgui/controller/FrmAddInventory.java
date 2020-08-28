@@ -11,22 +11,17 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
+import com.mongodb.client.MongoCollection;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
-import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.bson.Document;
 
 /**
  *
@@ -34,8 +29,8 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmAddInventory extends javax.swing.JFrame {
 
-    DB db;
-    DBCollection inventory;
+    MongoDB mongoDbManager = new MongoDB();
+    MongoCollection<Document> inventory;
 
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
     String filePathProviders = "data/providers.json";
@@ -49,13 +44,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
      * Creates new form Aplication
      */
     public FrmAddInventory() {
-        try {
-            Mongo mongoDb = new Mongo("localhost", 27017);
-            db = mongoDb.getDB("DataBaseStore");//Base de datos
-            inventory = db.getCollection("Inventory");//Coleccion
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(FrmCreateInvoice.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         completeModelComboBox();
         completeModelComboBox2();
         initComponents();
@@ -305,95 +294,30 @@ public class FrmAddInventory extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btmSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmSaveActionPerformed
-        // TODO add your handling code here:
 
-        BasicDBObject basicDBObject = new BasicDBObject();
-        BasicDBObject basicOldObject = new BasicDBObject();
-        basicDBObject.put("id", txtIdClothing.getText());
-        basicDBObject.put("typeOfClothing", txtTypeOfClothing.getText());
-        basicDBObject.put("size", cmbSize.getSelectedItem());
-        basicDBObject.put("idProvider", String.valueOf(cmbIdProvider.getSelectedItem()));
-        basicDBObject.put("brand", txtBrand.getText());
-        basicDBObject.put("purchasePrice", txtPurchasePrice.getText());
-        basicDBObject.put("salePrice", txtSalePrice.getText());
-        basicDBObject.put("quantity", txtQuantity.getText());
+        Document document = new Document();
+
+        document.put("id", txtIdClothing.getText());
+        document.put("typeOfClothing", txtTypeOfClothing.getText());
+        document.put("size", cmbSize.getSelectedItem());
+        document.put("idProvider", String.valueOf(cmbIdProvider.getSelectedItem()));
+        document.put("brand", txtBrand.getText());
+        document.put("purchasePrice", txtPurchasePrice.getText());
+        document.put("salePrice", txtSalePrice.getText());
+        document.put("quantity", txtQuantity.getText());
 
         int quantity = Integer.parseInt(txtQuantity.getText());
         float price = Float.parseFloat(txtPurchasePrice.getText());
         float total = quantity * price;
-        basicDBObject.put("total", total);
-
-        if (inventory.getCollection("id").equals(basicDBObject.get("id")) && inventory.getCollection("typeOfClothing").equals(basicDBObject.get("typeOfClothing")) && inventory.getCollection("size").equals(basicDBObject.get("size")) && inventory.getCollection("idProvider").equals(basicDBObject.get("idProvider")) && inventory.getCollection("brand").equals(basicDBObject.get("brand"))) {
-
-            int newQuantity = Integer.parseInt(txtQuantity.getText());
-            int currentlyQuantity = Integer.parseInt((String.valueOf(inventory.getCollection("quantity"))));
-            int totalQuantity = newQuantity + currentlyQuantity;
-            basicDBObject.put("quantity", totalQuantity);
-            inventory.update(basicDBObject, basicDBObject);
-        }
-        
+        document.put("total", total);
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
         if (saveOption == 0) {
-            inventory.insert(basicDBObject);
+            mongoDbManager.save(document, "Clothing");
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-            //TODO Actions taken when the users selects NO
-        } 
-        
-                /*
-        JSONObject jsonNewObject = new JSONObject();
-        JSONObject jsonOldObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jsonParser = new JSONParser();
-        try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
-        } catch (IOException | ParseException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
-
-        jsonNewObject.put("id", txtIdClothing.getText());
-        jsonNewObject.put("typeOfClothing", txtTypeOfClothing.getText());
-        jsonNewObject.put("size", cmbSize.getSelectedItem());
-        jsonNewObject.put("idProvider", String.valueOf(cmbIdProvider.getSelectedItem()));
-        jsonNewObject.put("brand", txtBrand.getText());
-        jsonNewObject.put("purchasePrice", txtPurchasePrice.getText());
-        jsonNewObject.put("salePrice", txtSalePrice.getText());
-        jsonNewObject.put("quantity", txtQuantity.getText());
-        
-        int quantity = Integer.parseInt(txtQuantity.getText());
-        float price = Float.parseFloat(txtPurchasePrice.getText());
-        float total = quantity * price;
-        jsonNewObject.put("total", total);
-        
-        for (int i = 0; i < jsonArray.size(); i++) {
-            jsonOldObject = (JSONObject) jsonArray.get(i);
-            if (jsonOldObject.get("id").equals(jsonNewObject.get("id")) && jsonOldObject.get("typeOfClothing").equals(jsonNewObject.get("typeOfClothing")) && jsonOldObject.get("size").equals(jsonNewObject.get("size")) && jsonOldObject.get("idProvider").equals(jsonNewObject.get("idProvider")) &&jsonOldObject.get("brand").equals(jsonNewObject.get("brand"))) {
-                System.out.println("AAAAAAAA");
-                long newQuantity = Long.parseLong(txtQuantity.getText());
-                long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
-                long totalQuantity = newQuantity + currentlyQuantity;
-                jsonNewObject.put("quantity", totalQuantity);
-                jsonArray.remove(i);
-            }
-        }
-
-        jsonArray.add(jsonNewObject);
-
-        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
-        if (saveOption == 0) {
-            try {
-                FileManager.writeRecord(filePathClothing, jsonArray.toJSONString());
-                JOptionPane.showMessageDialog(rootPane, "Saved!");
-            } catch (HeadlessException | IOException ex) {
-                JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-            }
-
-        } else if (saveOption == 1) {
-            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-            //TODO Actions taken when the users selects NO
-        }*/
 
     }//GEN-LAST:event_btmSaveActionPerformed
 

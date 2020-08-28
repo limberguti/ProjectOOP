@@ -12,17 +12,16 @@ import org.bson.Document;
 
 /**
  *
- * @author Jonathan Maigua
+ * @author Andrés López
  */
-public class FrmCreateProvider extends javax.swing.JFrame {
+public class FrmCreateCustomer extends javax.swing.JFrame {
 
-    String filePathProviders = "data/providers.json";
     MongoDB mongoDbManager = new MongoDB();
 
     /**
-     * Creates new form FrmProvider
+     * Creates new form FrmClient
      */
-    public FrmCreateProvider() {
+    public FrmCreateCustomer() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -41,30 +40,32 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbLastName = new javax.swing.JLabel();
         jlbCellphone = new javax.swing.JLabel();
         jlbAddress = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
-        txtBrand = new javax.swing.JTextField();
+        jlbEmail = new javax.swing.JLabel();
+        txtCedula = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        txtPhoneNumber = new javax.swing.JTextField();
+        txtLastName = new javax.swing.JTextField();
+        txtCellphone = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
         btnEmptyFields = new javax.swing.JButton();
         jlbCedula = new javax.swing.JLabel();
-        jlbCreateProviderTitle = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        txtLastName = new javax.swing.JTextField();
-        jlbOnlyNumbersPhoneNumber = new javax.swing.JLabel();
+        jlbCreateCustomerTitle = new javax.swing.JLabel();
+        jlbOnlyNumbersCedula = new javax.swing.JLabel();
+        jlbOnlyNumbersCellphone = new javax.swing.JLabel();
+        jlbValidateEmail = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Register Provider");
+        setTitle("Create Client");
 
         pnl.setPreferredSize(new java.awt.Dimension(705, 465));
 
-        jlbName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/brand.png"))); // NOI18N
-        jlbName.setText("Brand:");
+        jlbName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
+        jlbName.setText("Name: ");
 
         jlbLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
-        jlbLastName.setText("Name:");
+        jlbLastName.setText("Last name:");
 
         jlbCellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/phoneNumber.png"))); // NOI18N
         jlbCellphone.setText("Cellphone: ");
@@ -72,20 +73,30 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         jlbAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/address.png"))); // NOI18N
         jlbAddress.setText("Address: ");
 
-        txtId.setToolTipText("Enter only numbers");
+        jlbEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/email.png"))); // NOI18N
+        jlbEmail.setText("Email: ");
 
-        txtBrand.setToolTipText("Don't use special characteres");
+        txtCedula.setToolTipText("Enter only 10 numbers");
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyPressed(evt);
+            }
+        });
 
         txtName.setToolTipText("Don't use special characteres");
 
-        txtPhoneNumber.setToolTipText("Enter only 10 numbers");
-        txtPhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtLastName.setToolTipText("Don't use special characteres");
+
+        txtCellphone.setToolTipText("Enter only 10 numbers");
+        txtCellphone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPhoneNumberKeyPressed(evt);
+                txtCellphoneKeyPressed(evt);
             }
         });
 
         txtAddress.setToolTipText("Don't use special characteres");
+
+        txtEmail.setToolTipText("The email must have a local part, then an @, and then a domain name\n");
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
@@ -109,148 +120,177 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         });
 
         jlbCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/cedula.png"))); // NOI18N
-        jlbCedula.setText("ID:");
+        jlbCedula.setText("Cédula: ");
 
-        jlbCreateProviderTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/createProviderTitle.png"))); // NOI18N
-        jlbCreateProviderTitle.setText("Register Provider");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
-        jLabel1.setText("Last Name:");
+        jlbCreateCustomerTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/CreateClientTitle.png"))); // NOI18N
+        jlbCreateCustomerTitle.setText("Create Customer");
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbCreateProviderTitle)
-                .addGap(141, 141, 141))
+                .addContainerGap(205, Short.MAX_VALUE)
+                .addComponent(jlbCreateCustomerTitle)
+                .addGap(174, 174, 174))
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(51, 51, 51)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSave)
+                    .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jlbLastName)
+                        .addComponent(jlbCellphone)
+                        .addComponent(jlbAddress)
+                        .addComponent(jlbEmail)
+                        .addComponent(jlbName)
+                        .addComponent(jlbCedula)))
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlbCellphone)
-                    .addComponent(jlbAddress)
-                    .addComponent(jlbName)
-                    .addComponent(jlbCedula)
-                    .addComponent(jLabel1)
-                    .addComponent(jlbLastName))
-                .addGap(24, 24, 24)
-                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPhoneNumber)
-                    .addComponent(txtAddress)
-                    .addComponent(txtBrand, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtId)
-                    .addComponent(txtLastName))
-                .addContainerGap())
-            .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(0, 160, Short.MAX_VALUE)
-                .addComponent(btnSave)
-                .addGap(79, 79, 79)
-                .addComponent(btnEmptyFields)
-                .addGap(76, 76, 76)
-                .addComponent(btnReturn)
-                .addGap(18, 18, 18))
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCellphone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtName)
+                            .addComponent(txtLastName)
+                            .addComponent(txtCedula, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap())
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                        .addComponent(btnEmptyFields)
+                        .addGap(100, 100, 100)
+                        .addComponent(btnReturn)
+                        .addGap(34, 34, 34))))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jlbCreateProviderTitle)
-                .addGap(31, 31, 31)
+                .addGap(35, 35, 35)
+                .addComponent(jlbCreateCustomerTitle)
+                .addGap(39, 39, 39)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlbCedula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbName)
-                    .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlbLastName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbLastName)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCellphone)
-                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbAddress)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEmptyFields)
+                    .addComponent(jlbEmail)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReturn)
+                    .addComponent(btnEmptyFields)
                     .addComponent(btnSave))
-                .addGap(50, 50, 50))
+                .addGap(30, 30, 30))
         );
 
-        jlbOnlyNumbersPhoneNumber.setForeground(new java.awt.Color(255, 0, 0));
+        jlbOnlyNumbersCedula.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumbersCellphone.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbValidateEmail.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addComponent(pnl, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlbOnlyNumbersPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlbValidateEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnl, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(156, 341, Short.MAX_VALUE)
-                .addComponent(jlbOnlyNumbersPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153))
+                .addGap(162, 162, 162)
+                .addComponent(jlbOnlyNumbersCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(jlbOnlyNumbersCellphone, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(jlbValidateEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-        FrmProviderManagement frmProviderMenu = new FrmProviderManagement();
-        frmProviderMenu.setVisible(true);
+        FrmCustomerManagement frmClientMenu = new FrmCustomerManagement();
+        frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
         ValidationEmptyFields validation = new ValidationEmptyFields();
-        validation.emptyFields(evt, pnl, jlbOnlyNumbersPhoneNumber);
+        validation.emptyFields(evt, pnl, jlbOnlyNumbersCedula, jlbOnlyNumbersCellphone, jlbValidateEmail);
     }//GEN-LAST:event_btnEmptyFieldsActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
         Document document = new Document();
 
-        document.put("idProvider", txtId.getText());
-        document.put("brand", txtBrand.getText());
+        document.put("cedula", txtCedula.getText());
         document.put("name", txtName.getText());
         document.put("lastName", txtLastName.getText());
-        document.put("phoneNumber", txtPhoneNumber.getText());
+        document.put("cellphone", txtCellphone.getText());
         document.put("address", txtAddress.getText());
 
-        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+        if (validation.validateCedula(txtCedula.getText()) == true) {
+            if (validation.validateEmail(txtEmail.getText()) == true) {
+                document.put("email", txtEmail.getText());
 
-        if (saveOption == 0) {
-            mongoDbManager.save(document, "Providers");
-            JOptionPane.showMessageDialog(rootPane, "Saved!");
-            jlbOnlyNumbersPhoneNumber.setText("");
-        } else if (saveOption == 1) {
-            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+                jlbOnlyNumbersCedula.setText("");
+                jlbOnlyNumbersCellphone.setText("");
+                jlbValidateEmail.setText("");
+            } else {
+                jlbValidateEmail.setText("Invalid Email!");
+                JOptionPane.showMessageDialog(null, "Invalid Email!");
+            }
+
+            int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+
+            if (saveOption == 0) {
+                mongoDbManager.save(document, "Customers");
+                JOptionPane.showMessageDialog(rootPane, "Saved!");
+            } else if (saveOption == 1) {
+                JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+            }
+        } else {
+            jlbOnlyNumbersCedula.setText("Invalid Cedula!");
+            JOptionPane.showMessageDialog(null, "Invalid Cedula!");
         }
-        
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void txtPhoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPhoneNumberKeyPressed
+    private void txtCedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyPressed
         ValidationEmptyFields validation = new ValidationEmptyFields();
-        validation.validateOnlyNumbers(evt, txtPhoneNumber, jlbOnlyNumbersPhoneNumber);
-    }//GEN-LAST:event_txtPhoneNumberKeyPressed
+        validation.validateOnlyNumbers(evt, txtCedula, jlbOnlyNumbersCedula);
+    }//GEN-LAST:event_txtCedulaKeyPressed
+
+    private void txtCellphoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCellphoneKeyPressed
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtCellphone, jlbOnlyNumbersCellphone);
+    }//GEN-LAST:event_txtCellphoneKeyPressed
 
     /**
      * @param args the command line arguments
@@ -269,46 +309,14 @@ public class FrmCreateProvider extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCreateProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmCreateCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -345,7 +353,7 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCreateProvider().setVisible(true);
+                new FrmCreateCustomer().setVisible(true);
             }
         });
     }
@@ -354,20 +362,22 @@ public class FrmCreateProvider extends javax.swing.JFrame {
     private javax.swing.JButton btnEmptyFields;
     private javax.swing.JButton btnReturn;
     private javax.swing.JButton btnSave;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jlbAddress;
     private javax.swing.JLabel jlbCedula;
     private javax.swing.JLabel jlbCellphone;
-    private javax.swing.JLabel jlbCreateProviderTitle;
+    private javax.swing.JLabel jlbCreateCustomerTitle;
+    private javax.swing.JLabel jlbEmail;
     private javax.swing.JLabel jlbLastName;
     private javax.swing.JLabel jlbName;
-    private javax.swing.JLabel jlbOnlyNumbersPhoneNumber;
+    private javax.swing.JLabel jlbOnlyNumbersCedula;
+    private javax.swing.JLabel jlbOnlyNumbersCellphone;
+    private javax.swing.JLabel jlbValidateEmail;
     private javax.swing.JPanel pnl;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBrand;
-    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtCedula;
+    private javax.swing.JTextField txtCellphone;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPhoneNumber;
     // End of variables declaration//GEN-END:variables
 }
