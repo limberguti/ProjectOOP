@@ -69,7 +69,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         tableModel.addColumn("cellphone");
         tableModel.addColumn("address");
         tableModel.addColumn("email");
-        tableModel.addRow((Vector) MongoDB.llenar("Customers", "cedula"));
+        //tableModel.addRow((Vector) MongoDB.llenar("Customers", "cedula"));
     }
 
     /**
@@ -326,7 +326,6 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
-        
         /*
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
@@ -369,8 +368,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
         Customer customer = (Customer) comboBoxModel.getSelectedItem();
         Document document = new Document();
-        mongoDbManager.delete("cedula", customer.getCedula(), "Customers");
-
+        MongoDB.delete("cedula", customer.getCedula(), "Customers",FrmDatabaseSetup.database);
     }//GEN-LAST:event_btnDeleteClientActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed

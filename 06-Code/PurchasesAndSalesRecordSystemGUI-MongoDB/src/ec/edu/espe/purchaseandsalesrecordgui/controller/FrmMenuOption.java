@@ -36,6 +36,7 @@ public class FrmMenuOption extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
+        menuDatabase = new javax.swing.JMenu();
         menuClient = new javax.swing.JMenu();
         menuProvider = new javax.swing.JMenu();
         menuInventory = new javax.swing.JMenu();
@@ -61,6 +62,15 @@ public class FrmMenuOption extends javax.swing.JFrame {
                 btnLogoutActionPerformed(evt);
             }
         });
+
+        menuDatabase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/database_opt_menuBar.png"))); // NOI18N
+        menuDatabase.setText("Database");
+        menuDatabase.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuDatabaseMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuDatabase);
 
         menuClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/clientInformation.png"))); // NOI18N
         menuClient.setText("Client");
@@ -118,7 +128,7 @@ public class FrmMenuOption extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(96, Short.MAX_VALUE)
+                .addContainerGap(201, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -136,7 +146,7 @@ public class FrmMenuOption extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,6 +185,11 @@ public class FrmMenuOption extends javax.swing.JFrame {
         this.setVisible(false);
         new FrmUser().setVisible(true);
     }//GEN-LAST:event_menuUserMouseClicked
+
+    private void menuDatabaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDatabaseMouseClicked
+        this.setVisible(false);
+        new FrmDatabaseSetup().setVisible(true);
+    }//GEN-LAST:event_menuDatabaseMouseClicked
 
     /**
      * @param args the command line arguments
@@ -220,6 +235,7 @@ public class FrmMenuOption extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuClient;
+    private javax.swing.JMenu menuDatabase;
     private javax.swing.JMenu menuInventory;
     private javax.swing.JMenu menuInvoice;
     private javax.swing.JMenu menuProvider;

@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowCustomer extends javax.swing.JFrame {
 
-    MongoDB mongoDB = new MongoDB();
+    //MongoDB mongoDB = new MongoDB();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -37,7 +37,7 @@ public class FrmShowCustomer extends javax.swing.JFrame {
 
     private void fillTable() throws IOException {
         ArrayList<Customer> customers = new ArrayList<>();
-        customers = mongoDB.completeTab("Customers", "", FrmDatabaseSetup.database);
+        //customers = mongoDB.completeTab("Customers", "", FrmDatabaseSetup.database);
         for (Customer customer : customers) {
             String[] rowCustomers = {String.valueOf(customer.getCedula()), customer.getName(), customer.getLastName(), String.valueOf(customer.getCellphone()), customer.getAddress(), customer.getAddress()};
             tableModel.addRow(rowCustomers);
