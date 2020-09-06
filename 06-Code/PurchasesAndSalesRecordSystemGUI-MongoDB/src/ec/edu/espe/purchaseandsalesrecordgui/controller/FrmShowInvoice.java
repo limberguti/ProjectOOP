@@ -7,12 +7,13 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,73 +24,49 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowInvoice extends javax.swing.JFrame {
 
-    String filePathInvoices = "data/invoices.json";
-    DefaultTableModel tableModel = new DefaultTableModel();
-    DefaultTableModel tableModel1 = new DefaultTableModel();
+    DefaultTableModel tableModelInvoices = new DefaultTableModel();
 
     /**
      * Creates new form FrmAccounting
      */
     public FrmShowInvoice() throws IOException {
         loadTableModel();
-        loadTableModel1();
         initComponents();
-        fillTable1();
 
         setLocationRelativeTo(null);
     }
 
     private void loadTableModel() throws IOException {
-        tableModel.addColumn("ID");
-        tableModel.addColumn("Date");
-        tableModel.addColumn("Clothing");
-        tableModel.addColumn("Descrption");
-        tableModel.addColumn("Quantity");
-        tableModel.addColumn("Tax");
-        tableModel.addColumn("Total");
+        tableModelInvoices.addColumn("ID");
+        tableModelInvoices.addColumn("Date");
+        tableModelInvoices.addColumn("Clothing");
+        tableModelInvoices.addColumn("Descrption");
+        tableModelInvoices.addColumn("Quantity");
+        tableModelInvoices.addColumn("Tax");
+        tableModelInvoices.addColumn("Total");
         fillTable();
     }
 
     private void fillTable() throws IOException {
 
         ArrayList<Invoice> invoices = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        float sumatotal = 0;
-
-        try {
-            json = FileManager.read(filePathInvoices);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-        java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Invoice>>() {
-        }.getType();
-        invoices = gson.fromJson(json, invoiceType);
-
+ 
+        invoices = MongoDB.completeTab("Invoices", FrmDatabaseSetup.database);
+        
+        System.out.println(invoices);
         for (Invoice invoice : invoices) {
-
             String[] rowInvoice = {invoice.getIdInvoice(),invoice.getDate(), invoice.getClothing(),
                 invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(),invoice.getTotal(),};
-            tableModel.addRow(rowInvoice);
-
+            tableModelInvoices.addRow(rowInvoice);
         }
-
-    }
-
-    private void loadTableModel1() throws IOException {
-        tableModel1.addColumn("Total Incomes");
-    }
-
-    private void fillTable1() throws IOException {
-
+        /*
         ArrayList<Invoice> invoices = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         float sumatotal = 0;
 
         try {
-            json = FileManager.read(filePathInvoices);
+            json = FileManager.read("data/invoices.json");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
@@ -97,16 +74,14 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Invoice>>() {
         }.getType();
         invoices = gson.fromJson(json, invoiceType);
-
+        System.out.println(invoices);
         for (Invoice invoice : invoices) {
 
-            float[] roowTotal = {Float.parseFloat(invoice.getTotal())};
-            for (int contador = 0; contador < roowTotal.length; contador++) {
-                sumatotal += roowTotal[contador];
-            }
-        }
-        String[] totalsuma = {Float.toString(sumatotal)};
-        tableModel1.addRow(totalsuma);
+            String[] rowInvoice = {invoice.getIdInvoice(),invoice.getDate(), invoice.getClothing(),
+                invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(),invoice.getTotal(),};
+            tableModelInvoices.addRow(rowInvoice);
+        }*/
+ 
     }
 
     /**
@@ -121,8 +96,6 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbClientsInformation = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        total = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnReturn = new javax.swing.JButton();
         btnPrint = new javax.swing.JButton();
@@ -130,11 +103,8 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Show Invoices  ");
 
-        jtbClientsInformation.setModel(tableModel);
+        jtbClientsInformation.setModel(tableModelInvoices);
         jScrollPane1.setViewportView(jtbClientsInformation);
-
-        total.setModel(tableModel1);
-        jScrollPane2.setViewportView(total);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/factura_opt.png"))); // NOI18N
         jLabel1.setText("Show Invoices  ");
@@ -167,8 +137,7 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                                 .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(81, 81, 81)
                                 .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(149, 149, 149)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(309, 309, 309)))
                         .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,15 +150,10 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
         );
 
@@ -274,8 +238,6 @@ public class FrmShowInvoice extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jtbClientsInformation;
-    private javax.swing.JTable total;
     // End of variables declaration//GEN-END:variables
 }

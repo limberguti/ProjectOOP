@@ -1,12 +1,9 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowCustomer extends javax.swing.JFrame {
 
-    String filePathCustomer = "data/customers.json";
+    MongoDB mongoDB = new MongoDB();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -40,27 +37,9 @@ public class FrmShowCustomer extends javax.swing.JFrame {
 
     private void fillTable() throws IOException {
         ArrayList<Customer> customers = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-
-        try {
-            json = FileManager.read(filePathCustomer);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-
-        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
-        }.getType();
-        customers = gson.fromJson(json, customerType);
-
+        customers = mongoDB.completeTab("Customers", "", FrmDatabaseSetup.database);
         for (Customer customer : customers) {
-
-            String cedula = Integer.toString(customer.getCedula());
-            String cellphone = Integer.toString(customer.getCellphone());
-
-            String[] rowCustomers = {cedula, customer.getName(),
-                customer.getLastName(), cellphone, customer.getAddress(),customer.getEmail()};
-
+            String[] rowCustomers = {String.valueOf(customer.getCedula()), customer.getName(), customer.getLastName(), String.valueOf(customer.getCellphone()), customer.getAddress(), customer.getAddress()};
             tableModel.addRow(rowCustomers);
         }
     }

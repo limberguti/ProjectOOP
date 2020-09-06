@@ -16,7 +16,7 @@ public class Calculation {
      * @param pricePerUnit The price per unit of the product do you have.
      * @return total price.
      */
-    public double PriceWithOutIva(double quantity, double pricePerUnit){
+    public double PriceWithOutIva(int quantity, double pricePerUnit){
         double total = pricePerUnit*quantity;    
         return total;
     }

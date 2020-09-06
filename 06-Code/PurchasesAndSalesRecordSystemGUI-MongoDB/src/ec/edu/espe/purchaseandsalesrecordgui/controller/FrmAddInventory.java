@@ -7,11 +7,6 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
-import com.mongodb.client.MongoCollection;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
@@ -29,15 +24,10 @@ import org.bson.Document;
  */
 public class FrmAddInventory extends javax.swing.JFrame {
 
-    MongoDB mongoDbManager = new MongoDB();
-    MongoCollection<Document> inventory;
-
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
-    String filePathProviders = "data/providers.json";
-    String filePathClothing = "data/clothing.json";
 
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
-    private DefaultComboBoxModel<Provider> modelProvider = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel modelProvider = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelBrand = new DefaultComboBoxModel();
 
     /**
@@ -71,21 +61,12 @@ public class FrmAddInventory extends javax.swing.JFrame {
     }
 
     private void completeModelComboBox2() {
-        ArrayList<Provider> providers = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathProviders);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+        ArrayList<Object> customers = new ArrayList<>();
+        customers = MongoDB.completeMod("Providers", "id", FrmDatabaseSetup.database);
+        System.out.println(customers.toString());
+        for (Object customer : customers) {
+            modelProvider.addElement(customer);
         }
-        java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
-        }.getType();
-        providers = gson.fromJson(json, providerType);
-        for (Provider provider : providers) {
-            modelProvider.addElement(provider);
-        }
-
     }
 
     /**
@@ -313,7 +294,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to save this information.?");
         if (saveOption == 0) {
-            mongoDbManager.save(document, "Clothing");
+            MongoDB.save(document, "Clothing", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");

@@ -16,9 +16,6 @@ import org.bson.Document;
  */
 public class FrmCreateProvider extends javax.swing.JFrame {
 
-    String filePathProviders = "data/providers.json";
-    MongoDB mongoDbManager = new MongoDB();
-
     /**
      * Creates new form FrmProvider
      */
@@ -238,7 +235,7 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
 
         if (saveOption == 0) {
-            mongoDbManager.save(document, "Providers");
+            MongoDB.save(document, "Providers", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
             jlbOnlyNumbersPhoneNumber.setText("");
         } else if (saveOption == 1) {

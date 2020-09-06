@@ -6,21 +6,13 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.dbmanager.MongoDB;
-import java.io.FileReader;
-import java.io.FileWriter;
 import javax.swing.JOptionPane;
-import org.bson.Document;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author Andrés López
  */
 public class FrmDeleteUser extends javax.swing.JFrame {
-
-    MongoDB mongoDbManager = new MongoDB();
 
     /**
      * Creates new form FrmDeleteUser
@@ -114,7 +106,7 @@ public class FrmDeleteUser extends javax.swing.JFrame {
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
 
         if (saveOption == 0) {
-            mongoDbManager.delete("username", txtUserName.getText(), "Users");
+            MongoDB.delete("username", txtUserName.getText(), "Users", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Deleted!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");

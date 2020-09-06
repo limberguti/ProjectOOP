@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,7 +27,6 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmSearchProvider extends javax.swing.JFrame {
 
-    MongoDB mongoDbManager = new MongoDB();
     String filePathProviders = "data/providers.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -355,7 +352,7 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         String[] rowProviders = {provider.getIdProvider(), provider.getName(),
             provider.getLastName(), provider.getBrand(), provider.getPhoneNumber(),
             provider.getAddress()};
-        
+
         tableModel.addRow(rowProviders);
 
         try {
@@ -437,9 +434,15 @@ public class FrmSearchProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
         
-        Provider provider = (Provider) comboBoxModel.getSelectedItem();
-        mongoDbManager.delete("idProvider", provider.getIdProvider(), "Providers");
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to delete this information.?");
+        if (saveOption == 0) {
+            MongoDB.delete("idProvider", cmbProviderId.getSelectedItem(), "Providers", FrmDatabaseSetup.database);
+            JOptionPane.showMessageDialog(rootPane, "Deleted!");
+        } else if (saveOption == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+        }
         /*JSONObject jsonObject = new JSONObject();
         Provider provider = (Provider) comboBoxModel.getSelectedItem();
 

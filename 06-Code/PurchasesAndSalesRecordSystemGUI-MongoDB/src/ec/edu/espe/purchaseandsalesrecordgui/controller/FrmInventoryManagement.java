@@ -5,11 +5,7 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

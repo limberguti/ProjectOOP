@@ -29,7 +29,7 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmSearchCustomer extends javax.swing.JFrame {
 
-    MongoDB mongoDbManager = new MongoDB();
+
     String filePathCustomer = "data/customers.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -69,7 +69,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         tableModel.addColumn("cellphone");
         tableModel.addColumn("address");
         tableModel.addColumn("email");
-        tableModel.addRow((Vector) mongoDbManager.llenar("Customers", "cedula"));
+        tableModel.addRow((Vector) MongoDB.llenar("Customers", "cedula"));
     }
 
     /**

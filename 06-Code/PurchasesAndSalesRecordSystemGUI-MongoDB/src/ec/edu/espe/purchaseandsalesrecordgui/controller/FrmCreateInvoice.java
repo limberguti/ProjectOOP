@@ -5,16 +5,9 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
-import ec.edu.espe.filemanagerlibrary.FileManager;
-import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
-import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
-import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,10 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
 
 /**
  *
@@ -36,18 +26,14 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
-    MongoDB mongoDbManager = new MongoDB();
-    String filePathClients = "data/customers.json";
-    String filePathInvoices = "data/invoices.json";
-    String filePathClothing = "data/clothing.json";
-    String filePathSizeOfClothing = "data/sizeOfClothing.json";
-    String filePathAccounting = "data/accounting.json";
-    private DefaultComboBoxModel<Customer> model = new DefaultComboBoxModel<>();
+    
+    private String filePathSizeOfClothing = "data/sizeOfClothing.json";
+    private DefaultComboBoxModel model = new DefaultComboBoxModel<>();
     private DefaultComboBoxModel modelClothing = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
-
+    
     /**
      * Creates new form Aplication
      *
@@ -56,7 +42,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     public FrmCreateInvoice() throws UnknownHostException {
         completeModelComboBoxCustomer();
         completeModelComboBoxClothing();
-        System.out.println(mongoDbManager.findCollection("Invoices", "idInvoices"));
         initComponents();
         setLocationRelativeTo(null);
         Date date = new Date();
@@ -68,42 +53,18 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }
 
     private void completeModelComboBoxCustomer() {
-
-        ArrayList<Customer> customers = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathClients);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-        //System.out.println(json);
-        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
-        }.getType();
-        customers = gson.fromJson(json, customerType);
-
-        for (Customer customer : customers) {
+        ArrayList<Object> customers = new ArrayList<>();
+        customers = MongoDB.completeMod("Customers", "cedula" , FrmDatabaseSetup.database);
+        for (Object customer : customers) {
             model.addElement(customer);
         }
-
-        //mongoDbManager.find(filePathClients, panel, filePathClients)
     }
 
     private void completeModelComboBoxClothing() {
-        ArrayList<Clothing> clothes = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathClothing);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
-        }.getType();
-        clothes = gson.fromJson(json, clothingType);
-
-        for (Clothing clothing : clothes) {
-            modelClothing.addElement(clothing);
+        ArrayList<Object> clothing = new ArrayList<>();
+        clothing = MongoDB.completeMod("Clothing", "id" , FrmDatabaseSetup.database);
+        for (Object clothes : clothing) {
+            modelClothing.addElement(clothes);
         }
     }
 
@@ -412,16 +373,15 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnShowDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDataActionPerformed
+        MongoDB.find("Cedula", cmbPersons.getSelectedItem(), "Customers", FrmDatabaseSetup.database);
+        MongoDB.find("Cedula", cmbPersons.getSelectedItem(), "Customers", FrmDatabaseSetup.database);
+        MongoDB.find("Cedula", cmbPersons.getSelectedItem(), "Customers", FrmDatabaseSetup.database);
+        MongoDB.find("Cedula", cmbPersons.getSelectedItem(), "Customers", FrmDatabaseSetup.database);
+        MongoDB.find("Cedula", cmbPersons.getSelectedItem(), "Customers", FrmDatabaseSetup.database);
         // TODO add your handling code here:
-        ArrayList<Customer> customers = new ArrayList<>();
+        /*ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
-
-        try {
-            json = FileManager.read(filePathClients);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
 
         Customer client = (Customer) model.getSelectedItem();
 
@@ -443,7 +403,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         txtAddress.setEditable(false);
         txtEmail.setText(client.getEmail());
         txtEmail.setEditable(false);
-
+        */
     }//GEN-LAST:event_btnShowDataActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
@@ -472,8 +432,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
 
-        if (saveOption == 0) {
-            mongoDbManager.save(document, "Invoices");
+        if (saveOption == 0) {          
+            MongoDB.save(document, "Invoices", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
@@ -482,7 +442,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
-
+        /*
         JSONObject jsonOldObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         JSONParser jsonParser = new JSONParser();
@@ -528,7 +488,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             } catch (HeadlessException | IOException ex) {
                 JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
             }
-        }
+        }*/
 
 
     }//GEN-LAST:event_btnTotalActionPerformed
@@ -604,7 +564,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private javax.swing.JButton btnShowData;
     private javax.swing.JButton btnTotal;
     private javax.swing.JComboBox<String> cmbClothing;
-    private javax.swing.JComboBox<Customer> cmbPersons;
+    private javax.swing.JComboBox<String> cmbPersons;
     private javax.swing.JComboBox<String> cmbSizeOfClothing;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

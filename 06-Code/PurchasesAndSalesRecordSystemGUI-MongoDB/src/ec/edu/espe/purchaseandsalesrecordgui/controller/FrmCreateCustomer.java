@@ -16,7 +16,6 @@ import org.bson.Document;
  */
 public class FrmCreateCustomer extends javax.swing.JFrame {
 
-    MongoDB mongoDbManager = new MongoDB();
 
     /**
      * Creates new form FrmClient
@@ -270,7 +269,7 @@ public class FrmCreateCustomer extends javax.swing.JFrame {
             int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
 
             if (saveOption == 0) {
-                mongoDbManager.save(document, "Customers");
+                MongoDB.save(document, "Customers" , FrmDatabaseSetup.database);
                 JOptionPane.showMessageDialog(rootPane, "Saved!");
             } else if (saveOption == 1) {
                 JOptionPane.showMessageDialog(rootPane, "Ok, try again.");

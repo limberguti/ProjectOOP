@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FrmMenuOption;
 import javax.swing.JOptionPane;
@@ -19,7 +20,9 @@ import org.json.simple.parser.ParseException;
  * @author Jonathan Maigua
  */
 public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
+
     String filePathUsers = "data/users.json";
+
     /**
      * Creates new form PurchaseAndSalesRecordSystem
      */
@@ -90,11 +93,12 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                            .addComponent(txtUser)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(btnLogin)))
+                            .addComponent(txtUser))))
                 .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnLogin)
+                .addGap(182, 182, 182))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,9 +113,9 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnLogin)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -119,7 +123,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
@@ -151,7 +154,6 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-
 
     /**
      * @param args the command line arguments

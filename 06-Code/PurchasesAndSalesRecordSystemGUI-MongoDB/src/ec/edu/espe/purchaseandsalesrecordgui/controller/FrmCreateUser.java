@@ -14,7 +14,6 @@ import org.bson.Document;
  * @author Andrés López
  */
 public class FrmCreateUser extends javax.swing.JFrame {
-    MongoDB mongoDbManager = new MongoDB();
     /**
      * Creates new form FrmCreateUser
      */
@@ -128,7 +127,7 @@ public class FrmCreateUser extends javax.swing.JFrame {
         
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
         if (saveOption == 0) {
-            mongoDbManager.save(document, "Users");
+            MongoDB.save(document, "Users", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
