@@ -8,19 +8,14 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
-import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -29,36 +24,29 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmSearchCustomer extends javax.swing.JFrame {
 
-
-    String filePathCustomer = "data/customers.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmSearch
      */
-    public FrmSearchCustomer() {
+    public FrmSearchCustomer() throws ParseException {
         loadComboBoxModel();
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadComboBoxModel() {
-        ArrayList<Customer> clients = new ArrayList<>();
+    private void loadComboBoxModel() throws ParseException {
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathCustomer);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Customer>>() {
+        String json = MongoDB.completeModel("Customers", FrmDatabaseSetup.database);
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+        customers = gson.fromJson(json, customerType);
 
-        for (Customer client : clients) {
-            comboBoxModel.addElement(client);
+        for (Customer customer : customers) {
+            comboBoxModel.addElement(customer);
         }
     }
 
@@ -69,7 +57,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         tableModel.addColumn("cellphone");
         tableModel.addColumn("address");
         tableModel.addColumn("email");
-        tableModel.addRow((Vector) MongoDB.llenar("Customers", "cedula"));
+
     }
 
     /**
@@ -325,20 +313,19 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        
-        
-        /*
-        ArrayList<Client> clients = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
         try {
-            json = FileManager.read(filePathClients);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            json = MongoDB.completeModel("Customers", FrmDatabaseSetup.database);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmSearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Client>>() {
+
+        java.lang.reflect.Type customerType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
-        clients = gson.fromJson(json, clientType);
+
+        customers = gson.fromJson(json, customerType);
         Customer customer = (Customer) comboBoxModel.getSelectedItem();
 
         String cedula = Integer.toString(customer.getCedula());
@@ -349,32 +336,30 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
             customer.getEmail()};
 
         tableModel.addRow(rowClients);
-
-        try {
-            json = FileManager.read(filePathClients);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-
-        clients = gson.fromJson(json, clientType);
-        
         txtUpdateName.setText(customer.getName());
         txtUpdateLastName.setText(customer.getLastName());
         txtUpdateCellphone.setText(cellphone);
         txtUpdateAddress.setText(customer.getAddress());
         txtUpdateEmail.setText(customer.getEmail());
-         */
+
+
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
         Customer customer = (Customer) comboBoxModel.getSelectedItem();
-        Document document = new Document();
-        mongoDbManager.delete("cedula", customer.getCedula(), "Customers");
-
+        MongoDB.delete("Customers", String.valueOf(customer.getCedula()), customer.getCedula(), FrmDatabaseSetup.database);
     }//GEN-LAST:event_btnDeleteClientActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-
+        
+        Customer customer = (Customer) comboBoxModel.getSelectedItem();
+        MongoDB.update("Customers", "name", customer.getName(), txtUpdateName.getText() , FrmDatabaseSetup.database);
+        MongoDB.update("Customers", "lastName", customer.getName(), txtUpdateLastName.getText() , FrmDatabaseSetup.database);
+        MongoDB.update("Customers", "cellphone", customer.getName(), txtUpdateCellphone.getText() , FrmDatabaseSetup.database);
+        MongoDB.update("Customers", "address", customer.getName(), txtUpdateAddress.getText() , FrmDatabaseSetup.database);
+        MongoDB.update("Customers", "email", customer.getName(), txtUpdateEmail.getText() , FrmDatabaseSetup.database);
+        
+        /*
         JSONObject jsonObject = new JSONObject();
         Customer client = (Customer) comboBoxModel.getSelectedItem();
         JSONArray jsonArray = new JSONArray();
@@ -441,7 +426,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
             jlbValidateEmail.setText("Invalid Email!");
             JOptionPane.showMessageDialog(null, "Invalid Email!");
         }
-
+         */
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
@@ -515,7 +500,11 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSearchCustomer().setVisible(true);
+                try {
+                    new FrmSearchCustomer().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmSearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

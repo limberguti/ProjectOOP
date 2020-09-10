@@ -1,6 +1,9 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -112,9 +115,15 @@ public class FrmCustomerManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchClientActionPerformed
-        FrmSearchCustomer frmSearchClient = new FrmSearchCustomer();
-        frmSearchClient.setVisible(true);
-        dispose();
+
+        try {
+            FrmSearchCustomer frmSearchClient = new FrmSearchCustomer();
+            frmSearchClient.setVisible(true);
+            dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCustomerManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSearchClientActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
@@ -136,6 +145,8 @@ public class FrmCustomerManagement extends javax.swing.JFrame {
             dispose();
         } catch (IOException ex) {
 
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCustomerManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnShowClientsActionPerformed
 

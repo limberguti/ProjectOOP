@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -123,8 +124,10 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
             createInvoice.setVisible(true);
         } catch (UnknownHostException ex) {
             Logger.getLogger(FrmInvoiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInvoiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         dispose();
     }//GEN-LAST:event_createButtonActionPerformed
 
@@ -137,22 +140,30 @@ public class FrmInvoiceManagement extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        FrmSearchInvoice frmSearchInvoice = new FrmSearchInvoice();
-        frmSearchInvoice.setVisible(true);
-        dispose();        
+        
+        try {
+            FrmSearchInvoice frmSearchInvoice = new FrmSearchInvoice();
+            frmSearchInvoice.setVisible(true);
+            dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInvoiceManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         try {
             // TODO add your handling code here:
-            FrmShowInvoice frmShowInvoice= new FrmShowInvoice();
-            frmShowInvoice.setVisible(true);        
+            FrmShowInvoice frmShowInvoice = new FrmShowInvoice();
+            frmShowInvoice.setVisible(true);
             dispose();
         } catch (IOException ex) {
-           
+
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInvoiceManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

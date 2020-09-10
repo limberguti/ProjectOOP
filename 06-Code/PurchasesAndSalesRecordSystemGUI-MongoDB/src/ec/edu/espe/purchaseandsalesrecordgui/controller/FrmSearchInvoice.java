@@ -7,48 +7,41 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author Jhonatan Lituma
  */
 public class FrmSearchInvoice extends javax.swing.JFrame {
-    String filePathInvoices = "data/invoices.json";
+
     private DefaultComboBoxModel modelInvoicesbyId = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
 
     /**
      * Creates new form FRMInvoiceSearch
      */
-    public FrmSearchInvoice() {
+    public FrmSearchInvoice() throws ParseException {
         completeModelComboBox2();
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-
-    private void completeModelComboBox2() {
+    private void completeModelComboBox2() throws ParseException {
         // TODO add your handling code here:
         ArrayList<Invoice> invoices = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathInvoices);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
+        String json = MongoDB.completeModel("Invoices", FrmDatabaseSetup.database);
 
         java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Invoice>>() {
         }.getType();
@@ -156,7 +149,7 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
 
     private void btnSeacrhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacrhActionPerformed
 
-        Invoice invoice =  (Invoice) modelInvoicesbyId.getSelectedItem();
+        Invoice invoice = (Invoice) modelInvoicesbyId.getSelectedItem();
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         String dateAsString = simpleDateFormat.format(date);
@@ -207,7 +200,11 @@ public class FrmSearchInvoice extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSearchInvoice().setVisible(true);
+                try {
+                    new FrmSearchInvoice().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmSearchInvoice.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

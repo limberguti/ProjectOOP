@@ -7,12 +7,14 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -20,19 +22,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowProvider extends javax.swing.JFrame {
 
-    String filePathProviders = "data/providers.json";
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
      */
-    public FrmShowProvider() throws IOException {
+    public FrmShowProvider() throws IOException, ParseException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel() throws IOException {
+    private void loadTableModel() throws IOException, ParseException {
         tableModel.addColumn("Provider ID");
         tableModel.addColumn("Name");
         tableModel.addColumn("Last Name");
@@ -43,16 +44,10 @@ public class FrmShowProvider extends javax.swing.JFrame {
         fillTable();
     }
 
-    private void fillTable() throws IOException {
+    private void fillTable() throws IOException, ParseException {
         ArrayList<Provider> providers = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-
-        try {
-            json = FileManager.read(filePathProviders);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
+        String json = MongoDB.completeModel("Providers", FrmDatabaseSetup.database);
 
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
         }.getType();
@@ -219,6 +214,8 @@ public class FrmShowProvider extends javax.swing.JFrame {
                     new FrmShowProvider().setVisible(true);
                 } catch (IOException ex) {
 
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmShowProvider.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

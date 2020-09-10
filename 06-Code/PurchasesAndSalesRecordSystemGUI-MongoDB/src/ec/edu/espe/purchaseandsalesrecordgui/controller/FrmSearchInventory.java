@@ -7,13 +7,14 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -21,32 +22,26 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmSearchInventory extends javax.swing.JFrame {
 
-    String filePathClothing = "data/clothing.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmSearch
      */
-    public FrmSearchInventory() {
+    public FrmSearchInventory() throws ParseException {
         loadComboBoxModel();
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadComboBoxModel() {
+    private void loadComboBoxModel() throws ParseException {
         ArrayList<Clothing> clothes = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathClothing);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-        java.lang.reflect.Type clothingType = new TypeToken<ArrayList<Clothing>>() {
+        String json = MongoDB.completeModel("Clothing", FrmDatabaseSetup.database);
+        java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        clothes = gson.fromJson(json, clothingType);
+        clothes = gson.fromJson(json, invoiceType);
 
         for (Clothing clothing : clothes) {
             comboBoxModel.addElement(clothing);
@@ -175,18 +170,7 @@ public class FrmSearchInventory extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        ArrayList<Clothing> clothes = new ArrayList<>();
-        Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathClothing);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Clothing>>() {
-        }.getType();
 
-        clothes = gson.fromJson(json, inventoryType);
         Clothing clothing = (Clothing) comboBoxModel.getSelectedItem();
         String[] rowInventory = {clothing.getTypeOfClothing(),clothing.getIdProvider(), clothing.getBrand(), clothing.getSize(), String.valueOf(clothing.getQuantity())};
         tableModel.addRow(rowInventory);
@@ -289,7 +273,11 @@ public class FrmSearchInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSearchInventory().setVisible(true);
+                try {
+                    new FrmSearchInventory().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmSearchInventory.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

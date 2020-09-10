@@ -7,12 +7,14 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -20,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowInventory extends javax.swing.JFrame {
 
-    String filePahtClothing = "data/clothing.json";
     DefaultTableModel tableModel = new DefaultTableModel();
     DefaultTableModel tableModel1 = new DefaultTableModel();
 
@@ -28,14 +29,15 @@ public class FrmShowInventory extends javax.swing.JFrame {
      * Creates new form FrmShowClients
      *
      * @throws java.io.IOException
+     * @throws org.json.simple.parser.ParseException
      */
-    public FrmShowInventory() throws IOException {
+    public FrmShowInventory() throws IOException, ParseException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel() throws IOException {
+    private void loadTableModel() throws IOException, ParseException {
         tableModel.addColumn("Clothing ID");
         tableModel.addColumn("Type Of Clothing");
         tableModel.addColumn("Size");
@@ -44,24 +46,16 @@ public class FrmShowInventory extends javax.swing.JFrame {
         tableModel.addColumn("Quantity");
         tableModel.addColumn("Purchase price per unit");
         tableModel.addColumn("Sale price per unit");
-        //tableModel.addColumn("Total ");
         fillTable();
     }
 
-    private void fillTable() throws IOException {
+    private void fillTable() throws IOException, ParseException {
         ArrayList<Clothing> clothes = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-
-        try {
-            json = FileManager.read(filePahtClothing);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-        java.lang.reflect.Type inventoryType = new TypeToken<ArrayList<Clothing>>() {
+        String json = MongoDB.completeModel("Clothing", FrmDatabaseSetup.database);
+        java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Clothing>>() {
         }.getType();
-        clothes = gson.fromJson(json, inventoryType);
+        clothes = gson.fromJson(json, invoiceType);
 
         for (Clothing clothing : clothes) {
             String[] rowInventory = {String.valueOf(clothing.getId()), clothing.getTypeOfClothing(), clothing.getSize(), clothing.getIdProvider(), clothing.getBrand(), String.valueOf(clothing.getQuantity()), String.valueOf(clothing.getPurchasePrice()), String.valueOf(clothing.getSalePrice())};
@@ -205,6 +199,8 @@ public class FrmShowInventory extends javax.swing.JFrame {
                     new FrmShowInventory().setVisible(true);
                 } catch (IOException ex) {
 
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmShowInventory.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

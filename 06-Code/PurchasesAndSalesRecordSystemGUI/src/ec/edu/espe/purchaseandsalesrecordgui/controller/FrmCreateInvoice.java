@@ -14,11 +14,8 @@ import com.mongodb.Mongo;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
-<<<<<<< HEAD
 import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
-=======
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
->>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
 import java.awt.HeadlessException;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
@@ -42,14 +39,13 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmCreateInvoice extends javax.swing.JFrame {
 
-<<<<<<< HEAD
     DB db;
     DBCollection invoices;
 
     String filePathClients = "data/clients.json";
-=======
+
     String filePathCustomers = "data/customer.json";
->>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
+
     String filePathInvoices = "data/invoices.json";
     String filePathClothing = "data/clothing.json";
     String filePathSizeOfClothing = "data/sizeOfClothing.json";
@@ -62,6 +58,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     /**
      * Creates new form Aplication
+     *
      * @throws java.net.UnknownHostException
      */
     public FrmCreateInvoice() throws UnknownHostException {
@@ -446,12 +443,13 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelID)
-                    .addComponent(labelDate)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbOnlyNumbersId, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbOnlyNumbersId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelID)
+                        .addComponent(labelDate)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnShowData, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,14 +506,15 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         String json = "";
 
         try {
-<<<<<<< HEAD
+
             json = FileManager.read(filePathClients);
-       } catch (IOException e) {
-=======
-            json = FileManager.read(filePathCustomers);
         } catch (IOException e) {
->>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+
+            try {
+                json = FileManager.read(filePathCustomers);
+            } catch (IOException ex) {
+                Logger.getLogger(FrmCreateInvoice.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         Customer customer = (Customer) model.getSelectedItem();
@@ -550,9 +549,9 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        BasicDBObject basicDBObject = new BasicDBObject();       
-        
+
+        BasicDBObject basicDBObject = new BasicDBObject();
+
         basicDBObject.put("idInvoice", txtId.getText());
         basicDBObject.put("date", txtDate.getText());
         basicDBObject.put("cedula", txtCedula.getText());
@@ -566,100 +565,100 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         basicDBObject.put("quantity", txtQuantity.getText());
         basicDBObject.put("tax", txtTax.getText());
         basicDBObject.put("total", txtTotal.getText());
-        
+
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
         if (saveOption == 0) {
             invoices.insert(basicDBObject);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-=======
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObjectAccounting = new JSONObject();
-        JSONArray jsonArrayAccounting = new JSONArray();
-        JSONParser jsonParserAccounting = new JSONParser();
-        ValidationEmptyFields validation = new ValidationEmptyFields();
 
-        try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
-        } catch (IOException | ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
+            JSONObject jsonObject = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObjectAccounting = new JSONObject();
+            JSONArray jsonArrayAccounting = new JSONArray();
+            JSONParser jsonParserAccounting = new JSONParser();
+            ValidationEmptyFields validation = new ValidationEmptyFields();
 
-        jsonObject.put("idInvoice", txtId.getText());
-        jsonObject.put("date", txtDate.getText());
-        jsonObject.put("cedula", txtCedula.getText());
-        jsonObject.put("name", txtName.getText());
-        jsonObject.put("lastName", txtLastName.getText());
-        jsonObject.put("address", txtAddress.getText());
-        jsonObject.put("cellphone", txtCellphone.getText());
-        jsonObject.put("email", txtEmail.getText());
-        jsonObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
-        jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
-        jsonObject.put("quantity", txtQuantity.getText());
-        jsonObject.put("tax", txtTax.getText());
-        jsonObject.put("total", txtTotal.getText());
-        jsonArray.add(jsonObject);
+            try {
+                jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathInvoices));
+            } catch (IOException | ParseException ex) {
+                JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+            }
 
-        String cedula = txtCedula.getText();
-        String email = txtEmail.getText();
+            jsonObject.put("idInvoice", txtId.getText());
+            jsonObject.put("date", txtDate.getText());
+            jsonObject.put("cedula", txtCedula.getText());
+            jsonObject.put("name", txtName.getText());
+            jsonObject.put("lastName", txtLastName.getText());
+            jsonObject.put("address", txtAddress.getText());
+            jsonObject.put("cellphone", txtCellphone.getText());
+            jsonObject.put("email", txtEmail.getText());
+            jsonObject.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+            jsonObject.put("descrption", cmbSizeOfClothing.getSelectedItem());
+            jsonObject.put("quantity", txtQuantity.getText());
+            jsonObject.put("tax", txtTax.getText());
+            jsonObject.put("total", txtTotal.getText());
+            jsonArray.add(jsonObject);
 
-        if (validation.validateCedula(cedula) == true) {
-            if (validation.validateEmail(email) == true) {
+            String cedula = txtCedula.getText();
+            String email = txtEmail.getText();
 
-                int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
-                if (saveOption == 0) {
-                    try {
-                        int id = Integer.parseInt(txtId.getText());
-                        id++;
-                        String idAsString = Integer.toString(id);
-                        txtId.setText(idAsString);
-                        FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
-                        JOptionPane.showMessageDialog(rootPane, "Saved!");
-                        jlbOnlyNumbersCedula.setText("");
-                        jlbOnlyNumbersCellphone.setText("");
-                        jlbValidateEmail.setText("");
-                        jlbOnlyNumbersTax.setText("");
-                        jlbOnlyNumbersQuantity.setText("");
-                        jlbOnlyNumbersId.setText("");
-                    } catch (HeadlessException | IOException | NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+            if (validation.validateCedula(cedula) == true) {
+                if (validation.validateEmail(email) == true) {
+
+                    saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+                    if (saveOption == 0) {
+                        try {
+                            int id = Integer.parseInt(txtId.getText());
+                            id++;
+                            String idAsString = Integer.toString(id);
+                            txtId.setText(idAsString);
+                            FileManager.writeRecord(filePathInvoices, jsonArray.toJSONString());
+                            JOptionPane.showMessageDialog(rootPane, "Saved!");
+                            jlbOnlyNumbersCedula.setText("");
+                            jlbOnlyNumbersCellphone.setText("");
+                            jlbValidateEmail.setText("");
+                            jlbOnlyNumbersTax.setText("");
+                            jlbOnlyNumbersQuantity.setText("");
+                            jlbOnlyNumbersId.setText("");
+                        } catch (HeadlessException | IOException | NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+                        }
+
+                    } else if (saveOption == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
                     }
-
-                } else if (saveOption == 1) {
-                    JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+                } else {
+                    jlbValidateEmail.setText("Invalid Email!");
+                    JOptionPane.showMessageDialog(null, "Invalid Email!");
                 }
             } else {
-                jlbValidateEmail.setText("Invalid Email!");
-                JOptionPane.showMessageDialog(null, "Invalid Email!");
+                jlbOnlyNumbersCedula.setText("Invalid Cedula!");
+                JOptionPane.showMessageDialog(null, "Invalid Cedula!");
             }
-        } else {
-            jlbOnlyNumbersCedula.setText("Invalid Cedula!");
-            JOptionPane.showMessageDialog(null, "Invalid Cedula!");
+
+            try {
+                jsonArrayAccounting = (JSONArray) jsonParserAccounting.parse(FileManager.readRecord(filePathAccounting));
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+            }
+
+            jsonObjectAccounting.put("date", txtDate.getText());
+            jsonObjectAccounting.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
+            jsonObjectAccounting.put("income", txtTotal.getText());
+            jsonObjectAccounting.put("descrption", cmbSizeOfClothing.getSelectedItem());
+
+            jsonArrayAccounting.add(jsonObjectAccounting);
+
+            try {
+                FileManager.writeRecord(filePathAccounting, jsonArrayAccounting.toJSONString());
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+
+            }
         }
-
-        try {
-            jsonArrayAccounting = (JSONArray) jsonParserAccounting.parse(FileManager.readRecord(filePathAccounting));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-        jsonObjectAccounting.put("date", txtDate.getText());
-        jsonObjectAccounting.put("clothing", String.valueOf(cmbClothing.getSelectedItem()));
-        jsonObjectAccounting.put("income", txtTotal.getText());
-        jsonObjectAccounting.put("descrption", cmbSizeOfClothing.getSelectedItem());
-
-        jsonArrayAccounting.add(jsonObjectAccounting);
-
-        try {
-            FileManager.writeRecord(filePathAccounting, jsonArrayAccounting.toJSONString());
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
->>>>>>> 974ea7173140254f80c652ddb1f087325f1fecda
-        }
-        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
@@ -674,7 +673,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         double quantity;
         long totalQuantity = Long.parseLong(txtQuantity.getText());
         Calculation calculation = new Calculation();
-                
+
         try {
             jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
         } catch (IOException | ParseException e) {
@@ -692,10 +691,10 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             tax = Integer.parseInt(txtTax.getText());
             pricePerUnit = clothing.getSalePrice();
             quantity = Double.parseDouble(txtQuantity.getText());
-            
+
             totalWithoutIva = calculation.PriceWithOutIva(quantity, pricePerUnit);
             totalWithIva = calculation.PriceWithIva(tax, totalWithoutIva);
-            
+
             txtTotal.setText(String.valueOf(totalWithIva));
 
             long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));

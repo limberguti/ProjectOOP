@@ -8,17 +8,14 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
-import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
 import org.json.simple.parser.ParseException;
 
 /**
@@ -27,33 +24,27 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmSearchProvider extends javax.swing.JFrame {
 
-    String filePathProviders = "data/providers.json";
     DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmSearch
+     * @throws org.json.simple.parser.ParseException
      */
-    public FrmSearchProvider() {
+    public FrmSearchProvider() throws ParseException {
         loadComboBoxModel();
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadComboBoxModel() {
+    private void loadComboBoxModel() throws ParseException {
         ArrayList<Provider> providers = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-        try {
-            json = FileManager.read(filePathProviders);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
+        String json = MongoDB.completeModel("Providers", FrmDatabaseSetup.database);
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
         }.getType();
         providers = gson.fromJson(json, providerType);
-
         for (Provider provider : providers) {
             comboBoxModel.addElement(provider);
         }
@@ -339,11 +330,13 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         ArrayList<Provider> providers = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
+
         try {
-            json = FileManager.read(filePathProviders);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
+            json = MongoDB.completeModel("Providers", FrmDatabaseSetup.database);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmSearchProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
         }.getType();
         providers = gson.fromJson(json, providerType);
@@ -354,12 +347,6 @@ public class FrmSearchProvider extends javax.swing.JFrame {
             provider.getAddress()};
 
         tableModel.addRow(rowProviders);
-
-        try {
-            json = FileManager.read(filePathProviders);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Error " + e.getMessage());
-        }
 
         providers = gson.fromJson(json, providerType);
 
@@ -372,6 +359,16 @@ public class FrmSearchProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        Provider provider = (Provider) comboBoxModel.getSelectedItem();
+        
+        MongoDB.update("Providers", "idProvider", provider.getIdProvider(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        MongoDB.update("Providers", "name", provider.getName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        MongoDB.update("Providers", "lastName", provider.getLastName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        MongoDB.update("Providers", "brand", provider.getBrand(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        MongoDB.update("Providers", "phoneNumber", provider.getPhoneNumber(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        MongoDB.update("Providers", "address", provider.getAddress(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+        
+        /*
         JSONObject jsonObject = new JSONObject();
         Provider provider = (Provider) comboBoxModel.getSelectedItem();
         JSONArray jsonArray = new JSONArray();
@@ -431,18 +428,18 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(null, "Provider updated");
         jlbOnlyNumbersPhoneNumber.setText("");
+        */
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
-        
+/*
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to delete this information.?");
         if (saveOption == 0) {
             MongoDB.delete("idProvider", cmbProviderId.getSelectedItem(), "Providers", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Deleted!");
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-        }
+        }*/
         /*JSONObject jsonObject = new JSONObject();
         Provider provider = (Provider) comboBoxModel.getSelectedItem();
 
@@ -513,15 +510,138 @@ public class FrmSearchProvider extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmSearchProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmSearchProvider.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -654,7 +774,11 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSearchProvider().setVisible(true);
+                try {
+                    new FrmSearchProvider().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmSearchProvider.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

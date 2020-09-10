@@ -8,15 +8,15 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
-import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Invoice;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Vector;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -28,15 +28,16 @@ public class FrmShowInvoice extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmAccounting
+     *
+     * @throws java.io.IOException
      */
-    public FrmShowInvoice() throws IOException {
+    public FrmShowInvoice() throws IOException, ParseException {
         loadTableModel();
         initComponents();
-
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel() throws IOException {
+    private void loadTableModel() throws IOException, ParseException {
         tableModelInvoices.addColumn("ID");
         tableModelInvoices.addColumn("Date");
         tableModelInvoices.addColumn("Clothing");
@@ -47,41 +48,20 @@ public class FrmShowInvoice extends javax.swing.JFrame {
         fillTable();
     }
 
-    private void fillTable() throws IOException {
-
-        ArrayList<Invoice> invoices = new ArrayList<>();
- 
-        invoices = MongoDB.completeTab("Invoices", FrmDatabaseSetup.database);
-        
-        System.out.println(invoices);
-        for (Invoice invoice : invoices) {
-            String[] rowInvoice = {invoice.getIdInvoice(),invoice.getDate(), invoice.getClothing(),
-                invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(),invoice.getTotal(),};
-            tableModelInvoices.addRow(rowInvoice);
-        }
-        /*
+    private void fillTable() throws IOException, ParseException {
         ArrayList<Invoice> invoices = new ArrayList<>();
         Gson gson = new Gson();
-        String json = "";
-        float sumatotal = 0;
-
-        try {
-            json = FileManager.read("data/invoices.json");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
+        String json = MongoDB.completeModel("Invoices", FrmDatabaseSetup.database);
         java.lang.reflect.Type invoiceType = new TypeToken<ArrayList<Invoice>>() {
         }.getType();
         invoices = gson.fromJson(json, invoiceType);
-        System.out.println(invoices);
         for (Invoice invoice : invoices) {
-
-            String[] rowInvoice = {invoice.getIdInvoice(),invoice.getDate(), invoice.getClothing(),
-                invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(),invoice.getTotal(),};
+            String[] rowInvoice = {invoice.getIdInvoice(), invoice.getDate(), invoice.getClothing(),
+                invoice.getDescrption(), invoice.getQuantity(), invoice.getTax(), invoice.getTotal(),};
             tableModelInvoices.addRow(rowInvoice);
-        }*/
- 
+
+        }
+
     }
 
     /**
@@ -227,6 +207,8 @@ public class FrmShowInvoice extends javax.swing.JFrame {
                     new FrmShowInvoice().setVisible(true);
                 } catch (IOException ex) {
 
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmShowInvoice.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

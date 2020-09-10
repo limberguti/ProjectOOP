@@ -1,10 +1,15 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -12,19 +17,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmShowCustomer extends javax.swing.JFrame {
 
-    MongoDB mongoDB = new MongoDB();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
      * Creates new form FrmShowClients
      */
-    public FrmShowCustomer() throws IOException {
+    public FrmShowCustomer() throws IOException, ParseException {
         loadTableModel();
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    private void loadTableModel() throws IOException {
+    private void loadTableModel() throws IOException, ParseException {
         tableModel.addColumn("Cedula");
         tableModel.addColumn("Name");
         tableModel.addColumn("Last Name");
@@ -35,11 +39,15 @@ public class FrmShowCustomer extends javax.swing.JFrame {
         fillTable();
     }
 
-    private void fillTable() throws IOException {
+    private void fillTable() throws IOException, ParseException {
         ArrayList<Customer> customers = new ArrayList<>();
-        customers = mongoDB.completeTab("Customers", "", FrmDatabaseSetup.database);
+        Gson gson = new Gson();
+        String json = MongoDB.completeModel("Customers", FrmDatabaseSetup.database);
+        java.lang.reflect.Type clientType = new TypeToken<ArrayList<Customer>>() {
+        }.getType();
+        customers = gson.fromJson(json, clientType);
         for (Customer customer : customers) {
-            String[] rowCustomers = {String.valueOf(customer.getCedula()), customer.getName(), customer.getLastName(), String.valueOf(customer.getCellphone()), customer.getAddress(), customer.getAddress()};
+            String[] rowCustomers = {String.valueOf(customer.getCedula()), customer.getName(), customer.getLastName(), String.valueOf(customer.getCellphone()), customer.getAddress(), customer.getEmail()};
             tableModel.addRow(rowCustomers);
         }
     }
@@ -196,6 +204,8 @@ public class FrmShowCustomer extends javax.swing.JFrame {
                     new FrmShowCustomer().setVisible(true);
                 } catch (IOException ex) {
 
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmShowCustomer.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

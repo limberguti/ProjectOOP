@@ -14,9 +14,12 @@ import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.bson.Document;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -33,7 +36,7 @@ public class FrmAddInventory extends javax.swing.JFrame {
     /**
      * Creates new form Aplication
      */
-    public FrmAddInventory() {
+    public FrmAddInventory() throws ParseException {
 
         completeModelComboBox();
         completeModelComboBox2();
@@ -60,12 +63,16 @@ public class FrmAddInventory extends javax.swing.JFrame {
 
     }
 
-    private void completeModelComboBox2() {
-        ArrayList<Object> customers = new ArrayList<>();
-        customers = MongoDB.completeMod("Providers", "id", FrmDatabaseSetup.database);
-        System.out.println(customers.toString());
-        for (Object customer : customers) {
-            modelProvider.addElement(customer);
+    private void completeModelComboBox2() throws ParseException {
+        ArrayList<Provider> providers = new ArrayList<>();
+        Gson gson = new Gson();
+        String json = MongoDB.completeModel("Providers", FrmDatabaseSetup.database);
+
+        java.lang.reflect.Type providerType = new TypeToken<ArrayList<Provider>>() {
+        }.getType();
+        providers = gson.fromJson(json, providerType);
+        for (Provider provider : providers) {
+            modelProvider.addElement(provider);
         }
     }
 
@@ -354,7 +361,11 @@ public class FrmAddInventory extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAddInventory().setVisible(true);
+                try {
+                    new FrmAddInventory().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(FrmAddInventory.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

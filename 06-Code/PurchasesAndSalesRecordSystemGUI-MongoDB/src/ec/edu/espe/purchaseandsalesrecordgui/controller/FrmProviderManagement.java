@@ -6,6 +6,9 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -122,8 +125,14 @@ public class FrmProviderManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchProviderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchProviderActionPerformed
-        FrmSearchProvider frmSearchProvider = new FrmSearchProvider();
-        frmSearchProvider.setVisible(true);
+
+        try {
+            FrmSearchProvider frmSearchProvider = new FrmSearchProvider();
+            frmSearchProvider.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmProviderManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         dispose();
     }//GEN-LAST:event_btnSearchProviderActionPerformed
 
@@ -146,6 +155,8 @@ public class FrmProviderManagement extends javax.swing.JFrame {
             dispose();
         } catch (IOException ex) {
 
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmProviderManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnShowProvidersActionPerformed
 

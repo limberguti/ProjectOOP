@@ -8,6 +8,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.controller;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -15,10 +16,8 @@ import java.util.logging.Logger;
  */
 public class FrmInventoryManagement extends javax.swing.JFrame {
 
-    
-    
     public FrmInventoryManagement() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -123,6 +122,8 @@ public class FrmInventoryManagement extends javax.swing.JFrame {
             new FrmShowInventory().setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(FrmInventoryManagement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInventoryManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnViewInventoryActionPerformed
 
@@ -133,15 +134,27 @@ public class FrmInventoryManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnAddInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddInventoryActionPerformed
-        FrmAddInventory addInventory = new FrmAddInventory();
-        addInventory.setVisible(true);
-        this.dispose();
+
+        try {
+            FrmAddInventory addInventory = new FrmAddInventory();
+            addInventory.setVisible(true);
+            this.dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInventoryManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnAddInventoryActionPerformed
 
     private void btnSeacrhInventoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeacrhInventoryActionPerformed
-        FrmSearchInventory searchInventory = new FrmSearchInventory();
-        searchInventory.setVisible(true);
-        this.dispose();
+
+        try {
+            FrmSearchInventory searchInventory = new FrmSearchInventory();
+            searchInventory.setVisible(true);
+            this.dispose();
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmInventoryManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnSeacrhInventoryActionPerformed
 
     /**
