@@ -493,8 +493,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             jsonArray.remove(cmbClothing.getSelectedIndex());
 
             jsonArray.add(cmbClothing.getSelectedIndex(), jsonOldObject);
-            jSONParser.parse(jsonArray.);
-            
+            //jSONParser.parse(jsonArray.);//linea dañada
             
             //MongoDB.updateCollection("Clothing" , "" , FrmDatabaseSetup.database);
         }

@@ -16,7 +16,6 @@ import org.bson.Document;
  */
 public class FrmCreateCustomer extends javax.swing.JFrame {
 
-
     /**
      * Creates new form FrmClient
      */
@@ -261,19 +260,21 @@ public class FrmCreateCustomer extends javax.swing.JFrame {
                 jlbOnlyNumbersCedula.setText("");
                 jlbOnlyNumbersCellphone.setText("");
                 jlbValidateEmail.setText("");
+                
+                int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
+
+                if (saveOption == 0) {
+                    MongoDB.save(document, "Customers", FrmDatabaseSetup.database);
+                    JOptionPane.showMessageDialog(rootPane, "Saved!");
+                } else if (saveOption == 1) {
+                    JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+                }
+                
             } else {
                 jlbValidateEmail.setText("Invalid Email!");
                 JOptionPane.showMessageDialog(null, "Invalid Email!");
             }
 
-            int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
-
-            if (saveOption == 0) {
-                MongoDB.save(document, "Customers" , FrmDatabaseSetup.database);
-                JOptionPane.showMessageDialog(rootPane, "Saved!");
-            } else if (saveOption == 1) {
-                JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-            }
         } else {
             jlbOnlyNumbersCedula.setText("Invalid Cedula!");
             JOptionPane.showMessageDialog(null, "Invalid Cedula!");

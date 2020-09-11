@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/jhona/OneDrive/Escritorio/Versionamientos/PROJECTGUI5/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateInvoice.java</file>
-=======
-            <file>file:/C:/Users/andre/Desktop/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmDatabaseSetup.java</file>
->>>>>>> 5aaaefa793557725f9a8d68d926a96d954df2772
+            <file>file:/C:/Users/andre/Desktop/GUIProject/3erParcial/Purchases3AndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmUser.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/3erParcial/Purchases3AndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmDeleteUser.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/3erParcial/Purchases3AndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/view/PurchaseAndSalesRecordSystem.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/3erParcial/Purchases3AndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmCreateUser.java</file>
+            <file>file:/C:/Users/andre/Desktop/GUIProject/3erParcial/Purchases3AndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/controller/FrmMenuOption.java</file>
         </group>
     </open-files>
 </project-private>

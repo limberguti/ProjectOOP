@@ -104,12 +104,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtUserDatabase">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jhona"/>
+        <Property name="text" type="java.lang.String" value="duke"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="pswDatabase">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jhona"/>
+        <Property name="text" type="java.lang.String" value="duke"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogInDatabase">

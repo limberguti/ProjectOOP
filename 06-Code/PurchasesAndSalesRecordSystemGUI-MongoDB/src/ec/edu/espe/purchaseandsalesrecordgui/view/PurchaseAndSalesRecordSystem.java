@@ -5,9 +5,9 @@
  */
 package ec.edu.espe.purchaseandsalesrecordgui.view;
 
-import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FrmMenuOption;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -58,6 +58,12 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txtUser.setToolTipText("Enter the user name.");
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/usuario_opt.png"))); // NOI18N
@@ -121,15 +127,14 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+    private void loginAction() {
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
 
         //fetch fileReader ---
         try {
-            
+
             object = jsonParser.parse(FileManager.readRecord(filePathUsers));
             jsonArray = (JSONArray) object;
 
@@ -153,7 +158,18 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
                 this.setVisible(true);
             }
         }
+    }
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        this.loginAction();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.loginAction();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments

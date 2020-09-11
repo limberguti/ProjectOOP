@@ -23,6 +23,7 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
      */
     public FrmDatabaseSetup() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -53,9 +54,9 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
-        txtUserDatabase.setText("jhona");
+        txtUserDatabase.setText("duke");
 
-        pswDatabase.setText("jhona");
+        pswDatabase.setText("duke");
 
         btnLogInDatabase.setText("Log In");
         btnLogInDatabase.addActionListener(new java.awt.event.ActionListener() {

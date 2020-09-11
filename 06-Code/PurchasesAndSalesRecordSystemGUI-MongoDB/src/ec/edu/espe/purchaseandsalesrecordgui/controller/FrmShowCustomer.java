@@ -17,10 +17,7 @@ import org.json.simple.parser.ParseException;
  */
 public class FrmShowCustomer extends javax.swing.JFrame {
 
-<<<<<<< HEAD
-=======
     //MongoDB mongoDB = new MongoDB();
->>>>>>> 5aaaefa793557725f9a8d68d926a96d954df2772
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
@@ -45,15 +42,12 @@ public class FrmShowCustomer extends javax.swing.JFrame {
 
     private void fillTable() throws IOException, ParseException {
         ArrayList<Customer> customers = new ArrayList<>();
-<<<<<<< HEAD
         Gson gson = new Gson();
         String json = MongoDB.completeModel("Customers", FrmDatabaseSetup.database);
         java.lang.reflect.Type clientType = new TypeToken<ArrayList<Customer>>() {
         }.getType();
         customers = gson.fromJson(json, clientType);
-=======
         //customers = mongoDB.completeTab("Customers", "", FrmDatabaseSetup.database);
->>>>>>> 5aaaefa793557725f9a8d68d926a96d954df2772
         for (Customer customer : customers) {
             String[] rowCustomers = {String.valueOf(customer.getCedula()), customer.getName(), customer.getLastName(), String.valueOf(customer.getCellphone()), customer.getAddress(), customer.getEmail()};
             tableModel.addRow(rowCustomers);
