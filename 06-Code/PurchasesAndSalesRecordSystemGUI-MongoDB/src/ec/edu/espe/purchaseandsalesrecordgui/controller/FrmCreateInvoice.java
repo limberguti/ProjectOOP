@@ -12,7 +12,7 @@ import com.mongodb.client.MongoCursor;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
-import ec.edu.espe.purchaseandsalesrecordgui.utils.Calculation;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.PriceCalculation;
 import java.awt.event.ItemEvent;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -461,7 +461,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         double totalWithIva = Double.parseDouble(txtTotal.getText());
         double quantity;
         long totalQuantity = Long.parseLong(txtQuantity.getText());
-        Calculation calculation = new Calculation();
+        PriceCalculation calculation = new PriceCalculation();
         
 
         try {
@@ -482,8 +482,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             pricePerUnit = clothing.getSalePrice();
             quantity = Double.parseDouble(txtQuantity.getText());
 
-            totalWithoutIva = calculation.PriceWithOutIva((int) quantity, pricePerUnit);
-            totalWithIva = calculation.PriceWithIva(tax, totalWithoutIva);
+            totalWithoutIva = calculation.priceWithoutIva((int) quantity, pricePerUnit);
+            totalWithIva = calculation.priceWithIva(tax, totalWithoutIva);
 
             txtTotal.setText(String.valueOf(totalWithIva));
 
@@ -507,7 +507,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         double totalWithIva = Double.parseDouble(txtTotal.getText());
         double quantity;
         long totalQuantity = Long.parseLong(txtQuantity.getText());
-        Calculation calculation = new Calculation();
+        PriceCalculation calculation = new PriceCalculation();
 
         try {
             jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
@@ -527,8 +527,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             pricePerUnit = clothing.getSalePrice();
             quantity = Double.parseDouble(txtQuantity.getText());
 
-            totalWithoutIva = calculation.PriceWithOutIva(quantity, pricePerUnit);
-            totalWithIva = calculation.PriceWithIva(tax, totalWithoutIva);
+            totalWithoutIva = calculation.priceWithoutIva(quantity, pricePerUnit);
+            totalWithIva = calculation.priceWithIva(tax, totalWithoutIva);
 
             txtTotal.setText(String.valueOf(totalWithIva));
 

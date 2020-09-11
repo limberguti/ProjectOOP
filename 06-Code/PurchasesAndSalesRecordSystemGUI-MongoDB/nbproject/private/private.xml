@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/utils/Calculation.java</file>
-            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/view/PurchaseAndSalesRecordSystem.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/utils/TotalCalculation.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/model/Admin.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/utils/PriceCalculation.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/test/ec/edu/espe/purchaseandsalesrecordgui/utils/CalculationTotal.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/model/Invoice.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/model/Provider.java</file>
+            <file>file:/C:/Users/USER/OneDrive/Desktop/06-Code/PurchasesAndSalesRecordSystemGUI-MongoDB/src/ec/edu/espe/purchaseandsalesrecordgui/utils/DataBase.java</file>
         </group>
     </open-files>
 </project-private>

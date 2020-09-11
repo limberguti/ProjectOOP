@@ -18,15 +18,15 @@ public class CalculationTest {
     }
 
     /**
-     * Test of PriceWithOutIva method, of class Calculation.
+     * Test of priceWithoutIva method, of class PriceCalculation.
      */
     @Test
     public void testPriceWithOutIva() {
         int quantity = 5;
         double pricePerUnit = 15.23;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 76.15;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -36,9 +36,9 @@ public class CalculationTest {
     public void testPriceWithOutIva1() {
         int quantity = 7;
         double pricePerUnit = 5.0;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 35.0;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -49,9 +49,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 10;
         double pricePerUnit = 12.12;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 121.2;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result,0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -62,9 +62,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 3;
         double pricePerUnit = 2.1;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 6.3;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -75,9 +75,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 10;
         double pricePerUnit = 5.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 59.9;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -88,9 +88,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 7;
         double pricePerUnit = 3.49;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 24.43;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -101,9 +101,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 11;
         double pricePerUnit = 9.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 109.89;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -114,9 +114,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 6;
         double pricePerUnit = 5.59;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 33.54;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -127,9 +127,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 20;
         double pricePerUnit = 4.50;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 90.00;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -140,9 +140,9 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 1;
         double pricePerUnit = 3.33;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 3.33;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -153,25 +153,25 @@ public class CalculationTest {
         System.out.println("PriceWithOutIva");
         int quantity = 5;
         double pricePerUnit = 0.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 4.95;
-        double result = instance.PriceWithOutIva(quantity, pricePerUnit);
+        double result = instance.priceWithoutIva(quantity, pricePerUnit);
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of PriceWithIva method, of class Calculation.
+     * Test of priceWithIva method, of class PriceCalculation.
      */
     @Test
     public void testPriceWithIva() {
         System.out.println("PriceWithIva");
         double tax = 10.5;
         double price = 4.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 5.51;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -182,9 +182,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 12.0;
         double price = 33.33;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 37.32;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -195,9 +195,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 10.0;
         double price = 7.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 8.78;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -208,9 +208,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 15.5;
         double price = 33.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 39.25;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -221,9 +221,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 13.3;
         double price = 50.0;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 56.65;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -234,9 +234,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 14.65;
         double price = 5.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 6.86;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -247,9 +247,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 0.5;
         double price = 12.39;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 12.45;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -260,9 +260,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 22.99;
         double price = 33.33;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 40.99;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -273,9 +273,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 12.29;
         double price = 45.45;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 51.03;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
@@ -286,9 +286,9 @@ public class CalculationTest {
         System.out.println("PriceWithIva");
         double tax = 12.66;
         double price = 55.99;
-        Calculation instance = new Calculation();
+        PriceCalculation instance = new PriceCalculation();
         double expResult = 63.07;
-        double result = instance.PriceWithIva(tax, price);
+        double result = instance.priceWithIva(tax, price);
         assertEquals(expResult, result, 0.1);
         // TODO review the generated test code and remove the default call to fail.
 
