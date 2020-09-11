@@ -6,6 +6,7 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.purchaseandsalesrecordgui.view.PurchaseAndSalesRecordSystem;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -153,14 +154,24 @@ public class FrmMenuOption extends javax.swing.JFrame {
 
     private void menuInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInvoiceMouseClicked
         // TODO add your handling code here:
-        FrmInvoiceManagement frmInvoiceManagement = new FrmInvoiceManagement();
-        frmInvoiceManagement.setVisible(true);
-        dispose();
+        if (FrmDatabaseSetup.database == null) {
+            JOptionPane.showMessageDialog(rootPane, "First enter your database credentials.");
+        } else {
+            FrmInvoiceManagement frmInvoiceManagement = new FrmInvoiceManagement();
+            frmInvoiceManagement.setVisible(true);
+            dispose();
+        }
+
     }//GEN-LAST:event_menuInvoiceMouseClicked
 
     private void menuClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuClientMouseClicked
-        this.setVisible(false);
-        new FrmCustomerManagement().setVisible(true);
+        if (FrmDatabaseSetup.database == null) {
+            JOptionPane.showMessageDialog(rootPane, "First enter your database credentials.");
+        } else {
+            this.setVisible(false);
+            new FrmCustomerManagement().setVisible(true);
+        }
+
     }//GEN-LAST:event_menuClientMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -171,13 +182,23 @@ public class FrmMenuOption extends javax.swing.JFrame {
 
     private void menuProviderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuProviderMouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
-        new FrmProviderManagement().setVisible(true);
+        if (FrmDatabaseSetup.database == null) {
+            JOptionPane.showMessageDialog(rootPane, "First enter your database credentials.");
+        } else {
+            this.setVisible(false);
+            new FrmProviderManagement().setVisible(true);
+        }
+
     }//GEN-LAST:event_menuProviderMouseClicked
 
     private void menuInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInventoryMouseClicked
-        this.setVisible(false);
-        new FrmInventoryManagement().setVisible(true);
+        if (FrmDatabaseSetup.database == null) {
+            JOptionPane.showMessageDialog(rootPane, "First enter your database credentials.");
+        } else {
+            this.setVisible(false);
+            new FrmInventoryManagement().setVisible(true);
+        }
+
     }//GEN-LAST:event_menuInventoryMouseClicked
 
     private void menuUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuUserMouseClicked

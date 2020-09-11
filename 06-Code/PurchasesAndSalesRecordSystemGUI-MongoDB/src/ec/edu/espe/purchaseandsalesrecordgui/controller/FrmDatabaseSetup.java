@@ -54,10 +54,6 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
-        txtUserDatabase.setText("duke");
-
-        pswDatabase.setText("duke");
-
         btnLogInDatabase.setText("Log In");
         btnLogInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +135,9 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
 
         if (database != null) {
             JOptionPane.showMessageDialog(null, "Correct!");
+            FrmMenuOption frmMenuOption = new FrmMenuOption();
+            frmMenuOption.setVisible(true);
+            dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Incorret User/Password ");
             this.setVisible(true);
