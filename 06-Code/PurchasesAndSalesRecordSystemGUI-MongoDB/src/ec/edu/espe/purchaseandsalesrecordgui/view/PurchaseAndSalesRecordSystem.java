@@ -7,6 +7,7 @@ package ec.edu.espe.purchaseandsalesrecordgui.view;
 
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.controller.FrmMenuOption;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.Encription;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
@@ -131,6 +132,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         JSONArray jsonArray = new JSONArray();
         Object object = null;
         JSONParser jsonParser = new JSONParser();
+         Encription encription = new Encription();
 
         //fetch fileReader ---
         try {
@@ -146,7 +148,11 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
         int size = jsonArray.size();
 
         jsonObject.put("username", txtUser.getText());
-        jsonObject.put("password", txtPassword.getText());
+        
+         String encryptedPassword  =txtPassword.getText();
+        String encryptedPassword1 = encription.encrypt(encryptedPassword );
+        jsonObject.put("password", encryptedPassword1);
+
         for (int i = 0; i < size; i++) {
             if (jsonObject.equals(jsonArray.get(i))) {
                 FrmMenuOption frmMenuOption = new FrmMenuOption();

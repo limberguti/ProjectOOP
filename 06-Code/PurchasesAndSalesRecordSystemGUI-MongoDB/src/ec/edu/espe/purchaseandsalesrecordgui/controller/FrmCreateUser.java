@@ -6,14 +6,21 @@
 package ec.edu.espe.purchaseandsalesrecordgui.controller;
 
 import ec.edu.espe.dbmanager.MongoDB;
+import ec.edu.espe.filemanagerlibrary.FileManager;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.Encription;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 import org.bson.Document;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author Andrés López
  */
 public class FrmCreateUser extends javax.swing.JFrame {
+     String filePathUsers = "data/users.json";
     /**
      * Creates new form FrmCreateUser
      */
@@ -121,17 +128,41 @@ public class FrmCreateUser extends javax.swing.JFrame {
 
     private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
   
-        Document document = new Document();
-        document.put("username", txtUserName.getText());
-        document.put("password", pswPassword.getText());
+   
         
-        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
-        if (saveOption == 0) {
-            MongoDB.save(document, "Users", FrmDatabaseSetup.database);
-            JOptionPane.showMessageDialog(rootPane, "Saved!");
-        } else if (saveOption == 1) {
-            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+       JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
+        Encription encription = new Encription();
+      
+
+        try {
+            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathUsers));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
         }
+
+        
+        jsonObject.put("username", txtUserName.getText());
+        
+        String encryptedPassword  =pswPassword.getText();
+        String encryptedPassword1 = encription.encrypt(encryptedPassword);
+        
+        jsonObject.put("password", encryptedPassword1);
+
+        
+        
+        
+                jsonArray.add(jsonObject);
+                try {
+                    FileManager.writeRecord(filePathUsers, jsonArray.toJSONString());
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
+                }
+                JOptionPane.showMessageDialog(null, "Data saved");
+               
+                
+        
     }//GEN-LAST:event_btnCreateUserActionPerformed
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
