@@ -1,0 +1,16 @@
+test cases for Validation
+cedula                        expectedResult      actualResult
+1726864676                   False               False   
+1722469960                   True                True  
+1726864679                   True                True   
+1754650081                   True                True  
+1726687454                   False               False   
+1203457896                   False               False 
+78965412039                  False               False
+1754957890                   True                True 
+1754957891                   False               False
+1722896565                   True                True      
+
+
+   
+

@@ -1,0 +1,13 @@
+test cases for Validation
+email                              expectedResult      actualResult
+andresilopeza@gmail.com                True                True    
+andresilopezagmail.com                 False               False 
+emcastillo2@espe.edu.ec                True                True   
+emcastillo2@                           False               False 
+ailopez4@espe.edu.ec                   True                True   
+@espe.edu.ec                           False               False 
+eli.almeida.ec@hotmail.com             True                True   
+eli.almeida.ec@hotmailcom              False               False  
+stalin.lopez@gmail.com                 True                True   
+eli.almeida.ec@hotmail,com             False               False    
+
