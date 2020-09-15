@@ -1,0 +1,17 @@
+test cases for Validation
+
+Encryp
+password         expectedResult      actualResult
+xhris               disjt             disjt    
+jona                kpob              kpob
+1234                2345              2345
+limber              mjncfs            mjncfs
+andres              boesft            boesft
+
+Decipher
+password        expectedResult     actualResult
+2                     1                1   
+kpob                jona              jona 
+863                 752               752
+mjncfs              imber             limber 
+boesft              andres            andres
