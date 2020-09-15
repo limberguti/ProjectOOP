@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import org.json.simple.parser.ParseException;
@@ -29,6 +30,7 @@ public class FrmSearchProvider extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmSearch
+     *
      * @throws org.json.simple.parser.ParseException
      */
     public FrmSearchProvider() throws ParseException {
@@ -359,127 +361,45 @@ public class FrmSearchProvider extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Provider provider = (Provider) comboBoxModel.getSelectedItem();
-        
-        MongoDB.update("Providers", "idProvider", provider.getIdProvider(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        MongoDB.update("Providers", "name", provider.getName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        MongoDB.update("Providers", "lastName", provider.getLastName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        MongoDB.update("Providers", "brand", provider.getBrand(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        MongoDB.update("Providers", "phoneNumber", provider.getPhoneNumber(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        MongoDB.update("Providers", "address", provider.getAddress(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
-        
-        /*
-        JSONObject jsonObject = new JSONObject();
-        Provider provider = (Provider) comboBoxModel.getSelectedItem();
-        JSONArray jsonArray = new JSONArray();
-        Object object = null;
-        JSONParser jsonParser = new JSONParser();
 
-        try {
-            object = jsonParser.parse(FileManager.readRecord(filePathProviders));
-            jsonArray = (JSONArray) object;
-        } catch (IOException | ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to update this information.?");
+
+        if (saveOption == 0) {
+            Provider provider = (Provider) comboBoxModel.getSelectedItem();
+
+            MongoDB.update("Providers", "idProvider", provider.getIdProvider(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+            MongoDB.update("Providers", "name", provider.getName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+            MongoDB.update("Providers", "lastName", provider.getLastName(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+            MongoDB.update("Providers", "brand", provider.getBrand(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+            MongoDB.update("Providers", "phoneNumber", provider.getPhoneNumber(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+            MongoDB.update("Providers", "address", provider.getAddress(), txtUpdateIdProvider.getText(), FrmDatabaseSetup.database);
+
+            JOptionPane.showMessageDialog(rootPane, "Updated!");
+
+        } else if (saveOption == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
         }
-
-        jsonObject.put("idProvider", provider.getIdProvider());
-        jsonObject.put("name", provider.getName());
-        jsonObject.put("lastName", provider.getLastName());
-        jsonObject.put("brand", provider.getBrand());
-        jsonObject.put("phoneNumber", provider.getPhoneNumber());
-        jsonObject.put("address", provider.getAddress());
-
-        int size = jsonArray.size();
-        for (int i = 0; i < size; i++) {
-            jsonObject = (JSONObject) jsonArray.get(i);
-            if (provider.getIdProvider().equals(jsonObject.get("idProvider"))) {
-                try {
-                    jsonArray.remove(i);
-                    FileManager.writeRecord(filePathProviders, jsonArray.toJSONString());
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-                }
-                //tableModel.removeRow(0);
-                break;
-            } else if (i == size - 1) {
-                JOptionPane.showMessageDialog(null, "Provider was not found!");
-            }
-        }
-
-        try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathProviders));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred");
-        }
-
-        jsonObject.put("idProvider", txtUpdateIdProvider.getText());
-        jsonObject.put("name", txtUpdateName.getText());
-        jsonObject.put("lastName", txtUpdateLastName.getText());
-        jsonObject.put("brand", txtUpdateBrand.getText());
-        jsonObject.put("phoneNumber", txtUpdatePhoneNumber.getText());
-        jsonObject.put("address", txtUpdateAddress.getText());
-
-        jsonArray.add(jsonObject);
-
-        try {
-            FileManager.writeRecord(filePathProviders, jsonArray.toJSONString());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error ocurred!");
-        }
-        JOptionPane.showMessageDialog(null, "Provider updated");
-        jlbOnlyNumbersPhoneNumber.setText("");
-        */
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-/*
-        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to delete this information.?");
+                int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to delete this information.?");
+
         if (saveOption == 0) {
-            MongoDB.delete("idProvider", cmbProviderId.getSelectedItem(), "Providers", FrmDatabaseSetup.database);
+            Provider provider = (Provider) comboBoxModel.getSelectedItem();
+
+            MongoDB.delete("Providers", "idProvider", provider.getIdProvider(), FrmDatabaseSetup.database);
+            MongoDB.delete("Providers", "name", provider.getName(), FrmDatabaseSetup.database);
+            MongoDB.delete("Providers", "lastName", provider.getLastName(), FrmDatabaseSetup.database);
+            MongoDB.delete("Providers", "brand", provider.getBrand(), FrmDatabaseSetup.database);
+            MongoDB.delete("Providers", "phoneNumber", provider.getPhoneNumber(), FrmDatabaseSetup.database);
+            MongoDB.delete("Providers", "address", provider.getAddress(), FrmDatabaseSetup.database);
+
             JOptionPane.showMessageDialog(rootPane, "Deleted!");
+
         } else if (saveOption == 1) {
             JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
-        }*/
-        /*JSONObject jsonObject = new JSONObject();
-        Provider provider = (Provider) comboBoxModel.getSelectedItem();
-
-        JSONArray jsonArray = new JSONArray();
-        Object object = null;
-        JSONParser jsonParser = new JSONParser();
-
-        try {
-            object = jsonParser.parse(FileManager.readRecord(filePathProviders));
-            jsonArray = (JSONArray) object;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
         }
 
-        jsonObject.put("idProvider", provider.getIdProvider());
-        jsonObject.put("name", provider.getName());
-        jsonObject.put("lastName", provider.getLastName());
-        jsonObject.put("brand", provider.getBrand());
-        jsonObject.put("phoneNumber", provider.getPhoneNumber());
-        jsonObject.put("address", provider.getAddress());
-
-        int size = jsonArray.size();
-        for (int i = 0; i < size; i++) {
-            jsonObject = (JSONObject) jsonArray.get(i);
-            if (provider.getIdProvider().equals(jsonObject.get("idProvider"))) {
-                try {
-                    jsonArray.remove(i);
-                    FileManager.writeRecord(filePathProviders, jsonArray.toJSONString());
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-                }
-                JOptionPane.showMessageDialog(null, "Provider Removed");
-                tableModel.removeRow(0);
-                comboBoxModel.removeElement(provider);
-                jlbOnlyNumbersPhoneNumber.setText("");
-                break;
-            } else if (i == size - 1) {
-                JOptionPane.showMessageDialog(null, "Provider was not found!");
-            }
-        }*/
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -641,7 +561,7 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

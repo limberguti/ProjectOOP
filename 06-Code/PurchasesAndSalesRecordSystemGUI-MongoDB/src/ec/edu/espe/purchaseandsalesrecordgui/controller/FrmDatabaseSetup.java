@@ -54,6 +54,10 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
+        txtUserDatabase.setText("duke");
+
+        pswDatabase.setText("duke");
+
         btnLogInDatabase.setText("Log In");
         btnLogInDatabase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

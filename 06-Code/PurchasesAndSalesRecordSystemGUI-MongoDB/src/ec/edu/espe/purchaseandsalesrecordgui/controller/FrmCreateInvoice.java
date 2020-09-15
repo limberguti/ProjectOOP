@@ -19,12 +19,14 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -42,6 +44,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
     private DefaultComboBoxModel modelSize = new DefaultComboBoxModel();
     private DefaultComboBoxModel modelQuantity = new DefaultComboBoxModel();
     private DefaultTableModel modelTable = new DefaultTableModel();
+    private static JSONObject jsonOldObject = new JSONObject();
+    private static JSONArray jsonArray = new JSONArray();
 
     /**
      * Creates new form Aplication
@@ -489,6 +493,7 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
         int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to print this information.?");
 
         if (saveOption == 0) {
+            MongoDB.updateCollection("Clothing", jsonArray, FrmDatabaseSetup.database);
             MongoDB.save(document, "Invoices", FrmDatabaseSetup.database);
             JOptionPane.showMessageDialog(rootPane, "Saved!");
         } else if (saveOption == 1) {
@@ -499,9 +504,6 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
 
     private void btnTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTotalActionPerformed
 
-        JSONObject jsonOldObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jSONParser = new JSONParser();
         double tax;
         double pricePerUnit;
         double totalWithoutIva = 0;
@@ -539,57 +541,8 @@ public class FrmCreateInvoice extends javax.swing.JFrame {
             jsonArray.remove(cmbClothing.getSelectedIndex());
 
             jsonArray.add(cmbClothing.getSelectedIndex(), jsonOldObject);
-            //jSONParser.parse(jsonArray.);
 
-            //MongoDB.updateCollection("Clothing" , "" , FrmDatabaseSetup.database);
         }
-        /*
-        JSONObject jsonOldObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        JSONParser jsonParser = new JSONParser();
-        double tax;
-        double pricePerUnit;
-        double totalWithoutIva = 0;
-        double totalWithIva = Double.parseDouble(txtTotal.getText());
-        double quantity;
-        long totalQuantity = Long.parseLong(txtQuantity.getText());
-        PriceCalculation calculation = new PriceCalculation();
-
-        try {
-            jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathClothing));
-        } catch (IOException | ParseException e) {
-            JOptionPane.showMessageDialog(null, "File not found, we are creating the file.");
-        }
-
-        Clothing clothing = (Clothing) modelClothing.getSelectedItem();
-        long quantityOfClothing = Long.valueOf(txtQuantity.getText());
-
-        jsonOldObject = (JSONObject) jsonArray.get(cmbClothing.getSelectedIndex());
-
-        if (jsonOldObject.get("id").equals(clothing.getId()) && jsonOldObject.get("typeOfClothing").equals(clothing.getTypeOfClothing()) && jsonOldObject.get("size").equals(clothing.getSize()) && jsonOldObject.get("idProvider").equals(clothing.getIdProvider()) && jsonOldObject.get("brand").equals(clothing.getBrand()) && quantityOfClothing > Long.parseLong(String.valueOf(jsonOldObject.get("quantity")))) {
-            JOptionPane.showMessageDialog(null, "Exceeds the quantity available.");
-        } else {
-            tax = Integer.parseInt(txtTax.getText());
-            pricePerUnit = clothing.getSalePrice();
-            quantity = Double.parseDouble(txtQuantity.getText());
-
-            totalWithoutIva = calculation.priceWithoutIva(quantity, pricePerUnit);
-            totalWithIva = calculation.priceWithIva(tax, totalWithoutIva);
-
-            txtTotal.setText(String.valueOf(totalWithIva));
-
-            long currentlyQuantity = Long.parseLong((String.valueOf(jsonOldObject.get("quantity"))));
-            currentlyQuantity -= totalQuantity;
-            jsonOldObject.put("quantity", currentlyQuantity);
-            jsonArray.remove(cmbClothing.getSelectedIndex());
-
-            jsonArray.add(cmbClothing.getSelectedIndex(), jsonOldObject);
-            try {
-                FileManager.writeRecord(filePathClothing, jsonArray.toJSONString());
-            } catch (HeadlessException | IOException ex) {
-                JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-            }
-        }*/
 
     }//GEN-LAST:event_btnTotalActionPerformed
 

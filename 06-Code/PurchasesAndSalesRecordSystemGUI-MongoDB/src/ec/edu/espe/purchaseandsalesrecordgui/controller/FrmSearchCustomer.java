@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.parser.ParseException;
 
@@ -311,11 +312,12 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         FrmCustomerManagement frmClientMenu = new FrmCustomerManagement();
         frmClientMenu.setVisible(true);
         dispose();
+
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         ArrayList<Customer> customers = new ArrayList<>();
-        
+
         ArrayList<Client> clients = new ArrayList<>();
         Gson gson = new Gson();
         String json = "";
@@ -348,89 +350,48 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnDeleteClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteClientActionPerformed
-        /*Customer customer = (Customer) comboBoxModel.getSelectedItem();
-        MongoDB.delete("Customers", String.valueOf(customer.getCedula()), customer.getCedula(), FrmDatabaseSetup.database);
-        Document document = new Document();
-        MongoDB.delete("cedula", customer.getCedula(), "Customers",FrmDatabaseSetup.database);*/
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to delete this information.?");
+
+        if (saveOption == 0) {
+            Customer customer = (Customer) comboBoxModel.getSelectedItem();
+            MongoDB.delete("Customers", "name", customer.getName(), FrmDatabaseSetup.database);
+            MongoDB.delete("Customers", "lastName", customer.getLastName(), FrmDatabaseSetup.database);
+            MongoDB.delete("Customers", "cellphone", customer.getCellphone(), FrmDatabaseSetup.database);
+            MongoDB.delete("Customers", "address", customer.getAddress(), FrmDatabaseSetup.database);
+            MongoDB.delete("Customers", "email", customer.getEmail(), FrmDatabaseSetup.database);
+
+            JOptionPane.showMessageDialog(rootPane, "Deleted!");
+
+        } else if (saveOption == 1) {
+            JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
+        }
     }//GEN-LAST:event_btnDeleteClientActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        /*
-        Customer customer = (Customer) comboBoxModel.getSelectedItem();
-        MongoDB.update("Customers", "name", customer.getName(), txtUpdateName.getText() , FrmDatabaseSetup.database);
-        MongoDB.update("Customers", "lastName", customer.getName(), txtUpdateLastName.getText() , FrmDatabaseSetup.database);
-        MongoDB.update("Customers", "cellphone", customer.getName(), txtUpdateCellphone.getText() , FrmDatabaseSetup.database);
-        MongoDB.update("Customers", "address", customer.getName(), txtUpdateAddress.getText() , FrmDatabaseSetup.database);
-        MongoDB.update("Customers", "email", customer.getName(), txtUpdateEmail.getText() , FrmDatabaseSetup.database);
-        
-        
-        JSONObject jsonObject = new JSONObject();
-        Customer client = (Customer) comboBoxModel.getSelectedItem();
-        JSONArray jsonArray = new JSONArray();
-        Object object = null;
-        JSONParser jsonParser = new JSONParser();
+        int saveOption = JOptionPane.showConfirmDialog(rootPane, "Are you sure to update this information.?");
         ValidationEmptyFields validation = new ValidationEmptyFields();
-
-        try {
-            object = jsonParser.parse(FileManager.readRecord(filePathCustomer));
-            jsonArray = (JSONArray) object;
-        } catch (IOException | ParseException ex) {
-            JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-        }
-
-        jsonObject.put("cedula", client.getCedula());
-        jsonObject.put("name", client.getName());
-        jsonObject.put("lastName", client.getLastName());
-        jsonObject.put("cellphone", client.getCellphone());
-        jsonObject.put("address", client.getAddress());
-        jsonObject.put("email", client.getEmail());
-
-        int size = jsonArray.size();
         String email = txtUpdateEmail.getText();
-
         if (validation.validateEmail(email) == true) {
-            for (int i = 0; i < size; i++) {
-                jsonObject = (JSONObject) jsonArray.get(i);
-                if (String.valueOf(client.getCedula()).equals(String.valueOf(jsonObject.get("cedula")))) {
-                    try {
-                        jsonArray.remove(i);
-                        FileManager.writeRecord(filePathCustomer, jsonArray.toJSONString());
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Something is wrong, an unexpected error has occurred, try again.");
-                    }
-                    tableModel.removeRow(0);
-                    break;
-                } else if (i == size - 1) {
-                    JOptionPane.showMessageDialog(null, "Cedula was not found!");
-                }
+            if (saveOption == 0) {
+                Customer customer = (Customer) comboBoxModel.getSelectedItem();
+                MongoDB.update("Customers", "name", customer.getName(), txtUpdateName.getText(), FrmDatabaseSetup.database);
+                MongoDB.update("Customers", "lastName", customer.getLastName(), txtUpdateLastName.getText(), FrmDatabaseSetup.database);
+                MongoDB.update("Customers", "cellphone", customer.getCellphone(), txtUpdateCellphone.getText(), FrmDatabaseSetup.database);
+                MongoDB.update("Customers", "address", customer.getAddress(), txtUpdateAddress.getText(), FrmDatabaseSetup.database);
+                MongoDB.update("Customers", "email", customer.getEmail(), txtUpdateEmail.getText(), FrmDatabaseSetup.database);
+
+                JOptionPane.showMessageDialog(rootPane, "Updated!");
+
+            } else if (saveOption == 1) {
+                JOptionPane.showMessageDialog(rootPane, "Ok, try again.");
             }
 
-            try {
-                jsonArray = (JSONArray) jsonParser.parse(FileManager.readRecord(filePathCustomer));
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error ocurred");
-            }
-
-            jsonObject.put("cedula", client.getCedula());
-            jsonObject.put("name", txtUpdateName.getText());
-            jsonObject.put("lastName", txtUpdateLastName.getText());
-            jsonObject.put("cellphone", txtUpdateCellphone.getText());
-            jsonObject.put("address", txtUpdateAddress.getText());
-            jsonObject.put("email", txtUpdateEmail.getText());
-
-            jsonArray.add(jsonObject);
-
-            try {
-                FileManager.writeRecord(filePathCustomer, jsonArray.toJSONString());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error ocurred!");
-            }
-            JOptionPane.showMessageDialog(null, "Client updated");
         } else {
             jlbValidateEmail.setText("Invalid Email!");
             JOptionPane.showMessageDialog(null, "Invalid Email!");
         }
-         */
+
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnEmptyFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyFieldsActionPerformed
