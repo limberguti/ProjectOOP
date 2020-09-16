@@ -97,7 +97,7 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         jlbOnlyNumbersCellphone = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Search Client");
+        setTitle("Search Customer");
 
         jlbSearchCustomerTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchClientTitle.png"))); // NOI18N
         jlbSearchCustomerTitle.setText("Search Customer");
@@ -144,6 +144,10 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         jlbUpdateLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
         jlbUpdateLastName.setText("Last Name: ");
 
+        txtUpdateName.setToolTipText("Don't use special characteres");
+
+        txtUpdateLastName.setToolTipText("Don't use special characteres");
+
         jlbUpdateCellphone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/phoneNumber.png"))); // NOI18N
         jlbUpdateCellphone.setText("Cellphone: ");
 
@@ -153,11 +157,16 @@ public class FrmSearchCustomer extends javax.swing.JFrame {
         jlbUpdateEmail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/email.png"))); // NOI18N
         jlbUpdateEmail.setText("Email: ");
 
+        txtUpdateCellphone.setToolTipText("Enter only 10 numbers");
         txtUpdateCellphone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUpdateCellphoneKeyPressed(evt);
             }
         });
+
+        txtUpdateAddress.setToolTipText("Don't use special characteres");
+
+        txtUpdateEmail.setToolTipText("The email must have a local part, then an @, and then a domain name ");
 
         jlbUpdateFields.setText("Enter the new values in each field:");
 

@@ -9,10 +9,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
+import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.parser.ParseException;
 
@@ -77,6 +80,7 @@ public class FrmShowProvider extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbClientsInformation = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Show Registered Provider");
@@ -94,22 +98,34 @@ public class FrmShowProvider extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(24, 24, 24))
             .addGroup(pnlLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbShowClients)
-                .addGap(258, 258, 258))
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(225, 225, 225)
+                                .addComponent(btnReturn)
+                                .addGap(24, 24, 24))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
+                                .addComponent(jlbShowClients)
+                                .addGap(258, 258, 258))))))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,8 +135,10 @@ public class FrmShowProvider extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(17, 17, 17))
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReturn)
+                    .addComponent(btnPrint))
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,6 +166,18 @@ public class FrmShowProvider extends javax.swing.JFrame {
         frmProviderMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat(" Page(0,number,interger)");
+        MessageFormat footer = new MessageFormat(" Provider Print");
+
+        try {
+            jtbClientsInformation.print(JTable.PrintMode.NORMAL, footer, footer);
+        } catch (PrinterException e) {
+            System.err.format("Cannot print %s%n", e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,6 +252,7 @@ public class FrmShowProvider extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReturn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlbShowClients;

@@ -11,6 +11,7 @@ import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.filemanagerlibrary.FileManager;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Clothing;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Provider;
+import ec.edu.espe.purchaseandsalesrecordgui.utils.ValidationEmptyFields;
 import java.awt.event.ItemEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -105,9 +106,13 @@ public class FrmAddInventory extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         cmbSize = new javax.swing.JComboBox<>();
         txtBrand = new javax.swing.JTextField();
+        jlbOnlyNumberPurchasePrice = new javax.swing.JLabel();
+        jlbOnlyNumberQuantity = new javax.swing.JLabel();
+        jlbOnlyNumberSalesPrice = new javax.swing.JLabel();
         btmSave = new javax.swing.JButton();
         btnReturn = new javax.swing.JButton();
         jlbRopa = new javax.swing.JLabel();
+        jlbOnlyNumberQuantity2 = new javax.swing.JLabel();
 
         jLabel8.setText("jLabel8");
 
@@ -126,6 +131,20 @@ public class FrmAddInventory extends javax.swing.JFrame {
 
         jLabel5.setText("Provider");
 
+        txtPurchasePrice.setToolTipText("Enter only number ");
+        txtPurchasePrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPurchasePriceKeyPressed(evt);
+            }
+        });
+
+        txtQuantity.setToolTipText("Enter only numbers");
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyPressed(evt);
+            }
+        });
+
         cmbIdProvider.setModel(modelProvider);
         cmbIdProvider.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -133,9 +152,25 @@ public class FrmAddInventory extends javax.swing.JFrame {
             }
         });
 
+        txtTypeOfClothing.setToolTipText("Don't use special characteres");
+
         jLabel6.setText("Clothing ID:");
 
+        txtIdClothing.setToolTipText("Can enter letters and numbers");
+
         jLabel9.setText("Sale price  price per unit");
+
+        txtSalePrice.setToolTipText("Enter only number ");
+        txtSalePrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSalePriceActionPerformed(evt);
+            }
+        });
+        txtSalePrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSalePriceKeyPressed(evt);
+            }
+        });
 
         jLabel11.setText("Size");
 
@@ -146,11 +181,19 @@ public class FrmAddInventory extends javax.swing.JFrame {
             }
         });
 
+        txtBrand.setToolTipText("Enter only number");
+
+        jlbOnlyNumberPurchasePrice.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumberQuantity.setForeground(new java.awt.Color(255, 0, 0));
+
+        jlbOnlyNumberSalesPrice.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -165,22 +208,31 @@ public class FrmAddInventory extends javax.swing.JFrame {
                             .addComponent(cmbSize, 0, 139, Short.MAX_VALUE)
                             .addComponent(txtIdClothing)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(23, 23, 23))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtQuantity)
                             .addComponent(txtPurchasePrice)
                             .addComponent(cmbIdProvider, 0, 139, Short.MAX_VALUE)
                             .addComponent(txtBrand))))
-                .addGap(37, 37, 37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlbOnlyNumberPurchasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbOnlyNumberQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbOnlyNumberSalesPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -202,17 +254,23 @@ public class FrmAddInventory extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4))
+                    .addComponent(jlbOnlyNumberQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtPurchasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlbOnlyNumberPurchasePrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPurchasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(txtSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jlbOnlyNumberSalesPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -233,6 +291,8 @@ public class FrmAddInventory extends javax.swing.JFrame {
 
         jlbRopa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/ropa_opt.png"))); // NOI18N
 
+        jlbOnlyNumberQuantity2.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -249,6 +309,11 @@ public class FrmAddInventory extends javax.swing.JFrame {
                     .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btmSave, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jlbOnlyNumberQuantity2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,18 +325,25 @@ public class FrmAddInventory extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btmSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jlbOnlyNumberQuantity2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,6 +399,30 @@ public class FrmAddInventory extends javax.swing.JFrame {
             txtBrand.setText(provider.getBrand());
         }
     }//GEN-LAST:event_cmbIdProviderItemStateChanged
+
+    private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
+        // TODO add your handling code here:
+           ValidationEmptyFields validation = new ValidationEmptyFields();
+           validation.validateOnlyNumbers(evt, txtQuantity, jlbOnlyNumberQuantity);
+        
+        
+    }//GEN-LAST:event_txtQuantityKeyPressed
+
+    private void txtPurchasePriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPurchasePriceKeyPressed
+        // TODO add your handling code here:
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtPurchasePrice, jlbOnlyNumberPurchasePrice);
+    }//GEN-LAST:event_txtPurchasePriceKeyPressed
+
+    private void txtSalePriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSalePriceKeyPressed
+        // TODO add your handling code here:
+        ValidationEmptyFields validation = new ValidationEmptyFields();
+        validation.validateOnlyNumbers(evt, txtSalePrice, jlbOnlyNumberSalesPrice);
+    }//GEN-LAST:event_txtSalePriceKeyPressed
+
+    private void txtSalePriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalePriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSalePriceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,6 +483,10 @@ public class FrmAddInventory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jlbOnlyNumberPurchasePrice;
+    private javax.swing.JLabel jlbOnlyNumberQuantity;
+    private javax.swing.JLabel jlbOnlyNumberQuantity2;
+    private javax.swing.JLabel jlbOnlyNumberSalesPrice;
     private javax.swing.JLabel jlbRopa;
     private javax.swing.JTextField txtBrand;
     private javax.swing.JTextField txtIdClothing;

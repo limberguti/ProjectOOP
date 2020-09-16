@@ -50,9 +50,9 @@
                               <Component id="jScrollPane1" min="-2" pref="692" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="btnPrint" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="283" max="-2" attributes="0"/>
                                   <Component id="btnReturn" min="-2" pref="99" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="309" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -73,9 +73,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="185" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnPrint" max="32767" attributes="0"/>
-                      <Component id="btnReturn" pref="32" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnPrint" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReturn" alignment="3" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               </Group>

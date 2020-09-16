@@ -72,6 +72,11 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         txtId.setToolTipText("Enter only numbers");
 
         txtBrand.setToolTipText("Don't use special characteres");
+        txtBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBrandActionPerformed(evt);
+            }
+        });
 
         txtName.setToolTipText("Don't use special characteres");
 
@@ -113,6 +118,13 @@ public class FrmCreateProvider extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
         jLabel1.setText("Last Name:");
+
+        txtLastName.setToolTipText("Don't use special characteres");
+        txtLastName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
@@ -248,6 +260,14 @@ public class FrmCreateProvider extends javax.swing.JFrame {
         ValidationEmptyFields validation = new ValidationEmptyFields();
         validation.validateOnlyNumbers(evt, txtPhoneNumber, jlbOnlyNumbersPhoneNumber);
     }//GEN-LAST:event_txtPhoneNumberKeyPressed
+
+    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLastNameActionPerformed
+
+    private void txtBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBrandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBrandActionPerformed
 
     /**
      * @param args the command line arguments

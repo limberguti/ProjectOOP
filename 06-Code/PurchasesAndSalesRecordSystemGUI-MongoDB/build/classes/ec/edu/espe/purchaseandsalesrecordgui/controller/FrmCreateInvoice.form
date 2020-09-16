@@ -416,6 +416,9 @@
     <Component class="javax.swing.JTextField" name="txtTotal">
     </Component>
     <Component class="javax.swing.JTextField" name="txtId">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="enter the invoice number"/>
+      </Properties>
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtIdKeyPressed"/>
       </Events>
@@ -470,6 +473,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtQuantity">
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuantityActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtQuantityKeyPressed"/>
       </Events>
     </Component>

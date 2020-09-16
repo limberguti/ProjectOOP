@@ -4,10 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ec.edu.espe.dbmanager.MongoDB;
 import ec.edu.espe.purchaseandsalesrecordgui.model.Customer;
+import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.parser.ParseException;
 
@@ -68,6 +71,7 @@ public class FrmShowCustomer extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbClientsInformation = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Show Registered Clients");
@@ -85,34 +89,45 @@ public class FrmShowCustomer extends javax.swing.JFrame {
             }
         });
 
+        btnPrint.setText("Print");
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlLayout = new javax.swing.GroupLayout(pnl);
         pnl.setLayout(pnlLayout);
         pnlLayout.setHorizontalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(44, 44, 44))
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlLayout.createSequentialGroup()
                         .addGap(358, 358, 358)
-                        .addComponent(jlbShowCustomer)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(jlbShowCustomer))
+                    .addGroup(pnlLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(110, Short.MAX_VALUE))
+            .addGroup(pnlLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325)
+                .addComponent(btnReturn)
+                .addGap(134, 134, 134))
         );
         pnlLayout.setVerticalGroup(
             pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jlbShowCustomer)
-                .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReturn)
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addGroup(pnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReturn)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,6 +155,18 @@ public class FrmShowCustomer extends javax.swing.JFrame {
         frmClientMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        // TODO add your handling code here:
+        MessageFormat header = new MessageFormat(" Page(0,number,interger)");
+        MessageFormat footer = new MessageFormat(" Customer Print");
+
+        try {
+            jtbClientsInformation.print(JTable.PrintMode.NORMAL, footer, footer);
+        } catch (PrinterException e) {
+            System.err.format("Cannot print %s%n", e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +241,7 @@ public class FrmShowCustomer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnReturn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlbShowCustomer;

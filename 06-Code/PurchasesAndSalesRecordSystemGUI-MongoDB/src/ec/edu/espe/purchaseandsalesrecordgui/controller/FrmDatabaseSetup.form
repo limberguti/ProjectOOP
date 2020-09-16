@@ -10,6 +10,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Purchasse And Sales Record"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -105,11 +106,16 @@
     <Component class="javax.swing.JTextField" name="txtUserDatabase">
       <Properties>
         <Property name="text" type="java.lang.String" value="duke"/>
+        <Property name="toolTipText" type="java.lang.String" value="enter the users"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUserDatabaseActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="pswDatabase">
       <Properties>
         <Property name="text" type="java.lang.String" value="duke"/>
+        <Property name="toolTipText" type="java.lang.String" value="enter the password of the database"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogInDatabase">
@@ -123,6 +129,7 @@
     <Component class="javax.swing.JTextField" name="txtNameDatabase">
       <Properties>
         <Property name="text" type="java.lang.String" value="DatabaseStore"/>
+        <Property name="toolTipText" type="java.lang.String" value="enter the name of the database"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

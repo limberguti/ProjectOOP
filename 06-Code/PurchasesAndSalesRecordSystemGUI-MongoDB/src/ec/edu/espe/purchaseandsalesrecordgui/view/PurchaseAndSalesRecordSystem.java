@@ -60,6 +60,7 @@ public class PurchaseAndSalesRecordSystem extends javax.swing.JFrame {
 
         txtUser.setToolTipText("Enter the user name.");
 
+        txtPassword.setToolTipText("Enter the password");
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyPressed(evt);

@@ -98,10 +98,10 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         btnEmptyFields = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Search Client");
+        setTitle("Search Provider");
 
         jlbSearchTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/searchProviderTitle.png"))); // NOI18N
-        jlbSearchTitle.setText("Search Client");
+        jlbSearchTitle.setText("Search Provider");
 
         jtbProviderInformation.setModel(tableModel);
         jScrollPane1.setViewportView(jtbProviderInformation);
@@ -127,6 +127,11 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         jlbUpdatePhoneNumber.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/phoneNumber.png"))); // NOI18N
         jlbUpdatePhoneNumber.setText("Phone Number:");
 
+        txtUpdateIdProvider.setToolTipText("Enter only numbers");
+
+        txtUpdateBrand.setToolTipText("Don't use special characteres");
+
+        txtUpdatePhoneNumber.setToolTipText("Enter only 10 numbers");
         txtUpdatePhoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtUpdatePhoneNumberKeyPressed(evt);
@@ -136,13 +141,19 @@ public class FrmSearchProvider extends javax.swing.JFrame {
         jlbUpdateAddress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/address.png"))); // NOI18N
         jlbUpdateAddress.setText("Address:");
 
+        txtUpdateAddress.setToolTipText("Don't use special characteres");
+
         jlbUpdate.setText("Enter the new values in each field:");
 
         jlbUpdateName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
         jlbUpdateName.setText("Name:");
 
+        txtUpdateName.setToolTipText("Don't use special characteres");
+
         jlbUpdateLastName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ec/edu/espe/purchaseandsalesrecordgui/images/name.png"))); // NOI18N
         jlbUpdateLastName.setText("Last Name:");
+
+        txtUpdateLastName.setToolTipText("Don't use special characteresDon't use special characteres");
 
         jlbOnlyNumbersPhoneNumber.setForeground(new java.awt.Color(255, 0, 0));
 

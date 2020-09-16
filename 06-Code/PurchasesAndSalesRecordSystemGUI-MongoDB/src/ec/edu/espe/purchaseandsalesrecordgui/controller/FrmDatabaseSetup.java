@@ -49,14 +49,22 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Purchasse And Sales Record");
 
         jLabel1.setText("User");
 
         jLabel2.setText("Password");
 
         txtUserDatabase.setText("duke");
+        txtUserDatabase.setToolTipText("enter the users");
+        txtUserDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserDatabaseActionPerformed(evt);
+            }
+        });
 
         pswDatabase.setText("duke");
+        pswDatabase.setToolTipText("enter the password of the database");
 
         btnLogInDatabase.setText("Log In");
         btnLogInDatabase.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +74,7 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
         });
 
         txtNameDatabase.setText("DatabaseStore");
+        txtNameDatabase.setToolTipText("enter the name of the database");
 
         jLabel3.setText("Name of Database");
 
@@ -153,6 +162,10 @@ public class FrmDatabaseSetup extends javax.swing.JFrame {
         frmMenuOption.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void txtUserDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserDatabaseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserDatabaseActionPerformed
 
     /**
      * @param args the command line arguments
